@@ -1,16 +1,23 @@
 .listItemContainer {
-  width: 45%;
-  height: 30%;
+  width: 46%;
+  height: 33%;
   border: 1px #ccc solid;
   border-radius: 10px;
-  margin-left: 3%;
+  margin-left: 2%;
   display: inline-block;
+  overflow: hidden;
 }
 
 .listItemInfo {
   padding: 10px;
-  display: flex;
   align-items: center;
+  .listItemInfo-left {
+    display: flex;
+    float: left;
+  }
+  .listItemInfo-right {
+    float: right;
+  }
 }
 
 .listItemAvatar {
@@ -26,4 +33,8 @@
 
 .listItemTitle {
   margin-left: 4%;
+}
+
+.listItemImage {
+  width: 100%;
 }
