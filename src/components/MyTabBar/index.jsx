@@ -5,8 +5,9 @@ import { AtTabBar } from 'taro-ui'
 
 export default function MyTabBar() {
   const [indexCurrent, setIndexCurrent] = useState(0)
-  function handleClick(value) {
-    setIndexCurrent(value)
+  function handleClick() {
+    setIndexCurrent(indexCurrent == 0 ? 1 : 0)
+    console.log('handleClick')
   }
 
 
@@ -28,7 +29,7 @@ export default function MyTabBar() {
       <AtTabBar
         fixed
         tabList={tabList}
-        onClick={handleClick(1)}
+        onClick={handleClick}
         current={indexCurrent}
         className='tabbar'
       />
