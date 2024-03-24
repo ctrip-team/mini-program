@@ -3,6 +3,33 @@
   margin-left: 5px;
 }
 
+.toUpButton {
+  position: fixed;
+  right: 5%;
+  bottom: 10%;
+  z-index: 1;
+  width: 100rpx;
+  height: 100rpx;
+  border: 1px solid #ccc;
+  border-radius: 50%;
+  .toUpBtnInner {
+    justify-content: center;
+    align-items: center;
+  }
+}
+
+.indexEndText {
+  text-align: center;
+  margin-top: 20px;
+  color: #ccc;
+}
+
+.indexLoading {
+  position: fixed;
+  left: 50%;
+  top: 50%;
+}
+
 @import "~taro-ui/dist/style/components/search-bar.scss";
 @import "~taro-ui/dist/style/components/button.scss";
 @import "~taro-ui/dist/style/components/icon.scss";
