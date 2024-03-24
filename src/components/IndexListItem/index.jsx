@@ -10,7 +10,7 @@ export default function IndexListItem({ props }) {
     console.log(props.id)
     // 跳转到详情页
     Taro.navigateTo({
-      // url: '/pages/detail/index?id=' + props.id,
+      url: '/pages/DetailPage/index'
     })
   }
 

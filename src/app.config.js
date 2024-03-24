@@ -2,7 +2,8 @@ export default defineAppConfig({
   pages: [
     'pages/index/index',
     'pages/my/my',
-    'pages/DetailPage/index'
+    'pages/DetailPage/index',
+    'pages/MyTravals/index',
   ],
   window: {
     backgroundTextStyle: 'light',

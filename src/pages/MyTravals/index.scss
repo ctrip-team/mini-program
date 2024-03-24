@@ -1,0 +1,23 @@
+.addBtn {
+  position: fixed;
+  right: 5%;
+  bottom: 10%;
+  width: 100rpx;
+  height: 100rpx;
+  border-radius: 50%;
+  border: 1px solid #007aff;
+  background-color: #007aff;
+  color: #fff;
+  font-size: 100rpx;
+  font-weight: 700;
+  z-index: 1;
+  display: flex;
+  justify-content: center; /* 水平居中 */
+  align-items: center;
+}
+
+.indexEndText {
+  text-align: center;
+  margin-top: 20px;
+  color: #ccc;
+}
