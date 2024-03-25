@@ -1,7 +1,7 @@
 import { View, Text, ScrollView } from '@tarojs/components'
 import Taro, { usePageScroll, useReachBottom } from '@tarojs/taro'
 import { useLoad } from '@tarojs/taro'
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import './index.scss'
 import IndexListItem from '../../components/IndexListItem'
 import IndexSearchBar from '../../components/IndexSearchBar'
@@ -136,20 +136,25 @@ export default function Index() {
 
   //页面数据
   const [listData, setListData] = useState([])
+  //后续页面数据
+  const [nextListData, setNextListData] = useState([])
   //监听页面滚动
   const [pageScrollValue, setPageScrollValue] = useState(0)
   //判定是否显示回顶按钮
-  const [isGoingToUp, setIsGoingToUp] = useState(false)
+  const [showButton, setShowButton] = useState(false)
   //判定是否到达底部
-  const [isEnd, setIsEnd] = useState(false)
+  const [noData, setNoData] = useState(false);
   //页面加载判定
-  const [isLoading, setIsLoading] = useState(true);
+  const [showLoading, setShowLoading] = useState(false);
+
+
 
   useEffect(() => {
     //获取接口数据
 
     setListData(data1)
-    setIsLoading(false)
+    setNextListData(data2)
+
   }, [])
 
   useLoad(() => {
@@ -163,43 +168,34 @@ export default function Index() {
 
   //监测用户页面滑动
   usePageScroll((res) => {
-    console.log(res.scrollTop)
-    if (res.scrollTop > 200) {
-      setIsGoingToUp(true)
+    if (res.scrollTop >= 200 && !showButton) {
+      setShowButton(true)
     }
-    else {
-      setIsGoingToUp(false)
+    else if (res.scrollTop < 200 && showButton) {
+      setShowButton(false)
     }
-    setPageScrollValue(res.scrollTop)
+    // setPageScrollValue(res.scrollTop)
   })
 
-  const handleScrollToLower = () => {
-    console.log(125555);
+  function onPullDownRefresh() {
     // 滚动到距离底部 50px 时触发加载更多数据
-    if (data2.length >= 4) {
-      setIsLoading(true)
-      const newData = []
-      for (let i = 0; i < 4; i++) {
-        const temp = data2.shift()
-        newData.push(temp)
-      }
-      setListData([...listData, ...newData])
-      setIsLoading(false)
-    }
-    else if (data2.length < 4 && data2.length > 0) {
-      setIsLoading(true)
-      const newData = []
-      for (let i = 0; i < data2.length; i++) {
-        const temp = data2.shift()
-        newData.push(temp)
-      }
-      setListData([...listData, ...newData])
-      setIsLoading(false)
+
+    // 模拟加载数据
+    // 模拟异步加载数据
+    if (nextListData.length == 0) {
+      setNoData(true)
     }
     else {
-      setIsEnd(true)
+      setShowLoading(true);
+      setTimeout(() => {
+        setListData((prevDataList) => [...prevDataList, ...nextListData]);
+        setShowLoading(false);
+      }, 1000);
+      setNextListData([])
     }
+
   }
+
 
   function goToTop() {
     Taro.pageScrollTo({ scrollTop: 0 })
@@ -208,22 +204,33 @@ export default function Index() {
   return (
     <>
       <IndexSearchBar />
-      {
-        isGoingToUp ? <View className="toUpButton" onClick={goToTop}>
+      {/* {
+        <View className={`back-to-top-button ${showButton ? 'show' : ''}`} onClick={goToTop}>
           <Text className='toUpBtnInner'>↑</Text>
-        </View> : <></>
-      }
-      <ScrollView className='indexScrollViewArea' scrollY scrollWithAnimation scrollTop={pageScrollValue} lowerThreshold={50} onScrollToLower={handleScrollToLower}>
+        </View>
+      } */}
+      {/* scrollTop={0}scrollWithAnimation */}
+      <ScrollView className='indexScrollViewArea' scrollY lowerThreshold={50} onScrollToLower={onPullDownRefresh}>
         {
-          isLoading ? <View className='indexLoading'>加载中...</View> :
-            listData.map((item, index) => (
-              <IndexListItem props={{ imgsrc: item.imgsrc, title: item.title, avatar: item.avatar, username: item.username, readnum: item.readnum, id: item.id }} />
-            ))
+          listData.map((item, index) => (
+            <IndexListItem props={{ imgsrc: item.imgsrc, title: item.title, avatar: item.avatar, username: item.username, readnum: item.readnum, id: item.id }} />
+          ))
+        }
+        {
+          showLoading && (
+            <View className="loading">
+              <Text className='indexEndText'>加载中...</Text>
+            </View>
+          )
+        }
+        {
+          noData && (
+            <View className="no-data">
+              <Text className='indexEndText'>已经到底部了....</Text>
+            </View>
+          )
         }
       </ScrollView>
-      {
-        isEnd ? <View className='indexEndText'>已经到底部了....</View> : <></>
-      }
     </>
   )
 }
