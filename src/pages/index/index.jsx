@@ -210,6 +210,7 @@ export default function Index() {
         </View>
       } */}
       {/* scrollTop={0}scrollWithAnimation */}
+
       <ScrollView className='indexScrollViewArea' scrollY lowerThreshold={50} onScrollToLower={onPullDownRefresh}>
         {
           listData.map((item, index) => (
