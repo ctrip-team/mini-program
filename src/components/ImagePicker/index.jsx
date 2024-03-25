@@ -21,9 +21,18 @@ export default function index() {
         })
     }
 
+    // 删除图片
     const handleDeleteImage = (index) => {
         setImageFiles(imageFiles.filter((_, idx) => idx !== index))
         setImageCount(imageCount - 1)
+    }
+
+    // 预览图片
+    const previewImage = (currentUrl) => {
+        Taro.previewImage({
+            current: currentUrl,
+            urls: imageFiles
+        })
     }
     return (
         <>
@@ -44,7 +53,7 @@ export default function index() {
                     {imageFiles.map((item, index) => {
                         return (
                             <View className='image-box' key={index}>
-                                <Image src={item} className='image-size'></Image>
+                                <Image src={item} className='image-size' onClick={() => previewImage(item)}></Image>
                                 <AtIcon className='delete-image' value='close-circle' size='20' onClick={() => handleDeleteImage(index)}></AtIcon>
                             </View>
                         )
