@@ -2,7 +2,7 @@
   width: 46%;
   height: 33%;
   border: 1px #ccc solid;
-  border-radius: 10px;
+  border-radius: 10rpx;
   margin-left: 2%;
   display: inline-block;
   overflow: hidden;
@@ -10,7 +10,7 @@
 }
 
 .listItemInfo {
-  padding: 10px;
+  padding: 10rpx;
   align-items: center;
   .listItemInfo-left {
     display: flex;
@@ -22,12 +22,13 @@
 }
 
 .listItemAvatar {
-  width: 50px;
-  height: 50px;
+  width: 50rpx;
+  height: 50rpx;
 }
 
 .listItemUsername {
-  margin-left: 10px;
+  margin-left: 10rpx;
+  margin-top: 10rpx;
   font-size: 24px;
   color: #797676;
 }

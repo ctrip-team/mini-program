@@ -148,7 +148,6 @@ export default function Index() {
   const [showLoading, setShowLoading] = useState(false);
 
 
-
   useEffect(() => {
     //获取接口数据
 
@@ -210,8 +209,8 @@ export default function Index() {
         </View>
       } */}
       {/* scrollTop={0}scrollWithAnimation */}
-
       <ScrollView className='indexScrollViewArea' scrollY lowerThreshold={50} onScrollToLower={onPullDownRefresh}>
+
         {
           listData.map((item, index) => (
             <IndexListItem props={{ imgsrc: item.imgsrc, title: item.title, avatar: item.avatar, username: item.username, readnum: item.readnum, id: item.id }} />

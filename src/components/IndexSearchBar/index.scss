@@ -6,4 +6,31 @@
   left: 0;
   top: 0;
   width: 100%;
+  display: flex;
+  margin-bottom: 1%;
+  z-index: 1;
+  background-color: #fff;
+}
+
+.searchInput {
+  width: 75%;
+  height: 50rpx;
+  border: 1px solid #ccc;
+  border-radius: 15px;
+  margin-left: 3%;
+  padding-left: 30px;
+  box-sizing: border-box;
+}
+
+.searchBtn {
+  width: 19%;
+  height: 50rpx;
+  text-align: center;
+  line-height: 50rpx;
+  font-size: 24px;
+  margin-right: 2%;
+  margin-left: 1%;
+  background-color: #007bff;
+  color: #fff;
+  font-weight: 400;
 }
