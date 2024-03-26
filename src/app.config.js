@@ -4,16 +4,18 @@ export default defineAppConfig({
     'pages/my/my',
     'pages/DetailPage/index',
     'pages/MyTravals/index',
+    'pages/Add/index',
   ],
   window: {
     backgroundTextStyle: 'light',
     navigationBarBackgroundColor: '#fff',
     navigationBarTitleText: 'WeChat',
-    navigationBarTextStyle: 'black'
+    navigationBarTextStyle: 'black',
+    // navigationStyle: 'custom',
   },
   tabBar: {
     color: "#333",
-    selectedColor: "#ff0000",
+    selectedColor: "#007bff",
     backgroundColor: "#fff",
     borderStyle: "black",
     list: [
@@ -22,6 +24,10 @@ export default defineAppConfig({
         text: "首页",
         iconPath: "assets/icon/index.png",
         selectedIconPath: "assets/icon/index_select.png"
+      },
+      {
+        pagePath: 'pages/Add/index',
+        iconPath: "assets/icon/add.png",
       },
       {
         pagePath: "pages/my/my",
