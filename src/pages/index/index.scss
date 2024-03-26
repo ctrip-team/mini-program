@@ -1,0 +1,41 @@
+.indexScrollViewArea {
+  margin-right: 5px;
+  margin-left: 5px;
+  height: 1750px;
+}
+
+.back-to-top-button {
+  position: fixed;
+  bottom: 10%;
+  right: 5%;
+  z-index: 1;
+  background-color: #007bff;
+  color: #fff;
+  border-radius: 50%;
+  width: 100rpx;
+  height: 100rpx;
+  line-height: 40px;
+  text-align: center;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s, visibility 0.3s;
+  &.show {
+    opacity: 1;
+    visibility: visible;
+  }
+  .toUpBtnInner {
+    justify-content: center;
+    align-items: center;
+  }
+}
+
+.indexEndText {
+  position: absolute;
+  left: 40%;
+  margin-top: 20px;
+  color: #ccc;
+}
+
+@import "~taro-ui/dist/style/components/search-bar.scss";
+@import "~taro-ui/dist/style/components/button.scss";
+@import "~taro-ui/dist/style/components/icon.scss";

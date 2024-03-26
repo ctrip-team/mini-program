@@ -1,0 +1,40 @@
+.listItemContainer {
+  width: 46%;
+  height: 33%;
+  border: 1px #ccc solid;
+  border-radius: 10px;
+  margin-left: 2%;
+  display: inline-block;
+  overflow: hidden;
+}
+
+.listItemInfo {
+  padding: 10px;
+  align-items: center;
+  .listItemInfo-left {
+    display: flex;
+    float: left;
+  }
+  .listItemInfo-right {
+    float: right;
+  }
+}
+
+.listItemAvatar {
+  width: 50px;
+  height: 50px;
+}
+
+.listItemUsername {
+  margin-left: 10px;
+  font-size: 24px;
+  color: #797676;
+}
+
+.listItemTitle {
+  margin-left: 4%;
+}
+
+.listItemImage {
+  width: 100%;
+}
