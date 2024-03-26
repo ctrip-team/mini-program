@@ -1,15 +1,14 @@
 .listItemContainer {
-  width: 46%;
-  height: 33%;
+  height: auto;
   border: 1px #ccc solid;
-  border-radius: 10px;
-  margin-left: 2%;
+  border-radius: 10rpx;
   display: inline-block;
   overflow: hidden;
+  background-color: #fff;
 }
 
 .listItemInfo {
-  padding: 10px;
+  padding: 10rpx;
   align-items: center;
   .listItemInfo-left {
     display: flex;
@@ -21,18 +20,26 @@
 }
 
 .listItemAvatar {
-  width: 50px;
-  height: 50px;
+  width: 50rpx;
+  height: 50rpx;
+  margin-bottom: 10rpx;
 }
 
 .listItemUsername {
-  margin-left: 10px;
+  margin-left: 10rpx;
+  margin-top: 10rpx;
   font-size: 24px;
   color: #797676;
 }
 
 .listItemTitle {
   margin-left: 4%;
+  display: -webkit-box;
+  -webkit-box-orient: vertical; /* 设置子元素的排列方式为从上到下垂直排列 */
+  overflow: hidden; /* 隐藏超出容器的部分 */
+  text-overflow: ellipsis; /* 显示省略号 */
+  -webkit-line-clamp: 2; /* 设置显示的行数，这里为3行 */
+  word-wrap: break-word; /* 防止长单词或 URL 地址撑破容器 */
 }
 
 .listItemImage {

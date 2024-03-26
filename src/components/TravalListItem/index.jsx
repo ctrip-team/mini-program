@@ -59,7 +59,7 @@ export default function TravalListItem({ props }) {
                 <Text>未通过</Text>
               </View>
               <View className="rightOfDown">
-                <Button className="editBtn" onClick={toEdit}>编辑</Button>
+                <Button className="editBtn" onClick={toEdit}>修改</Button>
                 <Button className="deleBtn" onClick={toDelete}>删除</Button>
               </View>
             </>

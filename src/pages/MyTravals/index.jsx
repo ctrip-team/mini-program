@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { ScrollView, View } from "@tarojs/components";
+import { Text, ScrollView, View } from "@tarojs/components";
 import TravalListItem from "../../components/TravalListItem";
 import { useReachBottom } from "@tarojs/taro";
 import "./index.scss";
@@ -74,9 +74,9 @@ export default function MyTravals() {
   return (
     <>
       <View className="addBtn" onClick={toAdd}>
-        +
+        <Text className="addBtn_text">+</Text>
       </View>
-      <ScrollView>
+      <ScrollView className="Travals_scrollView">
         {
           listData.map((item, index) => (
             <TravalListItem props={{ id: item.id, imgsrc: item.imgsrc, title: item.title, content: item.content, status: item.status }} />
