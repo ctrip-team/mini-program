@@ -1,6 +1,7 @@
 export default defineAppConfig({
+  entryPagePath: 'pages/PublishPage/index',
   pages: [
-    'pages/PublishPage/index'
+    'pages/PublishPage/index',
     'pages/index/index',
     'pages/my/my',
     'pages/DetailPage/index',
