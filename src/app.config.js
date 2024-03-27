@@ -1,11 +1,12 @@
 export default defineAppConfig({
   pages: [
-    'pages/PublishPage/index',
     'pages/index/index',
     'pages/my/my',
     'pages/DetailPage/index',
     'pages/MyTravals/index',
-    'pages/Add/index',
+    'pages/PublishPage/index',
+    'pages/SearchResult/index',
+    'pages/SearchPage/index',
   ],
   window: {
     backgroundTextStyle: 'light',
@@ -27,7 +28,7 @@ export default defineAppConfig({
         selectedIconPath: "assets/icon/index_select.png"
       },
       {
-        pagePath: 'pages/Add/index',
+        pagePath: 'pages/PublishPage/index',
         iconPath: "assets/icon/add.png",
       },
       {

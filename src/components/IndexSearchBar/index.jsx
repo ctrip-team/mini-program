@@ -4,21 +4,25 @@ import React, { useState } from 'react'
 import './index.scss'
 
 export default function IndexSearchBar() {
-  const [queryKey, setQueryKey] = useState("");
+  const [queryKey, setQueryKey] = useState("")
 
   function handleInput(e) {
-    setQueryKey(e.target.value);
+    setQueryKey(e.target.value)
   }
 
   function handleSubmit() {
-    console.log(queryKey);
-    console.log('click222');
+    console.log(queryKey)
+    console.log('click222')
     if (queryKey.trim() === '') {
-      Taro.showToast({ title: '搜索内容不能为空捏~', icon: 'none' });
+      Taro.showToast({ title: '搜索内容不能为空哦~', icon: 'none' })
       return
     }
-    // Taro.navigateTo({ url: `/sub-query-pages/goods-list/index?searchKey=${queryKey}` });
+    else {
+      Taro.navigateTo({ url: `/pages/SearchResult/index?searchKey=${queryKey}` })
+      setQueryKey("")
+    }
   }
+
 
   return (
     <View className='searchBar'>

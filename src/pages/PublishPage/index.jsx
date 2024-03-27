@@ -6,6 +6,7 @@ import './index.scss'
 import { useState } from 'react'
 
 export default function Index() {
+  Taro.hideTabBar(); // 隐藏底部导航栏
   const [files, setFiles] = useState([])
 
   useLoad(() => {
