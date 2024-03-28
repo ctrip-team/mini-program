@@ -22,7 +22,7 @@ export default function SearchResult() {
 
   useEffect(() => {
     Taro.request({
-      url: 'http://127.0.0.1:3000/api/searchTitle',
+      url: 'http://127.0.0.1:3000/api/index/searchTitle',
       data: {
         searchKey: searchKey
       },

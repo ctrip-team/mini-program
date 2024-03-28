@@ -26,11 +26,8 @@ export default function Index() {
   useEffect(() => {
     //获取接口数据
     Taro.request({
-      url: 'http://127.0.0.1:3000/api/index',
-      data: {
-        page: 1,
-        pageSize: 8
-      },
+      url: 'http://127.0.0.1:3000/api/index/index',
+      data: {},
       header: {
         'content-type': 'application/json' // 默认值
       },
@@ -59,11 +56,8 @@ export default function Index() {
       setShowLoading(true);
       setTimeout(() => {
         Taro.request({
-          url: 'http://127.0.0.1:3000/api/index',
-          data: {
-            page: 1,
-            pageSize: 8
-          },
+          url: 'http://127.0.0.1:3000/api/index/index',
+          data: {},
           header: {
             'content-type': 'application/json' // 默认值
           },
