@@ -10,7 +10,6 @@ export default function SearchResult() {
   //获取传递的参数
   let params = getCurrentInstance().router.params
   let searchKey = params.searchKey
-  console.log(searchKey)
 
   //判定是否到达底部
   const [noData, setNoData] = useState(false)
@@ -33,14 +32,14 @@ export default function SearchResult() {
       success: function (res) {
         console.log(res.data)
         setListData(res.data)
+        if (res.data.length == 0) {
+          setShowEnd(true)
+        }
       },
       fail: function (res) {
         console.log("网络失败")
       }
     })
-    if (listData.length == 0) {
-      setShowEnd(true)
-    }
   }, [])
 
   useReachBottom(() => {
@@ -62,38 +61,40 @@ export default function SearchResult() {
   console.log(listData);
   return (
     <>
-      <View onClick={toSearchPage}>
-        <AtSearchBar
-          value={value}
-          onChange={(value) => onChange(value)}
-          disabled
-        />
+      <View className="page">
+        <View onClick={toSearchPage}>
+          <AtSearchBar
+            value={value}
+            onChange={(value) => onChange(value)}
+            disabled
+          />
+        </View>
+        <ScrollView className='indexScrollViewArea' scrollY>
+          {
+            showEnd && (
+              <View className="noneRs">
+                <Text>暂无符合条件的结果~</Text>
+              </View>
+            )
+          }
+          {
+            <GridView type='masonry' mainAxisGap='10' crossAxisGap='5'>
+              {
+                listData.length != 0 && listData.map((item, index) => (
+                  <IndexListItem props={{ imgsrc: item.imgsrc, title: item.title, avatar: item.avatar, username: item.username, readnum: item.readnum, id: item.id }} />
+                ))
+              }
+            </GridView>
+          }
+          {
+            noData && (
+              <View className="no-data">
+                <Text className='indexEndText'>已经到底部了....</Text>
+              </View>
+            )
+          }
+        </ScrollView>
       </View>
-      <ScrollView className='indexScrollViewArea' scrollY >
-        {
-          showEnd && (
-            <View className="noneRs">
-              <Text>暂无符合条件的结果~</Text>
-            </View>
-          )
-        }
-        {
-          <GridView type='masonry' mainAxisGap='10' crossAxisGap='5'>
-            {
-              listData && listData.map((item, index) => (
-                <IndexListItem props={{ imgsrc: item.imgsrc, title: item.title, avatar: item.avatar, username: item.username, readnum: item.readnum, id: item.id }} />
-              ))
-            }
-          </GridView>
-        }
-        {
-          noData && (
-            <View className="no-data">
-              <Text className='indexEndText'>已经到底部了....</Text>
-            </View>
-          )
-        }
-      </ScrollView>
     </>
   )
 }

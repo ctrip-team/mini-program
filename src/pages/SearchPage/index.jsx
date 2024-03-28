@@ -1,7 +1,8 @@
-import { View, Button } from "@tarojs/components";
+import { View, Text, Button } from "@tarojs/components";
 import React, { useState, useEffect } from "react";
 import Taro from "@tarojs/taro";
-import { AtSearchBar } from 'taro-ui'
+import { AtSearchBar, AtIcon } from 'taro-ui'
+import "./index.scss";
 
 export default function SearchPage() {
   //输入框值
@@ -31,47 +32,60 @@ export default function SearchPage() {
       return
     }
     else {
-      const newHistory = []
+      let newHistory = []
       if (history) {
-        const newHistory = [...history, queryKey]
+        newHistory = [...history, queryKey]
         setHistory(newHistory)
       }
       else {
-        const newHistory = [queryKey]
+        newHistory = [queryKey]
         setHistory(newHistory)
       }
-      Taro.setStorageSync({ key: 'historySearch', data: newHistory })
+      Taro.setStorage({ key: 'historySearch', data: newHistory })
       Taro.redirectTo({ url: `/pages/SearchResult/index?searchKey=${queryKey}` })
       setQueryKey('')
     }
   }
 
-  function historySearch(text) {
-    console.log(text)
+  //移除全部搜索记录
+  function removeAllHistory() {
+    Taro.setStorageSync('historySearch', [])
+    setHistory([])
   }
 
-  console.log(history);
-
+  //搜索记录点击跳转
+  function toSearchHistory(item) {
+    Taro.redirectTo({ url: `/pages/SearchResult/index?searchKey=${item}` })
+  }
 
   return (
     <>
-      <AtSearchBar
-        value={queryKey}
-        onChange={(value) => onChange(value)}
-        onActionClick={() => toSearchResult()}
-        onConfirm={() => toSearchResult()}
-        placeholder="关键词/标题/博客主/标签"
-      />
-      <View></View>
       <View>
-        <View>历史搜索</View>
-        {
-          history ? history.map((item, index) => {
-            console.log(item);
-            <Button type='primary' size='30' onClick={((item) => historySearch(item))}>{item}</Button>
-          }) : <></>
-        }
+        <AtSearchBar
+          value={queryKey}
+          onChange={(value) => onChange(value)}
+          onActionClick={() => toSearchResult()}
+          onConfirm={() => toSearchResult()}
+          placeholder="关键词/标题/博客主/标签"
+          focus
+        />
+        <View className="historyArea">
+          <Text className="historyTitle">
+            <Text>历史搜索</Text>
+          </Text>
+          <View className="trashBtn" onClick={removeAllHistory}>
+            <AtIcon value='trash' size='20' color='#ccc'></AtIcon>
+          </View>
+          <View className="historyView">
+            {
+              history ? history.map((item, index) => (
+                <View className="historyItem" onClick={() => { toSearchHistory(item) }}>{item}</View>
+              )) : <></>
+            }
+          </View>
+        </View>
       </View>
+
     </>
   )
 }
