@@ -6,50 +6,14 @@ import "./index.scss";
 import Taro from "@tarojs/taro";
 
 export default function MyTravals() {
-  //测试数据
-  const data = [
-    {
-      id: 1,
-      imgsrc: 'https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fss2.meipian.me%2Fusers%2F1184429%2F6afcb2f884248d505f0f40c36f70401e.jpg%3Fmeipian-raw%2Fbucket%2Fivwen%2Fkey%2FdXNlcnMvMTE4NDQyOS82YWZjYjJmODg0MjQ4ZDUwNWYwZjQwYzM2ZjcwNDAxZS5qcGc%3D%2Fsign%2Ff37add58bebac2df4763c3d58c435bd9.jpg&refer=http%3A%2F%2Fss2.meipian.me&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=auto?sec=1713786862&t=7a04b13ed59ecf353068a96f8a0a7739',
-      title: '测试标题测试标题测试标题测试标题测试标题测试标题',
-      content: '测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容',
-      status: 0,
-    },
-    {
-      id: 2,
-      imgsrc: 'https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fss2.meipian.me%2Fusers%2F1184429%2F6afcb2f884248d505f0f40c36f70401e.jpg%3Fmeipian-raw%2Fbucket%2Fivwen%2Fkey%2FdXNlcnMvMTE4NDQyOS82YWZjYjJmODg0MjQ4ZDUwNWYwZjQwYzM2ZjcwNDAxZS5qcGc%3D%2Fsign%2Ff37add58bebac2df4763c3d58c435bd9.jpg&refer=http%3A%2F%2Fss2.meipian.me&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=auto?sec=1713786862&t=7a04b13ed59ecf353068a96f8a0a7739',
-      title: '测试标题',
-      content: '测试内容测试内容测试内容',
-      status: 1,
-    },
-    {
-      id: 3,
-      imgsrc: 'https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fss2.meipian.me%2Fusers%2F1184429%2F6afcb2f884248d505f0f40c36f70401e.jpg%3Fmeipian-raw%2Fbucket%2Fivwen%2Fkey%2FdXNlcnMvMTE4NDQyOS82YWZjYjJmODg0MjQ4ZDUwNWYwZjQwYzM2ZjcwNDAxZS5qcGc%3D%2Fsign%2Ff37add58bebac2df4763c3d58c435bd9.jpg&refer=http%3A%2F%2Fss2.meipian.me&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=auto?sec=1713786862&t=7a04b13ed59ecf353068a96f8a0a7739',
-      title: '测试标题',
-      content: '测试内容测试内容测试内容',
-      status: 2,
-    },
-    {
-      id: 4,
-      imgsrc: 'https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fss2.meipian.me%2Fusers%2F1184429%2F6afcb2f884248d505f0f40c36f70401e.jpg%3Fmeipian-raw%2Fbucket%2Fivwen%2Fkey%2FdXNlcnMvMTE4NDQyOS82YWZjYjJmODg0MjQ4ZDUwNWYwZjQwYzM2ZjcwNDAxZS5qcGc%3D%2Fsign%2Ff37add58bebac2df4763c3d58c435bd9.jpg&refer=http%3A%2F%2Fss2.meipian.me&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=auto?sec=1713786862&t=7a04b13ed59ecf353068a96f8a0a7739',
-      title: '测试标题',
-      content: '测试内容测试内容测试内容',
-      status: 1,
-    },
-    {
-      id: 5,
-      imgsrc: 'https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fss2.meipian.me%2Fusers%2F1184429%2F6afcb2f884248d505f0f40c36f70401e.jpg%3Fmeipian-raw%2Fbucket%2Fivwen%2Fkey%2FdXNlcnMvMTE4NDQyOS82YWZjYjJmODg0MjQ4ZDUwNWYwZjQwYzM2ZjcwNDAxZS5qcGc%3D%2Fsign%2Ff37add58bebac2df4763c3d58c435bd9.jpg&refer=http%3A%2F%2Fss2.meipian.me&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=auto?sec=1713786862&t=7a04b13ed59ecf353068a96f8a0a7739',
-      title: '测试标题',
-      content: '测试内容测试内容测试内容',
-      status: 0,
-    },
-  ]
   //判定是否到达底部
   const [isEnd, setIsEnd] = useState(false)
   //页面加载判定
   const [isLoading, setIsLoading] = useState(true)
   //存储数据
   const [listData, setListData] = useState([])
+  //页面无数据判定
+  const [isEmpty, setIsEmpty] = useState(false)
 
   useEffect(() => {
     try {
@@ -58,7 +22,7 @@ export default function MyTravals() {
       if (value) {
         //获取接口数据
         Taro.request({
-          url: 'http://127.0.0.1:3000/api/my/mytravals',
+          url: `${process.env.TARO_APP_HOST}:${process.env.TARO_APP_PORT}/api/my/mytravels`,
           data: {
             user_id: value,
           },
@@ -67,8 +31,25 @@ export default function MyTravals() {
           },
           success: function (res) {
             console.log(res.data)
-            setIsLoading(false)
-            setListData(res.data)
+            if (res.data.code == 2000) {
+              console.log("网络请求成功")
+              setIsLoading(false)
+              setListData(res.data.data)
+              if (res.data.data.length <= 3 && res.data.data.length > 0) {
+                setIsEnd(true)
+              }
+              if (res.data.data.length == 0) {
+                setIsEmpty(true)
+              }
+            }
+            else {
+              console.log("网络请求失败")
+              setIsLoading(false)
+              Taro.showToast({
+                title: '网络请求失败',
+                icon: 'none'
+              })
+            }
           },
           fail: function (res) {
             console.log("网络失败")
@@ -98,8 +79,7 @@ export default function MyTravals() {
   })
 
   function toAdd() {
-    // Taro.navigateTo({ url: '/pages/add/index' })
-    console.log("adddddddd");
+    Taro.switchTab({ url: `/pages/PublishPage/index` })
   }
 
   if (isLoading) {
@@ -113,15 +93,18 @@ export default function MyTravals() {
       </View>
       <ScrollView className="Travals_scrollView">
         {
-          listData.map((item, index) => (
-            <TravalListItem props={{ id: item.id, imgsrc: item.imgsrc, title: item.title, content: item.content, status: item.status }} />
+          listData && listData.map((item, index) => (
+            <TravalListItem props={{ id: item.travel_id, imgsrc: item.image_url, title: item.title, content: item.content, status: item.status }} />
           ))
         }
-
+        {
+          isEnd ? <View className='indexEndText'>没有更多游记咯~  快去发布新游记吧(*^▽^*)</View> : <View className='indexEndText'>加载中...</View>
+        }
+        {
+          isEmpty && <View className='indexNoneText'>还没有游记哦~  快去发布新游记吧(*^▽^*)</View>
+        }
       </ScrollView>
-      {
-        isEnd ? <View className='indexEndText'>没有更多游记咯~  快去发布新游记吧(*^▽^*)</View> : <View className='indexEndText'>加载中...</View>
-      }
+
     </>
   )
 }
