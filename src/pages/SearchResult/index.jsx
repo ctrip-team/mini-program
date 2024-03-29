@@ -22,7 +22,7 @@ export default function SearchResult() {
 
   useEffect(() => {
     Taro.request({
-      url: 'http://127.0.0.1:3000/api/index/searchTitle',
+      url: `${process.env.TARO_APP_HOST}:${process.env.TARO_APP_PORT}/api/index/searchTitle`,
       data: {
         searchKey: searchKey
       },
@@ -90,7 +90,7 @@ export default function SearchResult() {
             <GridView type='masonry' mainAxisGap='10' crossAxisGap='5'>
               {
                 listData.length != 0 && listData.map((item, index) => (
-                  <IndexListItem props={{ imgsrc: item.imgsrc, title: item.title, avatar: item.avatar, username: item.username, readnum: item.readnum, id: item.id }} />
+                  <IndexListItem props={{ imgsrc: item.image_url, title: item.title, avatar: item.avatar, username: item.username, readnum: item.readnum, id: item.travel_id }} />
                 ))
               }
             </GridView>

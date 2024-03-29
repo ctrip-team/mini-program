@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import { AtIcon } from 'taro-ui'
 import { AtModal, AtModalHeader, AtModalContent, AtModalAction } from "taro-ui"
 import "./index.scss";
+import Taro from "@tarojs/taro";
 
 export default function TravalListItem({ props }) {
   const [isdelOpened, setIsdelOpened] = useState(false);
@@ -10,15 +11,18 @@ export default function TravalListItem({ props }) {
   let status = props.status;
   function toEdit() {
     console.log("编辑" + props.id);
+    Taro.switchTab({
+      url: `/pages/PublishPage/index?travel_id=${props.id}`
+    })
   }
 
   function toDelete() {
     console.log("删除" + props.id);
     Taro.request({
-      url: 'http://127.0.0.1:3000/api/my/deltravals',
+      url: `${process.env.TARO_APP_HOST}:${process.env.TARO_APP_PORT}/api/my/deltravel`,
       method: 'POST',
       data: {
-        id: props.id,
+        travel_id: props.id,
       },
       header: {
         'content-type': 'application/json' // 默认值
@@ -29,6 +33,9 @@ export default function TravalListItem({ props }) {
         Taro.showToast({
           title: '删除成功',
           icon: 'success',
+        })
+        Taro.reLaunch({
+          url: '/pages/MyTravals/index'
         })
       },
       fail: function (res) {
@@ -54,9 +61,10 @@ export default function TravalListItem({ props }) {
           <AtModalContent>
             您确定删除该游记吗？
           </AtModalContent>
-          <AtModalAction onConfirm={toDelete} onCancel={cancelModel}>
-            <Button>取消</Button>
-            <Button >确定</Button>
+          {/* onConfirm={toDelete} onCancel={cancelModel} */}
+          <AtModalAction >
+            <Button onClick={cancelModel}>取消</Button>
+            <Button onClick={toDelete}>确定</Button>
           </AtModalAction>
         </AtModal>)
       }

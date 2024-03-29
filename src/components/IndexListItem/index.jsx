@@ -11,7 +11,7 @@ export default function IndexListItem({ props }) {
   function getDetail() {
     //增加阅读量
     Taro.request({
-      url: 'http://127.0.0.1:3000/api/index/addReadNum',
+      url: `${process.env.TARO_APP_HOST}:${process.env.TARO_APP_PORT}/api/index/addReadNum`,
       method: 'POST',
       data: {
         id: props.id,

@@ -26,7 +26,7 @@ export default function Index() {
   useEffect(() => {
     //获取接口数据
     Taro.request({
-      url: 'http://127.0.0.1:3000/api/index/index',
+      url: `${process.env.TARO_APP_HOST}:${process.env.TARO_APP_PORT}/api/index/index`,
       data: {},
       header: {
         'content-type': 'application/json' // 默认值
@@ -66,7 +66,7 @@ export default function Index() {
       setShowLoading(true);
       setTimeout(() => {
         Taro.request({
-          url: 'http://127.0.0.1:3000/api/index/index',
+          url: `${process.env.TARO_APP_HOST}:${process.env.TARO_APP_PORT}/api/index/index`,
           data: {},
           header: {
             'content-type': 'application/json' // 默认值
@@ -81,7 +81,7 @@ export default function Index() {
               console.log("网络请求失败")
               Taro.showToast({
                 title: '网络状况不佳，请检查网络设置',
-                icon: 'error',
+                icon: 'none',
                 duration: 2000
               })
             }
@@ -91,7 +91,7 @@ export default function Index() {
             console.log("网络失败")
             Taro.showToast({
               title: '网络状况不佳，请检查网络设置',
-              icon: 'error',
+              icon: 'none',
               duration: 2000
             })
           }
@@ -129,7 +129,7 @@ export default function Index() {
           <GridView type='masonry' mainAxisGap='10' crossAxisGap='5'>
             {
               listData.map((item, index) => (
-                <IndexListItem props={{ imgsrc: item.imgsrc, title: item.title, avatar: item.avatar, username: item.username, readnum: item.readnum, id: item.id }} />
+                <IndexListItem props={{ imgsrc: item.image_url, title: item.title, avatar: item.avatar, username: item.username, readnum: item.views, id: item.travel_id }} />
               ))
             }
           </GridView>
