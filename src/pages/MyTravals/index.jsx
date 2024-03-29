@@ -3,6 +3,7 @@ import { Text, ScrollView, View } from "@tarojs/components";
 import TravalListItem from "../../components/TravalListItem";
 import { useReachBottom } from "@tarojs/taro";
 import "./index.scss";
+import Taro from "@tarojs/taro";
 
 export default function MyTravals() {
   //测试数据
@@ -51,10 +52,44 @@ export default function MyTravals() {
   const [listData, setListData] = useState([])
 
   useEffect(() => {
-    //获取接口数据
-    setListData(data)
-
-    setIsLoading(false)
+    try {
+      var value = Taro.getStorageSync('user')
+      console.log(value);
+      if (value) {
+        //获取接口数据
+        Taro.request({
+          url: 'http://127.0.0.1:3000/api/my/mytravals',
+          data: {
+            user_id: value,
+          },
+          header: {
+            'content-type': 'application/json' // 默认值
+          },
+          success: function (res) {
+            console.log(res.data)
+            setIsLoading(false)
+            setListData(res.data)
+          },
+          fail: function (res) {
+            console.log("网络失败")
+          }
+        })
+      }
+      else {
+        setIsLoading(false)
+        Taro.showToast({
+          title: '您还未登录，即将跳转登录页',
+          icon: 'none'
+        })
+        //去往登录页
+        setTimeout(function () {
+          Taro.redirectTo({ url: '/pages/DetailPage/index' })
+        }, 500)
+      }
+    } catch (e) {
+      console.log(e);
+      console.log("不存在历史数据")
+    }
   }, [])
 
   useReachBottom(() => {

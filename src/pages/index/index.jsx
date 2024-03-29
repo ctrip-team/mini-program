@@ -32,8 +32,18 @@ export default function Index() {
         'content-type': 'application/json' // 默认值
       },
       success: function (res) {
-        console.log(res.data)
-        setListData(res.data)
+        console.log(res)
+        if (res.data.code == 2000) {
+          setListData(res.data.data)
+        }
+        else {
+          console.log("网络请求失败")
+          Taro.showToast({
+            Title: '网络请求失败,请检查网络设置！',
+            icon: 'none',
+          })
+        }
+
       },
       fail: function (res) {
         console.log("网络失败")
@@ -63,8 +73,19 @@ export default function Index() {
           },
           success: function (res) {
             console.log(res.data)
-            setNextListData(res.data)
-            setListData((prevDataList) => [...prevDataList, ...nextListData]);
+            if (res.data.code == 2000) {
+              setNextListData(res.data.data)
+              setListData((prevDataList) => [...prevDataList, ...nextListData]);
+            }
+            else {
+              console.log("网络请求失败")
+              Taro.showToast({
+                title: '网络状况不佳，请检查网络设置',
+                icon: 'error',
+                duration: 2000
+              })
+            }
+
           },
           fail: function (res) {
             console.log("网络失败")

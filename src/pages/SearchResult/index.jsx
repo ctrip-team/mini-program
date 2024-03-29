@@ -31,9 +31,18 @@ export default function SearchResult() {
       },
       success: function (res) {
         console.log(res.data)
-        setListData(res.data)
-        if (res.data.length == 0) {
-          setShowEnd(true)
+        if (res.data.code == 2000) {
+          setListData(res.data.data)
+          if (res.data.data.length == 0) {
+            setShowEnd(true)
+          }
+        }
+        else {
+          console.log("请求失败")
+          Taro.showToast({
+            title: '获取结果失败,请检查网络设置',
+            icon: 'none',
+          })
         }
       },
       fail: function (res) {

@@ -6,10 +6,12 @@ import './index.scss'
 
 export default function IndexListItem({ props }) {
 
+  let showReadNum = 0
+
   function getDetail() {
     //增加阅读量
     Taro.request({
-      url: 'http://127.0.0.1:3000/api/addReadNum',
+      url: 'http://127.0.0.1:3000/api/index/addReadNum',
       method: 'POST',
       data: {
         id: props.id,
@@ -19,7 +21,12 @@ export default function IndexListItem({ props }) {
         'content-type': 'application/json' // 默认值
       },
       success: function (res) {
-        console.log("增加成功")
+        if (res.data.code == 2000) {
+          console.log("增加成功")
+        }
+        else {
+          console.log("增加失败")
+        }
       },
       fail: function (res) {
         console.log("网络失败")
@@ -43,7 +50,7 @@ export default function IndexListItem({ props }) {
         <View className='listItemInfo-right'>
           <AtIcon value='eye' size='20' color='#ccc'></AtIcon>
           <Text className='listItemUsername'>{
-            props.readnum >= 10000 ? props.readnum = (props.readnum / 10000).toFixed(1) + '万' : props.readnum
+            props.readnum >= 10000 ? showReadNum = (props.readnum / 10000).toFixed(1) + '万' : props.readnum
           }</Text>
         </View>
       </View>
