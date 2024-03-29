@@ -1,5 +1,5 @@
-import { View, ScrollView, Textarea, Input, Button, Form } from '@tarojs/components'
-import { AtImagePicker, AtDivider } from 'taro-ui'
+import { View, Textarea, Input, Button, Form, Text } from '@tarojs/components'
+import { AtIcon, AtDivider } from 'taro-ui'
 import ImagePicker from '../../components/ImagePicker'
 import Taro, { useLoad } from '@tarojs/taro'
 import './index.scss'
@@ -9,15 +9,20 @@ export default function Index() {
   Taro.hideTabBar(); // 隐藏底部导航栏
   const [files, setFiles] = useState([])
 
-  useLoad(() => {
-    console.log('Page loaded.')
-  })
+  const [imageCount, setImageCount] = useState(0)
+  const [imageFiles, setImageFiles] = useState([])
 
-  const handleChange = (imgs) => {
-    setFiles(imgs)
-  }
 
+  // 验证是否符合发布标准
   const handleValidation = (values) => {
+    if (imageCount === 0) {
+      Taro.showToast({
+        title: '至少选择上传一张图片',
+        icon: "none",
+        duration: 2000
+      })
+      return false
+    }
     const { travelTitle, travelContent } = values
     if (travelTitle.trim() === '') {
       Taro.showToast({
@@ -38,20 +43,75 @@ export default function Index() {
     return true
   }
 
+  // 封装uploadFile
+  const uploadFile = (path, travel_id) => {
+    return new Promise((resolve, reject) => {
+      Taro.uploadFile({
+        url: `http://127.0.0.1:3000/api/travel/uploadImages/${travel_id}`,
+        filePath: path,
+        name: 'image',
+        success: resolve,
+        fail: reject
+      })
+    })
+  }
+
+  // 上传所有图片
+  const uploadImages = (travel_id) => {
+    let uploadPromises = []
+    imageFiles.forEach(item => {
+      uploadPromises.push(uploadFile(item, travel_id))
+    })
+    Promise.all(uploadPromises)
+      .then(res => {
+        console.log('所有图片成功上传');
+      }).catch(err => {
+        console.log('上传失败');
+      })
+  }
+
+  // 文字和图片分开上传
+  const uploadTitleAndContent = ({ travelTitle, travelContent }) => {
+    return Taro.request({
+      url: 'http://127.0.0.1:3000/api/travel/uploadText',
+      method: 'POST',
+      data: {
+        title: travelTitle,
+        content: travelContent
+      },
+      header: {
+        'content-type': 'application/json' // 默认值
+      },
+      success: function (res) {
+        console.log(res.data)
+      }
+    })
+  }
   // 处理发布
   const handleSubmit = (e) => {
     e.preventDefault()
 
+    // 验证通过
     if (handleValidation(e.detail.value)) {
-      // 验证通过
-      console.log('这里处理发布', e);
-      console.log('数据', e.detail.value);
+      const requestTask = uploadTitleAndContent(e.detail.value)
+      requestTask.then(res => {
+        uploadImages(res.data.travel_id)
+      })
     }
   }
+
+
   return (
     <>
       <View className='publish-container'>
-        <ImagePicker />
+        <View className='at-row at-row__justify--between at-row__align--center'>
+          <View className='at-row at-row__align--center'>
+            <AtIcon value='image' size='30'></AtIcon>
+            <View>游记图片</View>
+          </View>
+          <View>{imageCount}</View>
+        </View>
+        <ImagePicker imageCount={imageCount} setImageCount={setImageCount} imageFiles={imageFiles} setImageFiles={setImageFiles} />
         <AtDivider />
 
         <Form onSubmit={handleSubmit}>

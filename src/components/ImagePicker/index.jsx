@@ -1,12 +1,9 @@
 import { View, Image, Text, ScrollView } from '@tarojs/components'
-import { AtIcon, AtGrid } from 'taro-ui'
-import './index.scss'
+import { AtIcon } from 'taro-ui'
 import Taro from '@tarojs/taro'
-import { useState } from 'react'
-export default function index() {
+import './index.scss'
+export default function index({ imageCount, setImageCount, imageFiles, setImageFiles }) {
 
-    const [imageFiles, setImageFiles] = useState([])
-    const [imageCount, setImageCount] = useState(0)
     const handleAddImage = () => {
         Taro.chooseImage({
             count: 9, // 一次最多可选照片数量
@@ -15,11 +12,21 @@ export default function index() {
             success: function (res) {
                 console.log('res', res);
                 var tempFilePaths = res.tempFilePaths
+
+                // 压缩图片
+                tempFilePaths.forEach((item) => {
+                    Taro.compressImage({
+                        src: item, // 图片路径
+                        quality: 10 // 压缩质量
+                    })
+                })
                 setImageCount(imageCount + res.tempFilePaths.length)
                 setImageFiles([...imageFiles, ...tempFilePaths])
             }
         })
     }
+
+
 
     // 删除图片
     const handleDeleteImage = (index) => {
@@ -36,13 +43,6 @@ export default function index() {
     }
     return (
         <>
-            <View className='at-row at-row__justify--between at-row__align--center'>
-                <View className='at-row at-row__align--center'>
-                    <AtIcon value='image' size='30'></AtIcon>
-                    <View>游记图片</View>
-                </View>
-                <View>{imageCount}</View>
-            </View>
             <ScrollView
                 className='image-scrollview'
                 scrollX
