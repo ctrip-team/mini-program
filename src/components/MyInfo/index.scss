@@ -1,0 +1,19 @@
+.infoContainer {
+  height: 20vh;
+  font-size: 1.5em;
+  font-weight: bold;
+  color: #333;
+  background-image: url(https://picnew13.photophoto.cn/20190127/jianyuejianbiantongyongbeijingsucai-32433485_1.jpg);
+  background-color: rgba(255, 255, 255, 0.5); /* 白色背景，50% 透明度 */
+  background-blend-mode: lighten; /* 这将背景色与背景图像混合 */
+  .infoAvatar {
+    position: absolute;
+    left: 5%;
+    top: 5%;
+  }
+  .infoName {
+    position: absolute;
+    left: 25%;
+    top: 7%;
+  }
+}

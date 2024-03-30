@@ -4,6 +4,8 @@ import Taro, { useLoad } from "@tarojs/taro";
 import "./my.scss";
 import Login from "../../components/Login";
 import MyInfo from "../../components/MyInfo";
+import InfoData from "../../components/InfoData";
+import InfoFunction from "../../components/InfoFunction";
 
 
 export default function My() {
@@ -23,7 +25,26 @@ export default function My() {
     return () => clearInterval(interval);
   }, [])
 
+  function logOut() {
+    Taro.removeStorageSync('user')
+    Taro.reLaunch({
+      url: '/pages/my/my'
+    })
+  }
+
   return (
-    isLogin ? <MyInfo /> : <Login />
+    <>
+      <View className='myPage'>
+        <View>
+          {
+            isLogin ? <MyInfo /> : <Login />
+          }
+        </View>
+        <InfoData />
+        <InfoFunction />
+        <Button onClick={logOut} className="logOutBtn">退出登录</Button>
+      </View>
+    </>
+
   )
 }

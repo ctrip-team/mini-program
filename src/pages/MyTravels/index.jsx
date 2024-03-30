@@ -18,8 +18,7 @@ export default function MyTravals() {
   useEffect(() => {
     try {
       var user = Taro.getStorageSync('user')
-      console.log(value);
-      if (value) {
+      if (user) {
         //获取接口数据
         Taro.request({
           url: `${process.env.TARO_APP_HOST}:${process.env.TARO_APP_PORT}/api/my/mytravels`,

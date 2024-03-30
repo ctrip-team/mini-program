@@ -3,6 +3,7 @@ import { Button, Text, View } from "@tarojs/components";
 import { useState, useEffect } from "react";
 import { AtAvatar } from 'taro-ui'
 import Taro from "@tarojs/taro";
+import "./index.scss";
 
 export default function MyInfo() {
   const [myInfo, setMyInfo] = useState({});
@@ -12,18 +13,13 @@ export default function MyInfo() {
     setMyInfo(user)
   }, [])
 
-  function logOut() {
-    Taro.removeStorageSync('user')
-    Taro.reLaunch({
-      url: '/pages/my/my'
-    })
-  }
 
   return (
     <>
-      <AtAvatar circle image={myInfo.avatar}></AtAvatar>
-      <View>{myInfo.username}</View>
-      <Button onClick={logOut}>退出登录</Button>
+      <View className="infoContainer">
+        <AtAvatar circle image={myInfo.avatar} className="infoAvatar" size="large"></AtAvatar>
+        <Text className="infoName">{myInfo.username}</Text>
+      </View>
     </>
   )
 
