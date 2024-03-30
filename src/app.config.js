@@ -8,6 +8,8 @@ export default defineAppConfig({
     'pages/PublishPage/index',
     'pages/SearchResult/index',
     'pages/SearchPage/index',
+    'pages/LoginPage/index',
+    'pages/RegisterPage/index',
   ],
   window: {
     backgroundTextStyle: 'light',
