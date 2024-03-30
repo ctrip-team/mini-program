@@ -35,7 +35,7 @@ export default function TravalListItem({ props }) {
           icon: 'success',
         })
         Taro.reLaunch({
-          url: '/pages/MyTravals/index'
+          url: '/pages/MyTravels/index'
         })
       },
       fail: function (res) {

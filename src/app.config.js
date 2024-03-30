@@ -4,7 +4,7 @@ export default defineAppConfig({
     'pages/index/index',
     'pages/my/my',
     'pages/DetailPage/index',
-    'pages/MyTravals/index',
+    'pages/MyTravels/index',
     'pages/PublishPage/index',
     'pages/SearchResult/index',
     'pages/SearchPage/index',
