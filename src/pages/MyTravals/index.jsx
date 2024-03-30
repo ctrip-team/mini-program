@@ -17,14 +17,14 @@ export default function MyTravals() {
 
   useEffect(() => {
     try {
-      var value = Taro.getStorageSync('user')
+      var user = Taro.getStorageSync('user')
       console.log(value);
       if (value) {
         //获取接口数据
         Taro.request({
           url: `${process.env.TARO_APP_HOST}:${process.env.TARO_APP_PORT}/api/my/mytravels`,
           data: {
-            user_id: value,
+            user_id: user.user_id,
           },
           header: {
             'content-type': 'application/json' // 默认值

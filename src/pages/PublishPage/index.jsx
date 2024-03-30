@@ -7,8 +7,7 @@ import { useState } from 'react'
 
 export default function Index() {
   Taro.hideTabBar(); // 隐藏底部导航栏
-  const [files, setFiles] = useState([])
-
+  const user = Taro.getStorageSync('user')
   const [imageCount, setImageCount] = useState(0)
   const [imageFiles, setImageFiles] = useState([])
 
@@ -47,7 +46,7 @@ export default function Index() {
   const uploadFile = (path, travel_id) => {
     return new Promise((resolve, reject) => {
       Taro.uploadFile({
-        url: `http://127.0.0.1:3000/api/travel/uploadImages/${travel_id}`,
+        url: `${process.env.TARO_APP_HOST}:${process.env.TARO_APP_PORT}/api/travel/uploadImages/${travel_id}`,
         filePath: path,
         name: 'image',
         success: resolve,
@@ -73,14 +72,15 @@ export default function Index() {
   // 文字和图片分开上传
   const uploadTitleAndContent = ({ travelTitle, travelContent }) => {
     return Taro.request({
-      url: 'http://127.0.0.1:3000/api/travel/uploadText',
+      url: `${process.env.TARO_APP_HOST}:${process.env.TARO_APP_PORT}/api/travel/uploadText`,
       method: 'POST',
       data: {
         title: travelTitle,
-        content: travelContent
+        content: travelContent,
+        userId: user.user_id
       },
       header: {
-        'content-type': 'application/json' // 默认值
+        'content-type': 'application/json'
       },
       success: function (res) {
         console.log(res.data)
@@ -96,7 +96,9 @@ export default function Index() {
       const requestTask = uploadTitleAndContent(e.detail.value)
       requestTask.then(res => {
         uploadImages(res.data.travel_id)
+        Taro.redirectTo({ url: `/pages/MyTravels/index` })
       })
+
     }
   }
 
