@@ -51,6 +51,12 @@ export default function RegisterPage() {
                     url: '/pages/LoginPage/index'
                   })
                 }
+                else if (res.data.code == 2002) {
+                  Taro.showToast({
+                    title: '用户名已存在',
+                    icon: 'none'
+                  })
+                }
                 else {
                   console.log("网络请求失败")
                   Taro.showToast({

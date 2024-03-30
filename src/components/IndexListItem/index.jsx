@@ -34,7 +34,7 @@ export default function IndexListItem({ props }) {
     })
     // 跳转到详情页
     Taro.navigateTo({
-      url: '/pages/DetailPage/index'
+      url: `/pages/DetailPage/index?travel_id=${props.id}`
     })
   }
 

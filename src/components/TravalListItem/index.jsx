@@ -54,6 +54,12 @@ export default function TravalListItem({ props }) {
     setIsdelOpened(false)
   }
 
+  function toDetailPage() {
+    Taro.navigateTo({
+      url: `/pages/DetailPage/index?travel_id=${props.id}`
+    })
+  }
+
   return (
     <>
       {
@@ -68,7 +74,7 @@ export default function TravalListItem({ props }) {
           </AtModalAction>
         </AtModal>)
       }
-      <View className="TravalListItemContianer">
+      <View className="TravalListItemContianer" onClick={toDetailPage}>
         <View className="upHalfOfItem">
           <Image className="image" src={props.imgsrc} />
           <View className="rightOfUp">

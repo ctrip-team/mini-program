@@ -64,7 +64,7 @@ export default function MyTravals() {
         })
         //去往登录页
         setTimeout(function () {
-          Taro.redirectTo({ url: '/pages/DetailPage/index' })
+          Taro.redirectTo({ url: '/pages/LoginPage/index' })
         }, 500)
       }
     } catch (e) {
