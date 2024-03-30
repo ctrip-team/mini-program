@@ -1,0 +1,16 @@
+.show-video {
+    border: dashed 1px #bfbfbf;
+    width: 139px;
+    height: 139px;
+}
+
+.add-video {
+    flex-shrink: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 139px;
+    height: 139px;
+    border: dashed 1px #bfbfbf;
+}
