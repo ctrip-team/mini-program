@@ -18,6 +18,7 @@ export default function MyTravals() {
   useEffect(() => {
     try {
       var user = Taro.getStorageSync('user')
+      console.log('user', user);
       if (user) {
         //获取接口数据
         Taro.request({
@@ -26,7 +27,7 @@ export default function MyTravals() {
             user_id: user.user_id,
           },
           header: {
-            'content-type': 'application/json' // 默认值
+            'content-type': 'application/json'
           },
           success: function (res) {
             console.log(res.data)

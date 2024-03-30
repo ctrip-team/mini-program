@@ -1,6 +1,7 @@
-import { View, Textarea, Input, Button, Form, Text } from '@tarojs/components'
+import { View, Textarea, Input, Button, Form, ScrollView } from '@tarojs/components'
 import { AtIcon, AtDivider } from 'taro-ui'
 import ImagePicker from '../../components/ImagePicker'
+import VideoPicker from '../../components/VideoPicker'
 import Taro, { useLoad } from '@tarojs/taro'
 import './index.scss'
 import { useState } from 'react'
@@ -10,13 +11,15 @@ export default function Index() {
   const user = Taro.getStorageSync('user')
   const [imageCount, setImageCount] = useState(0)
   const [imageFiles, setImageFiles] = useState([])
-
+  const [haveImage, sethaveImage] = useState(false)
+  const [haveVideo, sethaveVideo] = useState(false)
+  const [tempVideoPath, setTempVideoPath] = useState('')
 
   // 验证是否符合发布标准
   const handleValidation = (values) => {
     if (imageCount === 0) {
       Taro.showToast({
-        title: '至少选择上传一张图片',
+        title: '至少选择上传一张图片或一个视频哦~',
         icon: "none",
         duration: 2000
       })
@@ -87,6 +90,23 @@ export default function Index() {
       }
     })
   }
+
+
+  const uploadVideo = (travel_id) => {
+    Taro.uploadFile({
+      url: `${process.env.TARO_APP_HOST}:${process.env.TARO_APP_PORT}/api/travel/uploadVideo/${travel_id}`,
+      filePath: tempVideoPath,
+      name: 'video',
+      formData: {
+        'userId': user.user_id
+      },
+      success(res) {
+        const data = res.data
+        console.log('上传视频', data);
+      }
+    })
+  }
+
   // 处理发布
   const handleSubmit = (e) => {
     e.preventDefault()
@@ -95,8 +115,13 @@ export default function Index() {
     if (handleValidation(e.detail.value)) {
       const requestTask = uploadTitleAndContent(e.detail.value)
       requestTask.then(res => {
-        uploadImages(res.data.travel_id)
-        Taro.redirectTo({ url: `/pages/MyTravels/index` })
+        if (haveImage) {
+          uploadImages(res.data.travel_id)
+          Taro.redirectTo({ url: `/pages/MyTravels/index` })
+        } else {
+          uploadVideo(res.data.travel_id)
+        }
+
       })
 
     }
@@ -113,7 +138,21 @@ export default function Index() {
           </View>
           <View>{imageCount}</View>
         </View>
-        <ImagePicker imageCount={imageCount} setImageCount={setImageCount} imageFiles={imageFiles} setImageFiles={setImageFiles} />
+
+        <ScrollView
+          className='media-scrollview'
+          scrollX
+          scrollLeft
+          scrollWithAnimation
+        >
+          <View className='media-container at-row'>
+            {!haveVideo && <ImagePicker imageCount={imageCount} setImageCount={setImageCount} imageFiles={imageFiles} setImageFiles={setImageFiles} sethaveImage={sethaveImage} />}
+            {!haveImage && <VideoPicker sethaveVideo={sethaveVideo} haveVideo={haveVideo} tempVideoPath={tempVideoPath} setTempVideoPath={setTempVideoPath} setImageCount={setImageCount} />}
+          </View>
+
+        </ScrollView >
+
+
         <AtDivider />
 
         <Form onSubmit={handleSubmit}>
