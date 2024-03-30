@@ -21,7 +21,7 @@ export default function MyInfo() {
 
   return (
     <>
-      <AtAvatar circle image={myInfo.image_url}></AtAvatar>
+      <AtAvatar circle image={myInfo.avatar}></AtAvatar>
       <View>{myInfo.username}</View>
       <Button onClick={logOut}>退出登录</Button>
     </>

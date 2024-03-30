@@ -31,39 +31,52 @@ export default function RegisterPage() {
       })
     }
     else {
-      Taro.request({
-        url: `${process.env.TARO_APP_HOST}:${process.env.TARO_APP_PORT}/api/my/register`,
-        data: {
-          username: username,
-          password: password
-        },
-        method: 'POST',
+      //先获取用户微信openid
+      Taro.login({
         success: function (res) {
-          console.log(res.data)
-          if (res.data.code == 2000) {
-            Taro.redirectTo({
-              url: '/pages/LoginPage/index'
+          if (res.code) {
+            //发起网络请求
+            Taro.request({
+              url: `${process.env.TARO_APP_HOST}:${process.env.TARO_APP_PORT}/api/my/register`,
+              data: {
+                username: username,
+                password: password,
+                code: res.code
+              },
+              method: 'POST',
+              success: function (res) {
+                console.log(res.data)
+                if (res.data.code == 2000) {
+                  Taro.redirectTo({
+                    url: '/pages/LoginPage/index'
+                  })
+                }
+                else {
+                  console.log("网络请求失败")
+                  Taro.showToast({
+                    title: '网络状况不佳，请检查网络设置',
+                    icon: 'none',
+                    duration: 2000
+                  })
+                }
+
+              },
+              fail: function (res) {
+                console.log("网络失败")
+                Taro.showToast({
+                  title: '网络状况不佳，请检查网络设置',
+                  icon: 'none',
+                  duration: 2000
+                })
+              }
             })
           }
           else {
-            console.log("网络请求失败")
-            Taro.showToast({
-              title: '网络状况不佳，请检查网络设置',
-              icon: 'none',
-              duration: 2000
-            })
+            console.log(res.errMsg)
           }
-
-        },
-        fail: function (res) {
-          console.log("网络失败")
-          Taro.showToast({
-            title: '网络状况不佳，请检查网络设置',
-            icon: 'none',
-            duration: 2000
-          })
         }
       })
+
     }
   }
 
