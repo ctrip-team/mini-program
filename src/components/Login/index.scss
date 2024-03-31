@@ -1,0 +1,35 @@
+.LoginContainer {
+  position: absolute;
+  width: 100vw;
+  height: 20vh;
+  display: flex;
+  flex-direction: row;
+  background-image: url(https://img95.699pic.com/xsj/12/vh/1i.jpg%21/fh/300);
+  .title {
+    position: absolute;
+    left: 30%;
+    top: 10%;
+    font-size: 1.5em;
+    color: #fff;
+    width: 50%;
+    height: 25%;
+    font-weight: 200;
+  }
+  .loginBtn {
+    position: absolute;
+    left: 5%;
+    top: 50%;
+    width: 40%;
+    background: linear-gradient(to right, #ffa500, #ff8c00eb);
+    color: #fff;
+  }
+  .registerBtn {
+    position: absolute;
+    left: 55%;
+    top: 50%;
+    width: 40%;
+    background-color: transparent;
+    border: 1px solid #fff;
+    color: #fff;
+  }
+}

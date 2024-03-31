@@ -23,7 +23,7 @@ export default function My() {
     }, 300); // 每秒检查一次
     // 清除监听器  
     return () => clearInterval(interval);
-  }, [])
+  })
 
   function logOut() {
     Taro.removeStorageSync('user')
@@ -40,9 +40,13 @@ export default function My() {
             isLogin ? <MyInfo /> : <Login />
           }
         </View>
-        <InfoData />
+        {
+          isLogin && <InfoData />
+        }
         <InfoFunction />
-        <Button onClick={logOut} className="logOutBtn">退出登录</Button>
+        {
+          isLogin && <Button onClick={logOut} className="logOutBtn">退出登录</Button>
+        }
       </View>
     </>
 

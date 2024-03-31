@@ -1,5 +1,5 @@
 export default defineAppConfig({
-  entryPagePath: 'pages/PublishPage/index',
+  // entryPagePath: 'pages/PublishPage/index',
   pages: [
     'pages/index/index',
     'pages/my/my',
@@ -10,6 +10,7 @@ export default defineAppConfig({
     'pages/SearchPage/index',
     'pages/LoginPage/index',
     'pages/RegisterPage/index',
+    'pages/InfoPage/index',
   ],
   window: {
     backgroundTextStyle: 'light',

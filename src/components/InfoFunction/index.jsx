@@ -1,10 +1,18 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import './index.scss';
 import { View, Text, Image } from "@tarojs/components";
 import { AtIcon } from "taro-ui";
 import Taro from "@tarojs/taro";
 
 export default function InfoFunction() {
+  const [isLogin, setIsLogin] = useState(false)
+
+  useEffect(() => {
+    if (Taro.getStorageSync('user')) {
+      setIsLogin(true)
+    }
+  }, [])
+
   function toMyTravels() {
     Taro.navigateTo({
       url: '/pages/MyTravels/index'
@@ -12,12 +20,14 @@ export default function InfoFunction() {
   }
 
   function toMyInfo() {
-    console.log("toMyInfo");
+    Taro.navigateTo({
+      url: '/pages/InfoPage/index'
+    })
   }
 
   return (
     <>
-      <View className="functionContainer">
+      <View className={isLogin ? "functionContainer" : "functionContainerNL"}>
         <View className="title">常用功能</View>
         <View className="InnerContainer">
           <View className="functionItem" onClick={toMyTravels}>

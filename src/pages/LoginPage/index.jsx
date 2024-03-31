@@ -1,7 +1,9 @@
 import React, { useState } from "react";
-import { Button } from "@tarojs/components";
+import { View, Button, Image, Text } from "@tarojs/components";
 import { AtInput, AtForm } from 'taro-ui'
 import Taro from "@tarojs/taro";
+import "./index.scss";
+import loginBg from "../../assets/img/login_bg.png";
 
 export default function LoginPage() {
 
@@ -68,27 +70,49 @@ export default function LoginPage() {
     }
   }
 
+  function toRegister() {
+    Taro.redirectTo({
+      url: '/pages/RegisterPage/index'
+    })
+  }
+
   return (
     <>
-      <AtForm>
-        <AtInput
-          name='username'
-          title='用户名'
-          type='text'
-          placeholder='请输入您的用户名'
-          value={username}
-          onChange={(value) => setUsername(value)}
-        />
-        <AtInput
-          name='password'
-          title='密码'
-          type='password'
-          placeholder='请输入您的密码'
-          value={password}
-          onChange={(value) => setPassword(value)}
-        />
-      </AtForm>
-      <Button onClick={login}>登录</Button>
+      <View className="loginTop">
+        <Text className="loginTitle1">欢迎回来</Text>
+        <Text className="loginTitle2">请按以下表格输入您的凭据:</Text>
+      </View>
+      <View className="loginBgI">
+        <Image className="loginBg" src={loginBg} />
+      </View>
+      <View className="loginFormContainer">
+        <AtForm>
+          <Text className="loginText">用户名</Text>
+          <AtInput
+            name='username'
+            title='用户名'
+            type='text'
+            placeholder='请输入您的用户名'
+            value={username}
+            onChange={(value) => setUsername(value)}
+            className="loginInput"
+          />
+          <Text className="loginText">暗语</Text>
+          <AtInput
+            name='password'
+            title='密码'
+            type='password'
+            placeholder='请输入您的密码'
+            value={password}
+            onChange={(value) => setPassword(value)}
+          />
+        </AtForm>
+      </View>
+      <Button onClick={login} className="loginBtn">登录</Button>
+      <View className="registerView" onClick={toRegister}>
+        <Text className="registerText1">还没有账户吗?</Text>
+        <Text className="registerText2">立即注册</Text>
+      </View>
     </>
   )
 }
