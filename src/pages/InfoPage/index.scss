@@ -1,0 +1,50 @@
+.userInfo-container {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+
+    .user-avatar {
+        flex: 1;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-top: 20px;
+    }
+
+    .user-info-form {
+        flex: 6;
+        line-height: 100px;
+        margin: 20px 50px 50px 50px;
+
+        .info-wrap {
+            border-radius: 25px;
+
+            .info {
+                margin: 30px;
+                display: flex;
+                align-items: center;
+
+                text {
+                    flex: 1;
+                    color: #615839;
+                }
+
+                input {
+                    flex: 3;
+                }
+
+            }
+        }
+
+        .save-button {
+            button {
+                margin-top: 15px;
+                width: 80%;
+                border-radius: 30px;
+                font-size: 30px;
+                font-weight: 700;
+                background-color: #e6f4ff;
+            }
+        }
+    }
+}

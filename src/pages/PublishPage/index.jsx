@@ -7,7 +7,7 @@ import './index.scss'
 import { useState } from 'react'
 
 export default function Index() {
-  Taro.hideTabBar(); // 隐藏底部导航栏
+  // Taro.hideTabBar(); // 隐藏底部导航栏
   const user = Taro.getStorageSync('user')
   const [imageCount, setImageCount] = useState(0)
   const [imageFiles, setImageFiles] = useState([])
@@ -156,14 +156,13 @@ export default function Index() {
         <AtDivider />
 
         <Form onSubmit={handleSubmit}>
-          <Input type='text' name='travelTitle' className='travelTitle' placeholder='为你的游记起一个标题吧~' focus maxlength={30} />
+          <Input type='text' name='travelTitle' className='travelTitle' placeholder='为你的游记起一个标题吧~' maxlength={30} />
           <AtDivider />
 
           <Textarea
             name='travelContent'
             placeholder='分享你的游记内容，最多3000字'
             style='background:#fff;width:100%;height:80px;'
-            autoFocus
             maxlength={3000}
           />
           <AtDivider />
