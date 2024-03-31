@@ -21,6 +21,9 @@
       display: flex;
       flex-direction: column;
       margin: 5% 17%;
+      .functionIcon {
+        margin-left: 20%;
+      }
       .functionText {
         font-size: 28px;
         color: #333;
