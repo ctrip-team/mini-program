@@ -31,11 +31,11 @@ export default function InfoFunction() {
         <View className="title">常用功能</View>
         <View className="InnerContainer">
           <View className="functionItem" onClick={toMyTravels}>
-            <AtIcon value='image' size='30' color='#F00'></AtIcon>
+            <AtIcon value='image' size='30' color='#00' className="functionIcon"></AtIcon>
             <Text className="functionText">我的游记</Text>
           </View>
           <View className="functionItem" onClick={toMyInfo}>
-            <AtIcon value='user' size='30' color='#F00'></AtIcon>
+            <AtIcon value='user' size='30' color='#F00' className="functionIcon"></AtIcon>
             <Text className="functionText">个人信息</Text>
           </View>
         </View>
