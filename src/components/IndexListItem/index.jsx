@@ -18,7 +18,7 @@ export default function IndexListItem({ props }) {
         readnum: props.readnum + 1
       },
       header: {
-        'content-type': 'application/json' // 默认值
+        'content-type': 'application/json'
       },
       success: function (res) {
         if (res.data.code == 2000) {

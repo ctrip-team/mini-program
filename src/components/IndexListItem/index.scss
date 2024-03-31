@@ -10,10 +10,12 @@
 .listItemInfo {
   padding: 10rpx;
   align-items: center;
+
   .listItemInfo-left {
     display: flex;
     float: left;
   }
+
   .listItemInfo-right {
     float: right;
   }
@@ -22,6 +24,7 @@
 .listItemAvatar {
   width: 50rpx;
   height: 50rpx;
+  line-height: 50rpx;
   margin-bottom: 10rpx;
 }
 
@@ -35,11 +38,16 @@
 .listItemTitle {
   margin-left: 4%;
   display: -webkit-box;
-  -webkit-box-orient: vertical; /* 设置子元素的排列方式为从上到下垂直排列 */
-  overflow: hidden; /* 隐藏超出容器的部分 */
-  text-overflow: ellipsis; /* 显示省略号 */
-  -webkit-line-clamp: 2; /* 设置显示的行数，这里为3行 */
-  word-wrap: break-word; /* 防止长单词或 URL 地址撑破容器 */
+  -webkit-box-orient: vertical;
+  /* 设置子元素的排列方式为从上到下垂直排列 */
+  overflow: hidden;
+  /* 隐藏超出容器的部分 */
+  text-overflow: ellipsis;
+  /* 显示省略号 */
+  -webkit-line-clamp: 2;
+  /* 设置显示的行数，这里为3行 */
+  word-wrap: break-word;
+  /* 防止长单词或 URL 地址撑破容器 */
 }
 
 .listItemImage {
