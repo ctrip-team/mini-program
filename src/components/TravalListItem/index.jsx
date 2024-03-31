@@ -1,7 +1,7 @@
 import { View, Text, Image, Button } from "@tarojs/components";
 import React, { useState } from "react";
 import { AtIcon } from 'taro-ui'
-import { AtModal, AtModalHeader, AtModalContent, AtModalAction } from "taro-ui"
+import { AtModal, AtModalHeader, AtModalContent, AtModalAction, AtNoticebar } from "taro-ui"
 import "./index.scss";
 import Taro from "@tarojs/taro";
 
@@ -76,7 +76,17 @@ export default function TravalListItem({ props }) {
       }
       <View className="TravalListItemContianer" onClick={toDetailPage}>
         <View className="upHalfOfItem">
-          <Image className="image" src={props.imgsrc} />
+          {
+            props.videosrc ? <Video
+              id='video'
+              src={props.videosrc}
+              initialTime={0}
+              controls={false}
+              autoplay={false}
+              loop={false}
+              muted={false}
+            /> : <Image className='image' src={props.imgsrc}></Image>
+          }
           <View className="rightOfUp">
             <Text className="title">{props.title}</Text>
             <Text className="description">{props.content}</Text>
@@ -114,6 +124,9 @@ export default function TravalListItem({ props }) {
           {
             status == 0 ?
               <>
+                <AtNoticebar icon='alert-circle'>
+                  {props.reason}
+                </AtNoticebar>
                 <View className="leftOfDown">
                   <AtIcon value='close-circle' size='20' color='red'></AtIcon>
                   <Text>未通过</Text>

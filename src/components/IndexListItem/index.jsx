@@ -40,7 +40,17 @@ export default function IndexListItem({ props }) {
 
   return (
     <View className='listItemContainer' onClick={getDetail}>
-      <Image className='listItemImage' src={props.imgsrc}></Image>
+      {
+        props.videosrc ? <Video
+          id='video'
+          src={props.videosrc}
+          initialTime={0}
+          controls={false}
+          autoplay={false}
+          loop={false}
+          muted={false}
+        /> : <Image className='listItemImage' src={props.imgsrc}></Image>
+      }
       <Text className='listItemTitle'>{props.title}</Text>
       <View className='listItemInfo'>
         <View className='listItemInfo-left'>
