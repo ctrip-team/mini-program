@@ -66,7 +66,7 @@ export default function SearchPage() {
           onChange={(value) => onChange(value)}
           onActionClick={() => toSearchResult()}
           onConfirm={() => toSearchResult()}
-          placeholder="关键词/标题/博客主/标签"
+          placeholder="关键词/标题/博客主"
           focus
         />
         <View className="historyArea">

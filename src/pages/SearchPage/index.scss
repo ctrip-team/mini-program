@@ -9,6 +9,7 @@
   .historyView {
     margin: 1% 2%;
     display: flex;
+    flex-wrap: wrap;
     .historyItem {
       margin: 1% 1%;
       padding: 0 3%;

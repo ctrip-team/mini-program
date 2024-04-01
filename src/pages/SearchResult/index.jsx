@@ -2,7 +2,7 @@ import { View, Text, ScrollView, GridView } from "@tarojs/components";
 import React, { useState, useEffect } from "react";
 import Taro, { getCurrentInstance, useReachBottom } from "@tarojs/taro";
 import IndexListItem from "../../components/IndexListItem/index";
-import { AtSearchBar } from "taro-ui";
+import { AtSearchBar, AtIcon } from "taro-ui";
 import "./index.scss";
 
 export default function SearchResult() {
@@ -33,9 +33,9 @@ export default function SearchResult() {
         console.log(res.data)
         if (res.data.code == 2000) {
           setListData(res.data.data)
-          if (res.data.data.length == 0) {
-            setShowEnd(true)
-          }
+        }
+        else if (res.data.code == 2001) {
+          setShowEnd(true)
         }
         else {
           console.log("请求失败")
@@ -67,7 +67,6 @@ export default function SearchResult() {
     })
   }
 
-  console.log(listData);
   return (
     <>
       <View className="page">
@@ -82,6 +81,7 @@ export default function SearchResult() {
           {
             showEnd && (
               <View className="noneRs">
+                <AtIcon value='file-generic' size='50' color='#ccc' className="noneRsIcon"></AtIcon>
                 <Text>暂无符合条件的结果~</Text>
               </View>
             )
@@ -89,7 +89,7 @@ export default function SearchResult() {
           {
             <GridView type='masonry' mainAxisGap='10' crossAxisGap='5'>
               {
-                listData.length != 0 && listData.map((item, index) => (
+                listData && listData.map((item, index) => (
                   <IndexListItem props={{ imgsrc: item.image_url, title: item.title, avatar: item.avatar, username: item.username, readnum: item.readnum, id: item.travel_id }} />
                 ))
               }
