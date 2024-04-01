@@ -46,6 +46,7 @@ export default function Index() {
 
       },
       fail: function (res) {
+        console.log(res);
         console.log("网络失败")
       }
     })
@@ -73,11 +74,15 @@ export default function Index() {
           },
           success: function (res) {
             console.log(res.data)
+            console.log(process.env.TARO_APP_HOST);
+            console.log(process.env.TARO_APP_PORT);
             if (res.data.code == 2000) {
               setNextListData(res.data.data)
               setListData((prevDataList) => [...prevDataList, ...nextListData]);
             }
             else {
+              console.log(process.env.TARO_APP_HOST);
+              console.log(process.env.TARO_APP_PORT);
               console.log("网络请求失败")
               Taro.showToast({
                 title: '网络状况不佳，请检查网络设置',
@@ -88,6 +93,9 @@ export default function Index() {
 
           },
           fail: function (res) {
+            console.log(res);
+            console.log(process.env.TARO_APP_HOST);
+            console.log(process.env.TARO_APP_PORT);
             console.log("网络失败")
             Taro.showToast({
               title: '网络状况不佳，请检查网络设置',

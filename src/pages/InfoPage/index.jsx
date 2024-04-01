@@ -10,6 +10,16 @@ export default function InfoPage() {
   const [password, setPassword] = useState('')
   const [avatar, setAvatar] = useState('')
   const [isUpload, setIsUpload] = useState(false)
+
+  useEffect(() => {
+    if (!Taro.getStorageSync('user')) {
+      Taro.redirectTo({
+        url: '/pages/LoginPage/index'
+      })
+    }
+  }, [])
+
+
   function chooseAvatar() {
     Taro.chooseImage({
       count: 1,

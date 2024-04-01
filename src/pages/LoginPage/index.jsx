@@ -56,7 +56,6 @@ export default function LoginPage() {
               duration: 2000
             })
           }
-
         },
         fail: function (res) {
           console.log("网络失败")

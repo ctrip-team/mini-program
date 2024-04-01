@@ -90,7 +90,7 @@ export default function SearchResult() {
             <GridView type='masonry' mainAxisGap='10' crossAxisGap='5'>
               {
                 listData && listData.map((item, index) => (
-                  <IndexListItem props={{ imgsrc: item.image_url, title: item.title, avatar: item.avatar, username: item.username, readnum: item.readnum, id: item.travel_id }} />
+                  <IndexListItem props={{ imgsrc: item.image_url, title: item.title, avatar: item.avatar, username: item.username, readnum: item.views, id: item.travel_id }} />
                 ))
               }
             </GridView>

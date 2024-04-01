@@ -4,7 +4,7 @@ import ImagePicker from '../../components/ImagePicker'
 import VideoPicker from '../../components/VideoPicker'
 import Taro, { useLoad } from '@tarojs/taro'
 import './index.scss'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 
 export default function Index() {
   // Taro.hideTabBar(); // 隐藏底部导航栏
@@ -14,6 +14,14 @@ export default function Index() {
   const [haveImage, sethaveImage] = useState(false)
   const [haveVideo, sethaveVideo] = useState(false)
   const [tempVideoPath, setTempVideoPath] = useState('')
+
+  useEffect(() => {
+    if (!Taro.getStorageSync('user')) {
+      Taro.redirectTo({
+        url: '/pages/LoginPage/index'
+      })
+    }
+  }, [])
 
   // 验证是否符合发布标准
   const handleValidation = (values) => {
