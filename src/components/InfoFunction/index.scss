@@ -58,14 +58,18 @@
 
   .InnerContainer {
     display: flex;
+    flex: 1;
     flex-direction: row;
-
+    box-sizing: border-box;
     .functionItem {
-      width: 100%;
-      height: 100%;
+      flex: 1;
+      // width: 100%;
+      // height: 100%;
+      margin: 20px 0;
       display: flex;
       flex-direction: column;
-      margin: 5% 17%;
+      justify-content: center;
+      align-items: center;
 
       .functionText {
         font-size: 28px;
