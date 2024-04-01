@@ -44,7 +44,7 @@ export default function LoginPage() {
           console.log(res.data)
           if (res.data.code == 2000) {
             Taro.setStorageSync('user', res.data.data[0])
-            Taro.switchTab({
+            Taro.reLaunch({
               url: '/pages/my/my'
             })
           }

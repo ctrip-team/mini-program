@@ -13,17 +13,12 @@ export default function My() {
   const [isLogin, setIsLogin] = useState(false);
 
   useEffect(() => {
-    const interval = setInterval(() => {
-      const user = Taro.getStorageSync('user')
-      if (user) {
-        setIsLogin(true)
-        // 清除监听器，防止重复设置状态  
-        clearInterval(interval);
-      }
-    }, 300); // 每秒检查一次
-    // 清除监听器  
-    return () => clearInterval(interval);
-  })
+    const user = Taro.getStorageSync('user')
+    if (user) {
+      setIsLogin(true)
+    }
+  }, [])
+
 
   function logOut() {
     Taro.removeStorageSync('user')
