@@ -5,10 +5,11 @@ import Taro from "@tarojs/taro";
 import './index.scss';
 
 export default function InfoPage() {
-
-  const user = Taro.getStorageSync('user')
-  const [userAvatar, setUserAvatar] = useState('')
-
+  const [user, setUser] = useState({})
+  const [username, setUsername] = useState('')
+  const [password, setPassword] = useState('')
+  const [avatar, setAvatar] = useState('')
+  const [isUpload, setIsUpload] = useState(false)
   function chooseAvatar() {
     Taro.chooseImage({
       count: 1,
@@ -16,8 +17,8 @@ export default function InfoPage() {
       sourceType: ['album', 'camera'],
       success: function (res) {
         var tempFilePaths = res.tempFilePaths
-        console.log('tempFilePaths', tempFilePaths);
-        setUserAvatar(tempFilePaths[0])
+        setAvatar(tempFilePaths[0])
+        setIsUpload(true)
       }
     })
   }
@@ -27,29 +28,69 @@ export default function InfoPage() {
   }
 
   function updateInfo({ username, password }) {
-    Taro.uploadFile({
-      url: `${process.env.TARO_APP_HOST}:${process.env.TARO_APP_PORT}/api/user/update`,
-      filePath: userAvatar,
-      name: 'avatar',
-      formData: {
-        username,
-        password,
-        userId: user.user_id
-      },
-      success(res) {
-        const data = res.data
-        console.log(data);
+    if (isUpload) {
+      Taro.uploadFile({
+        url: `${process.env.TARO_APP_HOST}:${process.env.TARO_APP_PORT}/api/user/update`,
+        filePath: avatar,
+        name: 'avatar',
+        formData: {
+          username,
+          password,
+          userId: user.user_id
+        },
+        success(res) {
+          Taro.showToast({
+            title: '更新成功',
+            icon: 'none',
+            duration: 2000
+          })
+          Taro.setStorageSync('user', JSON.parse(res.data).user)
+          setUser(JSON.parse(res.data).user)
+        }
+      })
+    }
+    else {
+      if (username === user.username && password === user.password) {
         Taro.showToast({
-          title: '更新成功',
+          title: '保存成功',
           icon: 'none',
           duration: 2000
         })
+      } else {
+        Taro.request({
+          url: `${process.env.TARO_APP_HOST}:${process.env.TARO_APP_PORT}/api/user/updateInfo`,
+          method: 'POST',
+          data: {
+            username,
+            password,
+            userId: user.user_id
+          },
+          header: {
+            'content-type': 'application/json'
+          },
+          success: function (res) {
+            Taro.setStorageSync('user', res.data.user)
+            setUser(res.data.user)
+          }
+        })
       }
-    })
+    }
+  }
+
+  function handleUsernameInput(e) {
+    setUsername(e.detail.value)
+  }
+
+  function handlePasswordInput(e) {
+    setPassword(e.detail.value)
   }
 
   useEffect(() => {
-    setUserAvatar(user.avatar)
+    const currentUser = Taro.getStorageSync('user')
+    setUser(currentUser)
+    setAvatar(currentUser.avatar)
+    setUsername(currentUser.username)
+    setPassword(currentUser.password)
   }, [])
 
   return (
@@ -58,7 +99,7 @@ export default function InfoPage() {
 
         {/* 头像 */}
         <View className="user-avatar" onClick={chooseAvatar} >
-          <AtAvatar circle image={userAvatar} size="large" />
+          <AtAvatar circle image={avatar} size="large" />
         </View>
 
         {/* 用户名&密码 */}
@@ -66,14 +107,14 @@ export default function InfoPage() {
           <View className="info-wrap">
             <View className="info" >
               <Text>用户名</Text>
-              <Input type='text' placeholder='用户名' name='username' value={user.username} />
+              <Input type='text' placeholder='用户名' name='username' value={username} onInput={handleUsernameInput} />
             </View>
           </View>
 
           <View className="info-wrap">
             <View className="info">
               <Text>密码</Text>
-              <Input type='text' placeholder='密码' name='password' value={user.password} />
+              <Input type='text' placeholder='密码' name='password' value={password} onInput={handlePasswordInput} />
             </View>
           </View>
 
