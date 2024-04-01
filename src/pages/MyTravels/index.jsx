@@ -4,6 +4,7 @@ import TravalListItem from "../../components/TravalListItem";
 import { useReachBottom } from "@tarojs/taro";
 import "./index.scss";
 import Taro from "@tarojs/taro";
+import { AtIcon } from 'taro-ui'
 
 export default function MyTravals() {
   //判定是否到达底部
@@ -12,8 +13,6 @@ export default function MyTravals() {
   const [isLoading, setIsLoading] = useState(true)
   //存储数据
   const [listData, setListData] = useState([])
-  //页面无数据判定
-  const [isEmpty, setIsEmpty] = useState(false)
 
   useEffect(() => {
     try {
@@ -38,9 +37,10 @@ export default function MyTravals() {
               if (res.data.data.length <= 3 && res.data.data.length > 0) {
                 setIsEnd(true)
               }
-              if (res.data.data.length == 0) {
-                setIsEmpty(true)
-              }
+            }
+            else if (res.data.code == 2001) {
+              setIsLoading(false)
+              setIsEnd(true)
             }
             else {
               console.log("网络请求失败")
@@ -83,28 +83,26 @@ export default function MyTravals() {
   }
 
   if (isLoading) {
-    return <View>加载中...</View>
+    return <AtIcon value='loading-2' size='50' color='#ccc' className="loadingIcon"></AtIcon>
   }
 
   return (
     <>
-      <View className="addBtn" onClick={toAdd}>
-        <Text className="addBtn_text">+</Text>
+      <View className="myTravelPage">
+        <View className="addBtn" onClick={toAdd}>
+          <Text className="addBtn_text">+</Text>
+        </View>
+        <ScrollView className="Travals_scrollView">
+          {
+            listData && listData.map((item, index) => (
+              <TravalListItem props={{ id: item.travel_id, imgsrc: item.image_url, title: item.title, content: item.content, status: item.status, videosrc: item.video_url, reason: item.reason }} />
+            ))
+          }
+          {
+            isEnd ? <View className='indexEndText'>没有更多游记咯~  快去发布新游记吧(*^▽^*)</View> : <View className='indexEndText'>加载中...</View>
+          }
+        </ScrollView>
       </View>
-      <ScrollView className="Travals_scrollView">
-        {
-          listData && listData.map((item, index) => (
-            <TravalListItem props={{ id: item.travel_id, imgsrc: item.image_url, title: item.title, content: item.content, status: item.status, videosrc: item.video_url, reason: item.reason }} />
-          ))
-        }
-        {
-          isEnd ? <View className='indexEndText'>没有更多游记咯~  快去发布新游记吧(*^▽^*)</View> : <View className='indexEndText'>加载中...</View>
-        }
-        {
-          isEmpty && <View className='indexNoneText'>还没有游记哦~  快去发布新游记吧(*^▽^*)</View>
-        }
-      </ScrollView>
-
     </>
   )
 }

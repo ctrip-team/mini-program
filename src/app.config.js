@@ -34,6 +34,7 @@ export default defineAppConfig({
       {
         pagePath: 'pages/PublishPage/index',
         iconPath: "assets/icon/add.png",
+        selectedIconPath: "assets/icon/add.png",
       },
       {
         pagePath: "pages/my/my",
