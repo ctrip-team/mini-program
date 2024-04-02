@@ -1,4 +1,4 @@
-import { View, Text, Image, Button } from "@tarojs/components";
+import { View, Text, Image, Button, RichText } from "@tarojs/components";
 import React, { useState } from "react";
 import { AtIcon } from 'taro-ui'
 import { AtModal, AtModalHeader, AtModalContent, AtModalAction, AtNoticebar } from "taro-ui"
@@ -74,8 +74,8 @@ export default function TravalListItem({ props }) {
           </AtModalAction>
         </AtModal>)
       }
-      <View className="TravalListItemContianer" onClick={toDetailPage}>
-        <View className="upHalfOfItem">
+      <View className="TravalListItemContianer">
+        <View className="upHalfOfItem" onClick={toDetailPage}>
           {
             props.videosrc ? <Video
               id='video'
@@ -89,7 +89,7 @@ export default function TravalListItem({ props }) {
           }
           <View className="rightOfUp">
             <Text className="title">{props.title}</Text>
-            <Text className="description">{props.content}</Text>
+            <RichText className="description" nodes={props.content}></RichText>
           </View>
         </View>
         <View className="lineHr"></View>
@@ -111,11 +111,11 @@ export default function TravalListItem({ props }) {
             status == 1 ?
               <>
                 <View className="leftOfDown">
-                  <AtIcon value='bell' size='20' color='orange'></AtIcon>
-                  <Text>审核中</Text>
+                  <AtIcon value='close-circle' size='20' color='red'></AtIcon>
+                  <Text>未通过</Text>
                 </View>
                 <View className="rightOfDown">
-                  <Button className="editBtn" onClick={toEdit}>编辑</Button>
+                  <Button className="editBtn" onClick={toEdit}>修改</Button>
                   <Button className="deleBtn" onClick={() => { setIsdelOpened(true) }}>删除</Button>
                 </View>
               </>
@@ -124,15 +124,12 @@ export default function TravalListItem({ props }) {
           {
             status == 0 ?
               <>
-                <AtNoticebar icon='alert-circle'>
-                  {props.reason}
-                </AtNoticebar>
                 <View className="leftOfDown">
-                  <AtIcon value='close-circle' size='20' color='red'></AtIcon>
-                  <Text>未通过</Text>
+                  <AtIcon value='bell' size='20' color='orange'></AtIcon>
+                  <Text>审核中</Text>
                 </View>
                 <View className="rightOfDown">
-                  <Button className="editBtn" onClick={toEdit}>修改</Button>
+                  <Button className="editBtn" onClick={toEdit}>编辑</Button>
                   <Button className="deleBtn" onClick={() => { setIsdelOpened(true) }}>删除</Button>
                 </View>
               </>

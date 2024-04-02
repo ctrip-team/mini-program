@@ -34,7 +34,10 @@ export default function SearchPage() {
     else {
       let newHistory = []
       if (history) {
-        newHistory = [...history, queryKey]
+        newHistory = history.filter((item) => {
+          return queryKey !== item
+        })
+        newHistory = [queryKey, ...newHistory]
         setHistory(newHistory)
       }
       else {
