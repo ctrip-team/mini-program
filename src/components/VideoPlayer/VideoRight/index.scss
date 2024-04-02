@@ -1,0 +1,12 @@
+.video-right {
+    width: 50px;
+    z-index: 20;
+    position: absolute;
+    top: 50%;
+    right: 40px;
+    color: #FFFFFF;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}

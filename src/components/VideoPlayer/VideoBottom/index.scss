@@ -1,0 +1,11 @@
+.video-bottom {
+    z-index: 20;
+    position: absolute;
+    bottom: 20px;
+    left: 40px;
+    color: #FFFFFF;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}

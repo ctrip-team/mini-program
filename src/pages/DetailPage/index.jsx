@@ -7,13 +7,14 @@ import './index.scss'
 export default function DetailPage() {
 
   const router = useRouter()
+  const { travel_id } = router.params
   const [travel, setTravel] = useState({})
   const [imageList, setImageList] = useState([])
   const [currentImage, setCurrentImage] = useState(1)
   const [reason, setReason] = useState(null)
-
+  const [iconColor, setIconColor] = useState('#000')
+  // 加载单独的travel详情
   useEffect(() => {
-    const { travel_id } = router.params
     Taro.request({
       url: `${process.env.TARO_APP_HOST}:${process.env.TARO_APP_PORT}/api/travel/getById`,
       data: { travel_id },
@@ -42,8 +43,8 @@ export default function DetailPage() {
       console.log(res.target)
     }
     return {
-      title: '自定义转发标题',
-      path: '/page/user?id=123',
+      title: travel.title,
+      path: `/pages/DetailPage/index?travel_id=${travel_id}`,
     }
   })
 
@@ -53,7 +54,7 @@ export default function DetailPage() {
 
   const toUserPage = () => {
     Taro.navigateTo({
-      url: '/pages/my/my'
+      url: `/pages/HomePage/index?user_id=${travel.user_id}`
     })
   }
 
@@ -118,7 +119,7 @@ export default function DetailPage() {
       </View >
 
       <View className='detail-footer at-row at-row__align--center at-row__justify--between'>
-        <AtIcon value='heart' size='30' color='#000'></AtIcon>
+        <AtIcon value='heart' size='30' color={iconColor} onClick={() => setIconColor('#ED1C24')}></AtIcon>
         <Button className='shareButton' size='mini' openType='share'>分享</Button>
       </View>
     </>
