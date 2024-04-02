@@ -5,12 +5,21 @@
     color: #fff;
     padding: 20px 20px;
     box-shadow: inset 0 8px 8px -8px rgba(0, 0, 0, 0.2);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
     z-index: 1000;
 
     .detail-username {
         margin-left: 20px;
         color: #000;
     }
+}
+
+.detail-reason {
+    color: red;
+    font-size: 30px;
+    padding: 0 20px;
+    margin: 20px 0;
+    word-break: break-all;
 }
 
 .detail-main {
@@ -22,7 +31,7 @@
     }
 
     .detail-swiper {
-        height: 70%;
+        height: 60%;
     }
 
     .image-counter {
@@ -37,6 +46,11 @@
         padding: 5px;
         border-radius: 5vw;
         z-index: 100;
+    }
+
+    .detail-richtext {
+        padding: 0 20px;
+        margin-top: 20px;
     }
 }
 

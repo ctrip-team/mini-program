@@ -4,12 +4,14 @@ import { useState, useEffect } from 'react'
 import { AtAvatar, AtIcon } from 'taro-ui'
 import './index.scss'
 
-export default function Index() {
+export default function DetailPage() {
 
   const router = useRouter()
   const [travel, setTravel] = useState({})
   const [imageList, setImageList] = useState([])
   const [currentImage, setCurrentImage] = useState(1)
+  const [reason, setReason] = useState(null)
+
   useEffect(() => {
     const { travel_id } = router.params
     Taro.request({
@@ -17,9 +19,11 @@ export default function Index() {
       data: { travel_id },
       method: 'POST',
       success: function (res) {
-        console.log(res.data)
         setTravel(res.data.travel)
         setImageList(res.data.travel.imgs)
+        if (res.data.travel.status === '1') {
+          setReason(res.data.travel.reason)
+        }
       },
       fail: function (res) {
         console.log("网络失败")
@@ -31,6 +35,7 @@ export default function Index() {
       }
     })
   }, [])
+
   useShareAppMessage((res) => {
     if (res.from === 'button') {
       // 来自页面内转发按钮
@@ -46,13 +51,25 @@ export default function Index() {
     setCurrentImage(e.detail.current + 1)
   }
 
+  const toUserPage = () => {
+    Taro.navigateTo({
+      url: '/pages/my/my'
+    })
+  }
+
   return (
     <>
       {/* 用户名和头像 */}
-      <View className='detail-header at-row at-row__align--center'>
-        <AtAvatar circle image={travel.avatar}></AtAvatar>
+      <View className='detail-header at-row at-row__align--center' onClick={toUserPage}>
+        <AtAvatar circle image={travel.avatar} size='small'></AtAvatar>
         <Text className='detail-username'>{travel.username}</Text>
       </View>
+
+      {reason &&
+        <View className='detail-reason'>
+          <Text>{reason}</Text>
+        </View>
+      }
 
       <View className='detail-main'>
         <ScrollView
@@ -72,8 +89,11 @@ export default function Index() {
                 return (
                   <SwiperItem>
                     <Image
-                      mode='widthFix'
-                      style='width:100%'
+                      mode='scaleToFill'
+                      style={{
+                        width: '100%',
+                        height: '100%'
+                      }}
                       src={imageUrl}
                     />
                   </SwiperItem>
@@ -81,14 +101,18 @@ export default function Index() {
               })
             }
           </Swiper>
+
           <View className='image-counter'>
             {currentImage}/{imageList.length}
           </View>
-          <RichText
-            nodes={`
+
+          <View className='detail-richtext'>
+            <RichText
+              nodes={`
               <h3>${travel.title}</h3><br>
-              <p>${travel.content}</p>`}>
-          </RichText>
+              ${travel.content}`}>
+            </RichText>
+          </View>
 
         </ScrollView>
       </View >
