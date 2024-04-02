@@ -74,8 +74,8 @@ export default function TravalListItem({ props }) {
           </AtModalAction>
         </AtModal>)
       }
-      <View className="TravalListItemContianer" onClick={toDetailPage}>
-        <View className="upHalfOfItem">
+      <View className="TravalListItemContianer">
+        <View className="upHalfOfItem" onClick={toDetailPage}>
           {
             props.videosrc ? <Video
               id='video'
