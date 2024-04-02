@@ -83,7 +83,7 @@ export default function MyTravals() {
   }
 
   if (isLoading) {
-    return <AtIcon value='loading-2' size='50' color='#ccc' className="loadingIcon"></AtIcon>
+    return <AtIcon value='loading-2' size='35' color='#ccc' className="loadingIcon"></AtIcon>
   }
 
   return (
