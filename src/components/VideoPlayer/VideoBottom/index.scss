@@ -1,11 +1,14 @@
 .video-bottom {
     z-index: 20;
     position: absolute;
-    bottom: 20px;
+    bottom: 6%;
     left: 40px;
     color: #FFFFFF;
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    align-items: center;
+    gap: 10px;
+
+    .video-title {
+        width: 80%;
+    }
 }
