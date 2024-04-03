@@ -13,12 +13,17 @@ export default function MyInfo() {
     setMyInfo(user)
   }, [])
 
+  function toHomePage() {
+    Taro.navigateTo({ url: '/pages/HomePage/index' })
+  }
+
 
   return (
     <>
       <View className="infoContainer">
         <AtAvatar circle image={myInfo.avatar} className="infoAvatar" size="large"></AtAvatar>
         <Text className="infoName">{myInfo.username}</Text>
+        <Button className="infoBtn" onClick={toHomePage}>个人主页</Button>
       </View>
     </>
   )

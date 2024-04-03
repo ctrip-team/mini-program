@@ -137,7 +137,7 @@ export default function Index() {
           <GridView type='masonry' mainAxisGap='10' crossAxisGap='5'>
             {
               listData.map((item, index) => (
-                <IndexListItem props={{ videosrc: item.video_url, imgsrc: item.image_url, title: item.title, avatar: item.avatar, username: item.username, readnum: item.views, id: item.travel_id }} />
+                <IndexListItem props={{ videosrc: item.video_url, poster: item.poster, imgsrc: item.image_url, title: item.title, avatar: item.avatar, username: item.username, readnum: item.views, id: item.travel_id }} />
               ))
             }
           </GridView>

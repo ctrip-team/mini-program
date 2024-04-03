@@ -11,6 +11,7 @@ export default defineAppConfig({
     'pages/LoginPage/index',
     'pages/RegisterPage/index',
     'pages/InfoPage/index',
+    'pages/HomePage/index',
   ],
   window: {
     backgroundTextStyle: 'light',

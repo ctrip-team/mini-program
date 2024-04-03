@@ -77,15 +77,9 @@ export default function TravalListItem({ props }) {
       <View className="TravalListItemContianer">
         <View className="upHalfOfItem" onClick={toDetailPage}>
           {
-            props.videosrc ? <Video
-              id='video'
-              src={props.videosrc}
-              initialTime={0}
-              controls={false}
-              autoplay={false}
-              loop={false}
-              muted={false}
-            /> : <Image className='image' src={props.imgsrc}></Image>
+            props.videosrc ?
+              <Image className='listItemImage' src={props.poster}></Image>
+              : <Image className='image' src={props.imgsrc}></Image>
           }
           <View className="rightOfUp">
             <Text className="title">{props.title}</Text>
