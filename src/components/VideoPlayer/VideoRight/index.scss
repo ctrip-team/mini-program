@@ -1,0 +1,19 @@
+.video-right {
+    width: 50px;
+    z-index: 20;
+    position: absolute;
+    top: 40%;
+    right: 40px;
+    color: #FFFFFF;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 50px;
+}
+
+.icon-wrap {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}

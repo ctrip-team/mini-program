@@ -1,4 +1,4 @@
-import { View, Text, Image, Button, RichText } from "@tarojs/components";
+import { View, Text, Image, Button, RichText, Video } from "@tarojs/components";
 import React, { useState } from "react";
 import { AtIcon } from 'taro-ui'
 import { AtModal, AtModalHeader, AtModalContent, AtModalAction, AtNoticebar } from "taro-ui"
