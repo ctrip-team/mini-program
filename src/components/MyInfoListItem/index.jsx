@@ -49,7 +49,7 @@ export default function MyInfoListItem({ props }) {
           : <Image className='listItemImage' src={props.imgsrc}></Image>
       }
       <View className='listItemInfo-right'>
-        <AtIcon value='eye' size='20' color='#ccc'></AtIcon>
+        <AtIcon value='eye' size='15' color='#fff'></AtIcon>
         <Text className='listItemUsername'>{
           props.readnum >= 10000 ? showReadNum = (props.readnum / 10000).toFixed(1) + '万' : props.readnum
         }</Text>

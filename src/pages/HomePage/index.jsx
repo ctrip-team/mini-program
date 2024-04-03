@@ -1,7 +1,7 @@
 import { View, Text, ScrollView, GridView } from "@tarojs/components";
 import React, { useState, useEffect } from "react";
 import "./index.scss";
-import { AtAvatar } from 'taro-ui'
+import { AtAvatar, AtIcon } from 'taro-ui'
 import Taro from "@tarojs/taro";
 import MyInfoListItem from "../../components/MyInfoListItem";
 
@@ -15,7 +15,7 @@ export default function HomePage() {
     Taro.request({
       url: `${process.env.TARO_APP_HOST}:${process.env.TARO_APP_PORT}/api/my/infodata`,
       data: {
-        id: Taro.getStorageSync('user').user_id
+        id: Taro.getCurrentInstance().router.params.user_id
       },
       header: {
         'content-type': 'application/json' // 默认值
@@ -26,6 +26,7 @@ export default function HomePage() {
           setTravelList(res.data.data.travelList)
           setViews(res.data.data.totalView)
           setTravels(res.data.data.totalTravel)
+          setUserInfo(res.data.data.userInfo)
         }
         else {
           console.log("网络请求失败")
@@ -39,7 +40,6 @@ export default function HomePage() {
         console.log("网络失败")
       }
     })
-    setUserInfo(Taro.getStorageSync('user'))
   }, [])
 
   return (
@@ -47,7 +47,7 @@ export default function HomePage() {
       <View className="homePageHeader">
         <View className="infoAndData">
           <View className="person">
-            <AtAvatar circle image={userInfo.avatar}></AtAvatar>
+            <AtAvatar circle image={userInfo.avatar} className="avatar"></AtAvatar>
             <Text className="infoName">{userInfo.username}</Text>
           </View>
           <View className="infoData">
@@ -58,16 +58,18 @@ export default function HomePage() {
       </View>
       <View className="travelsView">
         <View className="travelsTitle">全部动态</View>
-        <ScrollView scrollY className="homeScrollViewArea">
-          <GridView type='masonry' mainAxisGap='10' crossAxisGap='5'>
-            {
-              travelList ? travelList.map((item, index) => (
-                <MyInfoListItem props={{ videosrc: item.video_url, poster: item.poster, imgsrc: item.image_url, title: item.title, readnum: item.views, id: item.travel_id }} />
-              )) : <View className="noneView">还没有任何游记创作哦~</View>
-            }
-          </GridView>
+        <View className="travelsList">
+          <ScrollView scrollY className="homeScrollViewArea">
+            <GridView type='masonry' mainAxisGap='10' crossAxisGap='5'>
+              {
+                travelList ? travelList.map((item, index) => (
+                  <MyInfoListItem props={{ videosrc: item.video_url, poster: item.poster, imgsrc: item.image_url, title: item.title, readnum: item.views, id: item.travel_id }} />
+                )) : <View className="noneView">还没有任何游记创作哦~</View>
+              }
+            </GridView>
+          </ScrollView>
           <View className="endView">已经到底了哦~</View>
-        </ScrollView>
+        </View>
       </View>
     </View>
   )

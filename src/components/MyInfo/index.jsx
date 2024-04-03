@@ -14,7 +14,7 @@ export default function MyInfo() {
   }, [])
 
   function toHomePage() {
-    Taro.navigateTo({ url: '/pages/HomePage/index' })
+    Taro.navigateTo({ url: `/pages/HomePage/index?user_id=${myInfo.user_id}` })
   }
 
 

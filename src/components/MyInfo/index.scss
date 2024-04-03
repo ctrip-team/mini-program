@@ -2,9 +2,10 @@
   height: 20vh;
   font-size: 1.5em;
   font-weight: bold;
-  color: #333;
-  background-image: url(https://picnew13.photophoto.cn/20190127/jianyuejianbiantongyongbeijingsucai-32433485_1.jpg);
-  background-color: rgba(255, 255, 255, 0.5); /* 白色背景，50% 透明度 */
+  color: #fff;
+  // https://picnew13.photophoto.cn/20190127/jianyuejianbiantongyongbeijingsucai-32433485_1.jpg
+  background-image: url(https://img2.baidu.com/it/u=1729698981,848523456&fm=253&fmt=auto&app=138&f=JPEG?w=700&h=328);
+  // background-color: rgba(255, 255, 255, 0.5); /* 白色背景，50% 透明度 */
   background-blend-mode: lighten; /* 这将背景色与背景图像混合 */
   .infoAvatar {
     position: absolute;
@@ -22,8 +23,8 @@
     top: 8%;
     width: 20%;
     font-size: 0.5em;
-    background-color: #b0e7f5;
-    color: #2c9fd4;
+    background-color: #edfafb;
+    color: #6eabd4;
     border-bottom-left-radius: 50px;
     border-top-left-radius: 50px;
   }

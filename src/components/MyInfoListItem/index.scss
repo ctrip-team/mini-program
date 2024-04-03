@@ -15,10 +15,18 @@
     display: flex;
     float: left;
   }
+}
 
-  .listItemInfo-right {
-    float: right;
-  }
+.listItemInfo-right {
+  position: absolute;
+  left: 2%;
+  top: 72%;
+  z-index: 1;
+  background-color: #333;
+  border-radius: 30px;
+  opacity: 0.5;
+  color: #fff;
+  padding: 0 3%;
 }
 
 .listItemAvatar {
@@ -37,6 +45,7 @@
 
 .listItemTitle {
   margin-left: 4%;
+  margin-bottom: 4%;
   display: -webkit-box;
   -webkit-box-orient: vertical;
   /* 设置子元素的排列方式为从上到下垂直排列 */
