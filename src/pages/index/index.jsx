@@ -4,7 +4,6 @@ import { useLoad } from '@tarojs/taro'
 import React, { useState, useEffect } from 'react'
 import './index.scss'
 import IndexListItem from '../../components/IndexListItem'
-import IndexSearchBar from '../../components/IndexSearchBar'
 import { AtSearchBar } from 'taro-ui'
 
 export default function Index() {
@@ -74,15 +73,10 @@ export default function Index() {
           },
           success: function (res) {
             console.log(res.data)
-            console.log(process.env.TARO_APP_HOST);
-            console.log(process.env.TARO_APP_PORT);
             if (res.data.code == 2000) {
-              setNextListData(res.data.data)
-              setListData((prevDataList) => [...prevDataList, ...nextListData]);
+              setListData((prevDataList) => [...prevDataList, ...res.data.data]);
             }
             else {
-              console.log(process.env.TARO_APP_HOST);
-              console.log(process.env.TARO_APP_PORT);
               console.log("网络请求失败")
               Taro.showToast({
                 title: '网络状况不佳，请检查网络设置',
@@ -94,8 +88,6 @@ export default function Index() {
           },
           fail: function (res) {
             console.log(res);
-            console.log(process.env.TARO_APP_HOST);
-            console.log(process.env.TARO_APP_PORT);
             console.log("网络失败")
             Taro.showToast({
               title: '网络状况不佳，请检查网络设置',
@@ -132,7 +124,7 @@ export default function Index() {
           placeholder='搜索关键词/标题/博客主'
         />
       </View>
-      <ScrollView className='indexScrollViewArea' scrollY >
+      <ScrollView className='indexScrollViewArea' type="custom">
         {
           <GridView type='masonry' mainAxisGap='10' crossAxisGap='5'>
             {
