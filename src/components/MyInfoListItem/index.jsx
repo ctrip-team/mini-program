@@ -33,9 +33,16 @@ export default function MyInfoListItem({ props }) {
       }
     })
     // 跳转到详情页
-    Taro.navigateTo({
-      url: `/pages/DetailPage/index?travel_id=${props.id}`
-    })
+    if (props.videosrc) {
+      Taro.navigateTo({
+        url: `/pages/VideoPage/index?travel_id=${props.id}`
+      })
+    }
+    else {
+      Taro.navigateTo({
+        url: `/pages/DetailPage/index?travel_id=${props.id}`
+      })
+    }
   }
 
   return (
