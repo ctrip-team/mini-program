@@ -1,5 +1,5 @@
 export default defineAppConfig({
-  entryPagePath: 'pages/VideoPage/index',
+  // entryPagePath: 'pages/VideoPage/index',
   pages: [
     'pages/index/index',
     'pages/my/my',

@@ -14,6 +14,7 @@ export default function Index() {
   const [haveImage, sethaveImage] = useState(false)
   const [haveVideo, sethaveVideo] = useState(false)
   const [tempVideoPath, setTempVideoPath] = useState('')
+  const [tempPoster, setTempPoster] = useState('')
 
   useEffect(() => {
     if (!Taro.getStorageSync('user')) {
@@ -105,12 +106,21 @@ export default function Index() {
       url: `${process.env.TARO_APP_HOST}:${process.env.TARO_APP_PORT}/api/travel/uploadVideo/${travel_id}`,
       filePath: tempVideoPath,
       name: 'video',
-      formData: {
-        'userId': user.user_id
-      },
       success(res) {
         const data = res.data
         console.log('上传视频', data);
+      }
+    })
+  }
+
+  const uploadPoster = (travel_id) => {
+    Taro.uploadFile({
+      url: `${process.env.TARO_APP_HOST}:${process.env.TARO_APP_PORT}/api/travel/uploadPoster/${travel_id}`,
+      filePath: tempPoster,
+      name: 'poster',
+      success(res) {
+        const data = res.data
+        console.log('上传poster', data);
       }
     })
   }
@@ -128,6 +138,8 @@ export default function Index() {
           Taro.redirectTo({ url: `/pages/MyTravels/index` })
         } else {
           uploadVideo(res.data.travel_id)
+          uploadPoster(res.data.travel_id)
+          Taro.redirectTo({ url: `/pages/MyTravels/index` })
         }
 
       })
@@ -155,7 +167,7 @@ export default function Index() {
         >
           <View className='media-container at-row'>
             {!haveVideo && <ImagePicker imageCount={imageCount} setImageCount={setImageCount} imageFiles={imageFiles} setImageFiles={setImageFiles} sethaveImage={sethaveImage} />}
-            {!haveImage && <VideoPicker sethaveVideo={sethaveVideo} haveVideo={haveVideo} tempVideoPath={tempVideoPath} setTempVideoPath={setTempVideoPath} setImageCount={setImageCount} />}
+            {!haveImage && <VideoPicker sethaveVideo={sethaveVideo} haveVideo={haveVideo} tempVideoPath={tempVideoPath} setTempVideoPath={setTempVideoPath} setImageCount={setImageCount} tempPoster={tempPoster} setTempPoster={setTempPoster} />}
           </View>
 
         </ScrollView >

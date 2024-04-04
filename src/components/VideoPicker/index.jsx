@@ -1,10 +1,9 @@
-import { View, Video, Text, ScrollView } from '@tarojs/components'
+import { View, Video, Text } from '@tarojs/components'
 import { AtIcon } from 'taro-ui'
 import Taro from '@tarojs/taro'
-import { useState } from 'react'
 import './index.scss'
 
-export default function VideoPicker({ sethaveVideo, haveVideo, tempVideoPath, setTempVideoPath, setImageCount }) {
+export default function VideoPicker({ sethaveVideo, haveVideo, tempVideoPath, setTempVideoPath, setImageCount, tempPoster, setTempPoster }) {
 
 
     const handleAddVideo = () => {
@@ -14,6 +13,7 @@ export default function VideoPicker({ sethaveVideo, haveVideo, tempVideoPath, se
             maxDuration: 60,
             camera: 'back',
             success: (res) => {
+                setTempPoster(res.tempFiles[0].thumbTempFilePath)
                 setTempVideoPath(res.tempFiles[0].tempFilePath)
                 sethaveVideo(true)
                 setImageCount(1)
@@ -22,7 +22,7 @@ export default function VideoPicker({ sethaveVideo, haveVideo, tempVideoPath, se
     }
 
     const handlePlay = () => {
-        const videoContext = Taro.createVideoContext('video')
+        const videoContext = Taro.createVideoContext('previewVideo')
         videoContext.requestFullScreen()
         videoContext.play()
     }
@@ -32,10 +32,10 @@ export default function VideoPicker({ sethaveVideo, haveVideo, tempVideoPath, se
             {tempVideoPath &&
                 <Video
                     className='show-video'
-                    id='video'
+                    id='previewVideo'
                     onClick={handlePlay}
                     src={tempVideoPath}
-                    // poster={tempPosterPath}
+                    poster={tempPoster}
                     initialTime={0}
                     controls={true}
                     autoplay={false}
