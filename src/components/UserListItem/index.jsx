@@ -7,14 +7,16 @@ import { AtAvatar } from "taro-ui";
 
 export default function UserListItem({ props }) {
   return (
-    <View>
-      <View>
-        <AtAvatar circle image={props.avatar}></AtAvatar>
-        <Text>{props.username}</Text>
+    <View className="UserInfoContainer">
+      <View className="UserInfoAvatar">
+        <AtAvatar circle image={props.avatar} size="large"></AtAvatar>
       </View>
-      <View>
-        <View>浏览量<Text>{props.views}</Text></View>
-        <View>游记<Text>{props.travelnum}</Text></View>
+      <View className="UserInfomation">
+        <Text className="UserInfoName">{props.username}</Text>
+        <View className="UserInfoData">
+          <View className="DataView">浏览量<Text className="UserInfoText">{props.views}</Text></View>
+          <View className="DataView">游记<Text className="UserInfoText">{props.travelnum}</Text></View>
+        </View>
       </View>
     </View>
   )

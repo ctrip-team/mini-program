@@ -71,6 +71,8 @@ export default function SearchResult() {
   }
 
   function getAllResult() {
+    setShowEnd(false)
+    setNoData(false)
     setSearchMode(false)
     Taro.request({
       url: `${process.env.TARO_APP_HOST}:${process.env.TARO_APP_PORT}/api/index/searchTitle`,
@@ -86,6 +88,7 @@ export default function SearchResult() {
           setListData(res.data.data)
         }
         else if (res.data.code == 2001) {
+          setListData([])
           setShowEnd(true)
         }
         else {
@@ -120,6 +123,7 @@ export default function SearchResult() {
           setListData(res.data.data)
         }
         else if (res.data.code == 2001) {
+          setListData([])
           setShowEnd(true)
         }
         else {
@@ -136,6 +140,15 @@ export default function SearchResult() {
     })
   }
 
+  const renderBorder = () => {
+    if (!searchMode) {
+      return <div className="border-under" id="border-under-all" />;
+    }
+    else {
+      return <div className="border-under" id="border-under-user" />;
+    }
+  };
+
   return (
     <>
       <View className="page">
@@ -147,12 +160,12 @@ export default function SearchResult() {
           />
         </View>
         <View className="searchTypeSelectBtn">
-          <Button className="typeBtn" onClick={getAllResult}>全部</Button>
-          <Button className="typeBtn" onClick={getUserResult}>用户</Button>
+          <View className={`typeBtn ${searchMode === false ? 'selected' : ''}`} onClick={getAllResult}>全部</View>
+          <View className={`typeBtn ${searchMode === true ? 'selected' : ''}`} onClick={getUserResult}>用户</View>
         </View>
         {
           searchMode ?
-            <ScrollView className='indexScrollViewArea' scrollY>
+            <ScrollView className='indexScrollViewAreaOfUser' scrollY>
               {
                 showEnd && (
                   <View className="noneRs">
