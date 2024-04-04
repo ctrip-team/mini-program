@@ -58,7 +58,7 @@
   position: absolute;
   top: 20%;
   border: 1px solid #fff;
-  border-radius: 15px;
+  border-radius: 20px;
   overflow: hidden;
   .travelsTitle {
     font-size: 28px;
@@ -75,10 +75,16 @@
       margin-left: 3%;
       width: 95%;
       background-color: #f5f5f5;
+      .noneView {
+        margin: 20% 30%;
+        font-size: 32px;
+        color: #ccc;
+      }
     }
     .endView {
       position: relative;
       left: 35%;
+      color: #ccc;
     }
   }
 }

@@ -176,7 +176,7 @@ export default function SearchResult() {
               }
               {
                 listData && listData.map((item, index) => (
-                  <UserListItem props={{ avatar: item.avatar, username: item.username, views: item.total_views, id: item.user_id, travelnum: item.total_travels }} />
+                  <UserListItem props={{ avatar: item.avatar, username: item.username, views: item.total_views, user_id: item.user_id, travelnum: item.total_travels }} />
                 ))
               }
               {
