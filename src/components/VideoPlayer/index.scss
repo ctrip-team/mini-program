@@ -1,10 +1,19 @@
 .video-wrap {
+    position: relative;
     height: 100%;
     width: 100%;
-}
 
-.video-player {
-    height: 100%;
-    width: 100%;
-    z-index: 1;
+    .playIcon {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        z-index: 5;
+    }
+
+    .video-player {
+        height: 100%;
+        width: 100%;
+        z-index: 1;
+    }
 }

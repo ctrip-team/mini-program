@@ -21,7 +21,7 @@ export default function HomePage() {
         'content-type': 'application/json' // 默认值
       },
       success: function (res) {
-        console.log(res)
+        console.log('HomePage', res)
         if (res.data.code == 2000) {
           setTravelList(res.data.data.travelList)
           setViews(res.data.data.totalView)

@@ -1,21 +1,17 @@
 import { View } from '@tarojs/components'
 import Taro from '@tarojs/taro'
-import React from 'react'
-
+import React, { useEffect } from 'react'
 import './index.scss'
-function VideoRight() {
-
+function VideoRight({ user, title }) {
     const toUserPage = () => {
-        console.log('跳转到主页');
-        // Taro.navigateTo({
-        //     url: `/pages/HomePage/index?user_id=${travel.user_id}`
-        // })
+        Taro.navigateTo({
+            url: `/pages/HomePage/index?user_id=${user.user_id}`
+        })
     }
-
     return (
         <View className='video-bottom'>
-            <View onClick={toUserPage}>@hyperyz</View>
-            <View className='video-title'>我是好标题我是好标题我是好标题我是好标题我是好标题我是好标题</View>
+            <View onClick={toUserPage}>{`@${user.username}`}</View>
+            <View className='video-title'>{title}</View>
         </View >
     )
 }

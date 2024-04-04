@@ -1,23 +1,32 @@
-import { View } from '@tarojs/components'
+import { Button, View, Label } from '@tarojs/components'
+import Taro, { useShareAppMessage } from '@tarojs/taro'
 import React from 'react'
 import { AtAvatar, AtIcon } from 'taro-ui'
 import './index.scss'
-function VideoRight() {
+function VideoRight({ user, color, travel }) {
 
     const toUserPage = () => {
-        console.log('跳转到主页');
-        // Taro.navigateTo({
-        //     url: `/pages/HomePage/index?user_id=${travel.user_id}`
-        // })
+        Taro.navigateTo({
+            url: `/pages/HomePage/index?user_id=${user.user_id}`
+        })
     }
 
+    useShareAppMessage((res) => {
+        if (res.from === 'button') {
+            console.log(res.target)
+        }
+        return {
+            title: travel.title,
+            path: `/pages/VideoPage/index?travel_id=${travel.travel_id}`,
+        }
+    })
     return (
         <View className='video-right'>
             <View onClick={toUserPage}>
-                <AtAvatar circle image='http://localhost:3000/avatars/IQYbFvnU7x0a9e0948c9372988a2a86ef1f35453292f.png' size='small'></AtAvatar>
+                <AtAvatar circle image={user.avatar} size='small'></AtAvatar>
             </View>
             <View className='icon-wrap'>
-                <AtIcon value='heart' size='30' color='#fff'></AtIcon>
+                <AtIcon value='heart' size='30' color={color}></AtIcon>
                 <View class="number">32</View>
             </View>
 
@@ -31,9 +40,10 @@ function VideoRight() {
                 <View class="number">50</View>
             </View>
 
-            <View className='icon-wrap'>
+            <Label className='example-body__label' for='share'>
                 <AtIcon value='share' size='30' color='#fff'></AtIcon>
-            </View>
+            </Label>
+            <Button openType='share' size='mini' id="share"></Button>
         </View >
     )
 }
