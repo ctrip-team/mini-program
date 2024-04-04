@@ -1,0 +1,31 @@
+.UserInfoContainer {
+  display: flex;
+  flex-direction: row;
+  background-color: #fff;
+  border-top: 2px solid #f5f5f5;
+  .UserInfoAvatar {
+    margin: 1% 2%;
+  }
+  .UserInfomation {
+    display: flex;
+    flex-direction: column;
+    width: 50%;
+    .UserInfoName {
+      font-size: 40px;
+      font-weight: bold;
+      margin: 5% 4% 1% 4%;
+    }
+    .UserInfoData {
+      display: flex;
+      flex-direction: row;
+      .DataView {
+        font-size: 24px;
+        padding: 0 5%;
+        .UserInfoText {
+          color: #ccc;
+          margin-left: 5rpx;
+        }
+      }
+    }
+  }
+}

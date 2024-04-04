@@ -67,7 +67,6 @@ export default function TravalListItem({ props }) {
           <AtModalContent>
             您确定删除该游记吗？
           </AtModalContent>
-          {/* onConfirm={toDelete} onCancel={cancelModel} */}
           <AtModalAction >
             <Button onClick={cancelModel}>取消</Button>
             <Button onClick={toDelete}>确定</Button>
@@ -78,7 +77,7 @@ export default function TravalListItem({ props }) {
         <View className="upHalfOfItem" onClick={toDetailPage}>
           {
             props.videosrc ?
-              <Image className='listItemImage' src={props.poster}></Image>
+              <Image className='image' src={props.poster}></Image>
               : <Image className='image' src={props.imgsrc}></Image>
           }
           <View className="rightOfUp">
@@ -96,7 +95,7 @@ export default function TravalListItem({ props }) {
                   <Text>已发布</Text>
                 </View>
                 <View className="rightOfDown">
-                  <Button className="deleBtn" onClick={() => { setIsdelOpened(true) }}>删除</Button>
+                  <View className="deleBtn" onClick={() => { setIsdelOpened(true) }}>删除</View>
                 </View>
               </>
               : <></>
@@ -109,8 +108,8 @@ export default function TravalListItem({ props }) {
                   <Text>未通过</Text>
                 </View>
                 <View className="rightOfDown">
-                  <Button className="editBtn" onClick={toEdit}>修改</Button>
-                  <Button className="deleBtn" onClick={() => { setIsdelOpened(true) }}>删除</Button>
+                  <View className="editBtn" onClick={toEdit}>修改</View>
+                  <View className="deleBtn" onClick={() => { setIsdelOpened(true) }}>删除</View>
                 </View>
               </>
               : <></>
@@ -123,8 +122,8 @@ export default function TravalListItem({ props }) {
                   <Text>审核中</Text>
                 </View>
                 <View className="rightOfDown">
-                  <Button className="editBtn" onClick={toEdit}>编辑</Button>
-                  <Button className="deleBtn" onClick={() => { setIsdelOpened(true) }}>删除</Button>
+                  <View className="editBtn" onClick={toEdit}>编辑</View>
+                  <View className="deleBtn" onClick={() => { setIsdelOpened(true) }}>删除</View>
                 </View>
               </>
               : <></>

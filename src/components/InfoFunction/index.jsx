@@ -31,7 +31,7 @@ export default function InfoFunction() {
         <View className="title">常用功能</View>
         <View className="InnerContainer">
           <View className="functionItem" onClick={toMyTravels}>
-            <AtIcon value='image' size='30' color='#00' className="functionIcon"></AtIcon>
+            <AtIcon value='image' size='30' color='#67BCEF' className="functionIcon"></AtIcon>
             <Text className="functionText">我的游记</Text>
           </View>
           <View className="functionItem" onClick={toMyInfo}>
