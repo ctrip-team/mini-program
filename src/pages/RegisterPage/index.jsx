@@ -91,40 +91,42 @@ export default function RegisterPage() {
           }
         }
       })
-
     }
   }
 
+
+
+
   return (
     <>
-      <View className="loginTop">
-        <Text className="loginTitle1">创建账户</Text>
-        <Text className="loginTitle2">请按以下表格输入您的凭据:</Text>
+      <View className="registerTop">
+        <Text className="registerTitle1">创建账户</Text>
+        <Text className="registerTitle2">请按以下表格输入您的凭据:</Text>
       </View>
-      <View className="loginBgI">
-        <Image className="loginBg" src={loginBg} />
+      <View className="registerBgI">
+        <Image className="registerBg" src={loginBg} />
       </View>
-      <View className="loginFormContainer">
+      <View className="registerFormContainer">
         <AtForm>
-          <Text className="loginText">用户名</Text>
+          <Text className="registerText">用户名</Text>
           <AtInput
             name='username'
             type='text'
             placeholder='用户名长度不小于四个字符'
             value={username}
             onChange={(value) => setUsername(value)}
-            className="loginInput"
+            className="registerInput"
           />
-          <Text className="loginText">暗语</Text>
+          <Text className="registerText">暗语</Text>
           <AtInput
             name='password'
             type='password'
             placeholder='密码长度不小于六个字符，至少包含字母和数字'
             value={password}
             onChange={(value) => setPassword(value)}
-            className="loginInput"
+            className="registerInput"
           />
-          <Text className="loginText">确认</Text>
+          <Text className="registerText">确认</Text>
           <AtInput
             name='password'
             type='password'
@@ -133,7 +135,11 @@ export default function RegisterPage() {
             onChange={(value) => setCheckpassword(value)}
           />
         </AtForm>
-        <Button onClick={register} className="loginBtn">注册</Button>
+        <Button onClick={register} className="registerBtn">注册</Button>
+        {/* <Button onClick={registerByWeChat} className="registerBtnWeChat">
+          <Image src={'https://img.zcool.cn/community/016b02566588d16ac725b2c850390c.png@1280w_1l_2o_100sh.png'}></Image>
+          微信快速注册
+        </Button> */}
       </View>
 
     </>

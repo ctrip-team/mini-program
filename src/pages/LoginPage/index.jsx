@@ -4,6 +4,7 @@ import { AtInput, AtForm } from 'taro-ui'
 import Taro from "@tarojs/taro";
 import "./index.scss";
 import loginBg from "../../assets/img/login_bg.png";
+import WeChatRigeAndLogBtn from "../../components/WeChatRigeAndLogBtn";
 
 export default function LoginPage() {
 
@@ -69,6 +70,7 @@ export default function LoginPage() {
     }
   }
 
+
   function toRegister() {
     Taro.redirectTo({
       url: '/pages/RegisterPage/index'
@@ -106,6 +108,8 @@ export default function LoginPage() {
             />
           </AtForm>
           <Button onClick={login} className="loginBtn">登录</Button>
+          {/* <Button onClick={loginByWeChat} className="loginBtnWeChat">微信快捷登录/注册</Button> */}
+          <WeChatRigeAndLogBtn />
         </View>
         <View className="registerView" onClick={toRegister}>
           <Text className="registerText1">还没有账户吗?</Text>
