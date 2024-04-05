@@ -55,9 +55,16 @@ export default function TravalListItem({ props }) {
   }
 
   function toDetailPage() {
-    Taro.navigateTo({
-      url: `/pages/DetailPage/index?travel_id=${props.id}`
-    })
+    if (props.videosrc) {
+      Taro.navigateTo({
+        url: `/pages/VideoPage/index?travel_id=${props.id}`
+      })
+    }
+    else {
+      Taro.navigateTo({
+        url: `/pages/DetailPage/index?travel_id=${props.id}`
+      })
+    }
   }
 
   return (
