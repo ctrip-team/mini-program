@@ -1,9 +1,14 @@
+.loginPage {
+  width: 100vw;
+  height: 100vh;
+}
+
 .loginFormContainer {
   position: absolute;
   left: 8%;
   top: 25%;
   width: 80%;
-  height: 25%;
+  height: auto;
   border: 1px solid #fff;
   border-radius: 10px;
   background-color: #fff;
@@ -24,7 +29,7 @@
 .loginBtn {
   position: absolute;
   left: 17%;
-  top: 50%;
+  bottom: -15%;
   width: 70%;
   z-index: 1;
   background-color: #5680fa;

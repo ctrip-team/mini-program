@@ -3,6 +3,7 @@ import { Button, View, Form, Input, Image, Text } from "@tarojs/components";
 import { AtAvatar } from 'taro-ui'
 import Taro from "@tarojs/taro";
 import './index.scss';
+import loginBg from "../../assets/img/login_bg.png";
 
 export default function InfoPage() {
   const [user, setUser] = useState({})
@@ -105,8 +106,14 @@ export default function InfoPage() {
 
   return (
     <>
+      <View className="loginBgI">
+        <Image className="loginBg" src={loginBg} />
+      </View>
+      <View className="loginTop">
+        <Text className="loginTitle1">编辑信息</Text>
+        <Text className="loginTitle2">请在以下表格编辑您的凭据:</Text>
+      </View>
       <View className="userInfo-container">
-
         {/* 头像 */}
         <View className="user-avatar" onClick={chooseAvatar} >
           <AtAvatar circle image={avatar} size="large" />

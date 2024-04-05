@@ -109,7 +109,6 @@ export default function RegisterPage() {
           <Text className="loginText">用户名</Text>
           <AtInput
             name='username'
-            title='用户名'
             type='text'
             placeholder='用户名长度不小于四个字符'
             value={username}
@@ -119,7 +118,6 @@ export default function RegisterPage() {
           <Text className="loginText">暗语</Text>
           <AtInput
             name='password'
-            title='密码'
             type='password'
             placeholder='密码长度不小于六个字符，至少包含字母和数字'
             value={password}
@@ -129,15 +127,15 @@ export default function RegisterPage() {
           <Text className="loginText">确认</Text>
           <AtInput
             name='password'
-            title='重复密码'
             type='password'
             placeholder='确认密码'
             value={checkpassword}
             onChange={(value) => setCheckpassword(value)}
           />
         </AtForm>
+        <Button onClick={register} className="loginBtn">注册</Button>
       </View>
-      <Button onClick={register} className="loginBtn">注册</Button>
+
     </>
   )
 }

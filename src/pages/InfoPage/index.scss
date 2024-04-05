@@ -1,50 +1,101 @@
 .userInfo-container {
-    display: flex;
-    flex-direction: column;
-    height: 100vh;
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  background-color: #fff;
+  border-radius: 15px;
+  width: 80%;
+  height: auto;
+  position: absolute;
+  left: 10%;
+  top: 20%;
+  z-index: 1;
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.25);
 
-    .user-avatar {
-        flex: 1;
+  .user-avatar {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 20px;
+  }
+
+  .user-info-form {
+    flex: 6;
+    line-height: 100px;
+    margin: 20px 50px 50px 50px;
+
+    .info-wrap {
+      border-radius: 25px;
+
+      .info {
+        margin: 30px;
         display: flex;
         align-items: center;
-        justify-content: center;
-        margin-top: 20px;
-    }
+        border-bottom: 1px solid #f5f5f5;
 
-    .user-info-form {
-        flex: 6;
-        line-height: 100px;
-        margin: 20px 50px 50px 50px;
-
-        .info-wrap {
-            border-radius: 25px;
-
-            .info {
-                margin: 30px;
-                display: flex;
-                align-items: center;
-
-                text {
-                    flex: 1;
-                    color: #615839;
-                }
-
-                input {
-                    flex: 3;
-                }
-
-            }
+        text {
+          flex: 1;
+          color: #615839;
+          font-weight: 100;
         }
 
-        .save-button {
-            button {
-                margin-top: 15px;
-                width: 80%;
-                border-radius: 30px;
-                font-size: 30px;
-                font-weight: 700;
-                background-color: #e6f4ff;
-            }
+        input {
+          flex: 3;
         }
+      }
     }
+
+    .save-button {
+      button {
+        margin-top: 15px;
+        width: 80%;
+        border-radius: 30px;
+        font-size: 30px;
+        font-weight: 700;
+        position: absolute;
+        left: 10%;
+        bottom: -5%;
+        z-index: 2;
+        background-color: #5680fa;
+        color: rgba(255, 255, 255, 1);
+        letter-spacing: 10px;
+      }
+    }
+  }
+}
+
+.loginBgI {
+  position: absolute;
+  .loginBg {
+    width: 100vw;
+    height: 50vh;
+    opacity: 0.5;
+  }
+}
+
+.loginTop {
+  position: absolute;
+  width: 80%;
+  height: 30%;
+  left: 10%;
+  top: 4%;
+  z-index: 1;
+
+  .loginTitle1 {
+    position: absolute;
+    left: 35%;
+    top: 5%;
+    font-size: 48px;
+    font-weight: bold;
+    color: #333;
+  }
+
+  .loginTitle2 {
+    position: absolute;
+    left: 27%;
+    top: 20%;
+    font-size: 24px;
+    color: #ccc;
+  }
 }
