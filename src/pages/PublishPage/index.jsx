@@ -2,12 +2,11 @@ import { View, Textarea, Input, Button, Form, ScrollView } from '@tarojs/compone
 import { AtIcon, AtDivider } from 'taro-ui'
 import ImagePicker from '../../components/ImagePicker'
 import VideoPicker from '../../components/VideoPicker'
-import Taro, { useLoad } from '@tarojs/taro'
+import Taro from '@tarojs/taro'
 import './index.scss'
 import { useState, useEffect } from 'react'
 
 export default function Index() {
-  // Taro.hideTabBar(); // 隐藏底部导航栏
   const user = Taro.getStorageSync('user')
   const [imageCount, setImageCount] = useState(0)
   const [imageFiles, setImageFiles] = useState([])

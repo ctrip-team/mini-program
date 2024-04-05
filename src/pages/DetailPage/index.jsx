@@ -13,6 +13,7 @@ export default function DetailPage() {
   const [currentImage, setCurrentImage] = useState(1)
   const [reason, setReason] = useState(null)
   const [iconColor, setIconColor] = useState('#000')
+  
   // 加载单独的travel详情
   useEffect(() => {
     Taro.request({
