@@ -11,8 +11,8 @@ export default function TravalListItem({ props }) {
   let status = props.status;
   function toEdit() {
     console.log("编辑" + props.id);
-    Taro.switchTab({
-      url: `/pages/PublishPage/index?travel_id=${props.id}`
+    Taro.navigateTo({
+      url: `/pages/EditPage/index?travel_id=${props.id}`
     })
   }
 
