@@ -94,47 +94,32 @@ export default function TravalListItem({ props }) {
         </View>
         <View className="lineHr"></View>
         <View className="downHalfOfItem">
-          {
-            status == 2 ?
-              <>
-                <View className="leftOfDown">
-                  <AtIcon value='check-circle' size='20' color='green'></AtIcon>
-                  <Text>已发布</Text>
-                </View>
-                <View className="rightOfDown">
-                  <View className="deleBtn" onClick={() => { setIsdelOpened(true) }}>删除</View>
-                </View>
-              </>
-              : <></>
-          }
-          {
-            status == 1 ?
-              <>
-                <View className="leftOfDown">
-                  <AtIcon value='close-circle' size='20' color='red'></AtIcon>
-                  <Text>未通过</Text>
-                </View>
-                <View className="rightOfDown">
-                  <View className="editBtn" onClick={toEdit}>修改</View>
-                  <View className="deleBtn" onClick={() => { setIsdelOpened(true) }}>删除</View>
-                </View>
-              </>
-              : <></>
-          }
-          {
-            status == 0 ?
-              <>
-                <View className="leftOfDown">
-                  <AtIcon value='bell' size='20' color='orange'></AtIcon>
-                  <Text>审核中</Text>
-                </View>
-                <View className="rightOfDown">
-                  <View className="editBtn" onClick={toEdit}>编辑</View>
-                  <View className="deleBtn" onClick={() => { setIsdelOpened(true) }}>删除</View>
-                </View>
-              </>
-              : <></>
-          }
+          <View className="leftOfDown">
+            {
+              status == 0 ?
+                <>
+                  <AtIcon value='bell' size='20' color='#fff' className="statusIcon-Auditing"></AtIcon>
+                  <Text className="statusText-Auditing">审核中</Text>
+                </> : (status == 1 ?
+                  <>
+                    <AtIcon value='close-circle' size='20' color='#fff' className="statusIcon-NoPass"></AtIcon>
+                    <Text className="statusText-NoPass">未通过</Text>
+                  </> :
+                  <>
+                    <AtIcon value='check-circle' size='20' color='#fff' className="statusIcon-Pass"></AtIcon>
+                    <Text className="statusText-Pass">已发布</Text>
+                  </>
+                )
+            }
+          </View>
+          <View className="rightOfDown">
+            <View className="editBtn" onClick={toEdit}>
+              <AtIcon value='edit' size='30' color='#6eabd4'></AtIcon>
+            </View>
+            <View className="deleBtn" onClick={() => { setIsdelOpened(true) }}>
+              <AtIcon value='trash' size='30' color='#F00'></AtIcon>
+            </View>
+          </View>
         </View>
       </View>
     </>

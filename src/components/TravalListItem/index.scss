@@ -52,17 +52,65 @@
   .leftOfDown {
     display: flex;
     align-items: center;
+    .statusIcon-Auditing {
+      background-color: orange;
+      border-radius: 50%;
+      padding: 15px 15px;
+    }
+    .statusText-Auditing {
+      position: absolute;
+      background-color: orange;
+      border-top-right-radius: 15px;
+      border-bottom-right-radius: 15px;
+      color: #fff;
+      padding: 5px 10px;
+      z-index: 1;
+      left: 16%;
+    }
+    .statusIcon-NoPass {
+      background-color: red;
+      border-radius: 50%;
+      padding: 15px 15px;
+    }
+    .statusText-NoPass {
+      position: absolute;
+      background-color: red;
+      border-top-right-radius: 15px;
+      border-bottom-right-radius: 15px;
+      color: #fff;
+      padding: 5px 10px;
+      z-index: 1;
+      left: 16%;
+    }
+    .statusIcon-Pass {
+      background-color: green;
+      border-radius: 50%;
+      padding: 15px 15px;
+    }
+    .statusText-Pass {
+      position: absolute;
+      background-color: green;
+      border-top-right-radius: 15px;
+      border-bottom-right-radius: 15px;
+      color: #fff;
+      padding: 5px 10px;
+      z-index: 1;
+      left: 16%;
+    }
   }
   .rightOfDown {
     display: flex;
     align-items: center;
   }
   .editBtn {
-    margin-right: 10px;
-    border: none;
+    margin-right: 50px;
+    padding: 1% 1%;
+    width: 50%;
+    border-radius: 15px;
   }
   .deleBtn {
-    border: none;
-    color: red;
+    padding: 1% 1%;
+    width: 50%;
+    border-radius: 15px;
   }
 }

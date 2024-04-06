@@ -1,9 +1,10 @@
-import { View, Text, ScrollView, GridView } from "@tarojs/components";
+import { View, Text, ScrollView, GridView, Image } from "@tarojs/components";
 import React, { useState, useEffect } from "react";
 import "./index.scss";
 import { AtAvatar, AtIcon } from 'taro-ui'
 import Taro from "@tarojs/taro";
 import MyInfoListItem from "../../components/MyInfoListItem";
+import NoneImage from "../../assets/img/none.jpg";
 
 export default function HomePage() {
   const [travelList, setTravelList] = useState([])
@@ -57,19 +58,31 @@ export default function HomePage() {
         </View>
       </View>
       <View className="travelsView">
-        <View className="travelsTitle">全部动态</View>
-        <View className="travelsList">
-          <ScrollView scrollY className="homeScrollViewArea">
-            <GridView type='masonry' mainAxisGap='10' crossAxisGap='5'>
-              {
-                travelList ? travelList.map((item, index) => (
-                  <MyInfoListItem props={{ videosrc: item.video_url, poster: item.poster, imgsrc: item.image_url, title: item.title, readnum: item.views, id: item.travel_id }} />
-                )) : <View className="noneView">还没有任何游记创作哦~</View>
-              }
-            </GridView>
-          </ScrollView>
-          <View className="endView">已经到底了哦~</View>
-        </View>
+        {
+          travelList.length ?
+            <>
+              <View className="travelsTitle">全部动态</View>
+              <View className="travelsList">
+                <ScrollView scrollY className="homeScrollViewArea">
+                  <GridView type='masonry' mainAxisGap='10' crossAxisGap='5'>
+                    {
+                      travelList.map((item, index) => (
+                        <MyInfoListItem props={{ videosrc: item.video_url, poster: item.poster, imgsrc: item.image_url, title: item.title, readnum: item.views, id: item.travel_id }} />
+                      ))
+                    }
+                  </GridView>
+                </ScrollView>
+              </View>
+            </> : <></>
+        }
+        {
+          travelList.length ?
+            <View className="endView">已经到底了哦~</View> :
+            <View className="noneView">
+              <Image src={NoneImage} className="noneViewIcon"></Image>
+              <Text>这个号很神秘，没有留下什么印记~</Text>
+            </View>
+        }
       </View>
     </View>
   )
