@@ -32,6 +32,7 @@ export default function MyTravals() {
             console.log(res.data)
             if (res.data.code == 2000) {
               console.log("网络请求成功")
+              console.log(res.data.data);
               setIsLoading(false)
               setListData(res.data.data)
               if (res.data.data.length <= 3 && res.data.data.length > 0) {
