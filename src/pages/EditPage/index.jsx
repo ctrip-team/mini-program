@@ -5,7 +5,7 @@ import { AtIcon, AtDivider } from 'taro-ui'
 import ImagePicker from '../../components/ImagePicker'
 import VideoPicker from '../../components/VideoPicker'
 import './index.scss'
-import { getTravelAPI, updatePosterAPI, updateTextAPI, updateVideoAPI } from '../../apis/travel'
+import { deleteAllImagesAPI, getTravelAPI, updatePosterAPI, updateTextAPI, updateVideoAPI } from '../../apis/travel'
 
 
 export default function EditPage() {
@@ -75,12 +75,34 @@ export default function EditPage() {
     }
 
     // 封装uploadFile
-    const uploadFile = (path) => {
+    const uploadFile = (path, index) => {
         return new Promise((resolve, reject) => {
             Taro.uploadFile({
-                url: `${process.env.TARO_APP_HOST}:${process.env.TARO_APP_PORT}/api/travel/updateImages/${editTravel.travel_id}`,
+                url: `${process.env.TARO_APP_HOST}:${process.env.TARO_APP_PORT}/api/travel/uploadImages/${editTravel.travel_id}`,
                 filePath: path,
                 name: 'image',
+                formData: {
+                    'order': index
+                },
+                success: resolve,
+                fail: reject
+            })
+        })
+    }
+
+    const uploadUrl = (url, index) => {
+        return new Promise((resolve, reject) => {
+            Taro.request({
+                url: `${process.env.TARO_APP_HOST}:${process.env.TARO_APP_PORT}/api/travel/updateOrder`,
+                data: {
+                    travel_id: editTravel.travel_id,
+                    url,
+                    order: index,
+                },
+                method: 'POST',
+                header: {
+                    'content-type': 'application/json'
+                },
                 success: resolve,
                 fail: reject
             })
@@ -91,8 +113,14 @@ export default function EditPage() {
     const updateImages = () => {
         console.log('看一下什么情况', imageFiles);
         let uploadPromises = []
-        imageFiles.forEach(item => {
-            uploadPromises.push(uploadFile(item))
+        imageFiles.forEach((item, index) => {
+            if (editTravel.imgs.includes(item)) {
+                console.log('index', index);
+                uploadPromises.push(uploadUrl(item, index))
+            }
+            else {
+                uploadPromises.push(uploadFile(item, index))
+            }
         })
         Promise.all(uploadPromises)
             .then(res => {
@@ -120,7 +148,12 @@ export default function EditPage() {
         console.log('更新poster', res.data);
     }
 
-    // 处理发布
+    const deleteAllImages = async () => {
+        const res = await deleteAllImagesAPI(editTravel.travel_id)
+        console.log('删除所有图片url', res.data);
+    }
+
+    // 处理编辑
     const handleSubmit = (e) => {
         e.preventDefault()
         // 验证通过
@@ -128,6 +161,8 @@ export default function EditPage() {
             const requestTask = updateText(e.detail.value)
             requestTask.then(res => {
                 if (haveImage) {
+                    // 更新前应该把之前的都删除
+                    deleteAllImages()
                     updateImages()
                     // Taro.redirectTo({ url: `/pages/MyTravels/index` })
                 } else {

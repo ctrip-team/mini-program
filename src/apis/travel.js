@@ -34,3 +34,12 @@ export function updatePosterAPI(travel_id, tempPoster) {
         name: 'poster',
     })
 }
+
+// 删除所有图片url
+export function deleteAllImagesAPI(travel_id) {
+    return Taro.request({
+        url: `${process.env.TARO_APP_HOST}:${process.env.TARO_APP_PORT}/api/travel/deleteImages`,
+        data: { travel_id },
+        method: 'POST',
+    })
+}

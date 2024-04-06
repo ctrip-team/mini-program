@@ -54,12 +54,15 @@ export default function Index() {
   }
 
   // 封装uploadFile
-  const uploadFile = (path, travel_id) => {
+  const uploadFile = (path, travel_id, order) => {
     return new Promise((resolve, reject) => {
       Taro.uploadFile({
         url: `${process.env.TARO_APP_HOST}:${process.env.TARO_APP_PORT}/api/travel/uploadImages/${travel_id}`,
         filePath: path,
         name: 'image',
+        formData: {
+          'order': order
+        },
         success: resolve,
         fail: reject
       })
@@ -69,8 +72,8 @@ export default function Index() {
   // 上传所有图片
   const uploadImages = (travel_id) => {
     let uploadPromises = []
-    imageFiles.forEach(item => {
-      uploadPromises.push(uploadFile(item, travel_id))
+    imageFiles.forEach((item, index) => {
+      uploadPromises.push(uploadFile(item, travel_id, index))
     })
     Promise.all(uploadPromises)
       .then(res => {

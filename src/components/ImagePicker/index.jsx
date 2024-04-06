@@ -10,16 +10,13 @@ export default function index({ imageCount, setImageCount, imageFiles, setImageF
             sizeType: ['original', 'compressed'],
             sourceType: ['album', 'camera'],
             success: async function (res) {
-                console.log('res', res);
                 var tempFilePaths = res.tempFilePaths
 
                 // 压缩图片
                 const compressImages = []
                 for (const item of tempFilePaths) {
                     let imgInfo = await getImgInfo(item);
-                    console.log('imgInfo', imgInfo);
                     let ctxInfo = await compressImage(imgInfo);
-                    console.log('ctxInfo', ctxInfo);
                     compressImages.push(ctxInfo.tempFilePath);
                 }
 
