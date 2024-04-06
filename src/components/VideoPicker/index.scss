@@ -1,8 +1,22 @@
-.show-video {
+.video-box {
+    box-sizing: border-box;
+    position: relative;
     border: dashed 1px #bfbfbf;
     width: 139px;
     height: 139px;
+
+    .show-video {
+        width: 139px;
+        height: 139px;
+    }
+
+    .delete-video {
+        position: absolute;
+        right: 5px;
+        top: 5px;
+    }
 }
+
 
 .add-video {
     flex-shrink: 0;
