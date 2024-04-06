@@ -146,7 +146,6 @@ export default function Index() {
     }
   }
 
-
   return (
     <>
       <View className='publish-container'>
