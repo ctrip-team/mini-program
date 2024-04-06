@@ -34,7 +34,6 @@ export default function index({ imageCount, setImageCount, imageFiles, setImageF
             sethaveImage(false)
         }
         setImageCount(imageCount - 1)
-
     }
 
     // 预览图片

@@ -5,7 +5,7 @@ import { AtIcon, AtDivider } from 'taro-ui'
 import ImagePicker from '../../components/ImagePicker'
 import VideoPicker from '../../components/VideoPicker'
 import './index.scss'
-import { getTravelAPI, updateTextAPI } from '../../apis/travel'
+import { getTravelAPI, updatePosterAPI, updateTextAPI, updateVideoAPI } from '../../apis/travel'
 
 
 export default function EditPage() {
@@ -34,6 +34,7 @@ export default function EditPage() {
                 sethaveVideo(true)
                 setTempVideoPath(travel.video_url)
                 setTempPoster(travel.poster)
+                setImageCount(1)
             } else {
                 sethaveImage(true)
                 setImageFiles(travel.imgs)
@@ -74,10 +75,10 @@ export default function EditPage() {
     }
 
     // 封装uploadFile
-    const uploadFile = (path, travel_id) => {
+    const uploadFile = (path) => {
         return new Promise((resolve, reject) => {
             Taro.uploadFile({
-                url: `${process.env.TARO_APP_HOST}:${process.env.TARO_APP_PORT}/api/travel/updateImages/${travel_id}`,
+                url: `${process.env.TARO_APP_HOST}:${process.env.TARO_APP_PORT}/api/travel/updateImages/${editTravel.travel_id}`,
                 filePath: path,
                 name: 'image',
                 success: resolve,
@@ -87,10 +88,11 @@ export default function EditPage() {
     }
 
     // 上传所有图片
-    const updateImages = (travel_id) => {
+    const updateImages = () => {
+        console.log('看一下什么情况', imageFiles);
         let uploadPromises = []
         imageFiles.forEach(item => {
-            uploadPromises.push(uploadFile(item, travel_id))
+            uploadPromises.push(uploadFile(item))
         })
         Promise.all(uploadPromises)
             .then(res => {
@@ -106,35 +108,16 @@ export default function EditPage() {
         if (!(editTravel.title === travelTitle && editTravel.content === richContent)) {
             await updateTextAPI(editTravel.travel_id, travelTitle, richContent)
         }
-        Taro.showToast({
-            title: '更新成功',
-            icon: 'success',
-            duration: 2000
-        })
     }
 
-    const uploadVideo = (travel_id) => {
-        Taro.uploadFile({
-            url: `${process.env.TARO_APP_HOST}:${process.env.TARO_APP_PORT}/api/travel/uploadVideo/${travel_id}`,
-            filePath: tempVideoPath,
-            name: 'video',
-            success(res) {
-                const data = res.data
-                console.log('上传视频', data);
-            }
-        })
+    const updateVideo = async () => {
+        const res = await updateVideoAPI(editTravel.travel_id, tempVideoPath)
+        console.log('更新视频', res.data);
     }
 
-    const uploadPoster = (travel_id) => {
-        Taro.uploadFile({
-            url: `${process.env.TARO_APP_HOST}:${process.env.TARO_APP_PORT}/api/travel/uploadPoster/${travel_id}`,
-            filePath: tempPoster,
-            name: 'poster',
-            success(res) {
-                const data = res.data
-                console.log('上传poster', data);
-            }
-        })
+    const updatePoster = async () => {
+        const res = await updatePosterAPI(editTravel.travel_id, tempPoster)
+        console.log('更新poster', res.data);
     }
 
     // 处理发布
@@ -145,16 +128,21 @@ export default function EditPage() {
             const requestTask = updateText(e.detail.value)
             requestTask.then(res => {
                 if (haveImage) {
-                    updateImages(res.data.travel_id)
+                    updateImages()
                     // Taro.redirectTo({ url: `/pages/MyTravels/index` })
                 } else {
-                    uploadVideo(res.data.travel_id)
-                    uploadPoster(res.data.travel_id)
+                    if (editTravel.video_url !== tempVideoPath) {
+                        updateVideo()
+                        updatePoster()
+                    }
                     // Taro.redirectTo({ url: `/pages/MyTravels/index` })
                 }
-
             })
-
+            Taro.showToast({
+                title: '更新成功',
+                icon: 'success',
+                duration: 2000
+            })
         }
     }
 

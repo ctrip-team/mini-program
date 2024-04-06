@@ -26,23 +26,34 @@ export default function VideoPicker({ sethaveVideo, haveVideo, tempVideoPath, se
         videoContext.requestFullScreen()
         videoContext.play()
     }
+
+    // 删除视频
+    const handleDeleteVideo = () => {
+        setTempVideoPath('')
+        setTempPoster('')
+        sethaveVideo(false)
+        setImageCount(0)
+    }
     return (
         <>
 
             {tempVideoPath &&
-                <Video
-                    className='show-video'
-                    id='previewVideo'
-                    onClick={handlePlay}
-                    src={tempVideoPath}
-                    poster={tempPoster}
-                    initialTime={0}
-                    controls={true}
-                    autoplay={false}
-                    loop={false}
-                    muted={false}
-                    direction={0}
-                />
+                <View className='video-box'>
+                    <Video
+                        className='show-video'
+                        id='previewVideo'
+                        onClick={handlePlay}
+                        src={tempVideoPath}
+                        poster={tempPoster}
+                        initialTime={0}
+                        controls={true}
+                        autoplay={false}
+                        loop={false}
+                        muted={false}
+                        direction={0}
+                    />
+                    <AtIcon className='delete-video' value='close-circle' size='20' onClick={handleDeleteVideo}></AtIcon>
+                </View>
             }
             {!haveVideo &&
                 <View className='add-video' onClick={handleAddVideo}>
