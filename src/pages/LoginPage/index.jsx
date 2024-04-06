@@ -13,7 +13,7 @@ export default function LoginPage() {
 
   function login() {
     // 处理登录逻辑
-    const regexOfUrn = /^.{4,12}$/
+    // const regexOfUrn = /^.{4,12}$/
     const regexOfPwd = /^(?=.*[a-zA-Z])(?=.*\d)[a-zA-Z\d]{6,12}$/
     if (username === '' || password === '') {
       Taro.showToast({
@@ -21,12 +21,12 @@ export default function LoginPage() {
         icon: 'none'
       })
     }
-    else if (!regexOfUrn.test(username)) {
-      Taro.showToast({
-        title: '用户名长度应该在4-12个字符',
-        icon: 'none'
-      })
-    }
+    // else if (!regexOfUrn.test(username)) {
+    //   Taro.showToast({
+    //     title: '用户名长度应该在4-12个字符',
+    //     icon: 'none'
+    //   })
+    // }
     else if (!regexOfPwd.test(password)) {
       Taro.showToast({
         title: '密码长度应该在6-12个字符且至少包含字母与数字',
