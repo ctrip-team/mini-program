@@ -12,6 +12,8 @@ export default function HomePage() {
   const [travels, setTravels] = useState(0)
   const [userInfo, setUserInfo] = useState({})
 
+  let showReadNum = 0
+
   useEffect(() => {
     Taro.request({
       url: `${process.env.TARO_APP_HOST}:${process.env.TARO_APP_PORT}/api/my/infodata`,
@@ -53,7 +55,14 @@ export default function HomePage() {
           </View>
           <View className="infoData">
             <View className="infoText">创作<Text className="infoNum">{travels}</Text></View>
-            <View className="infoText">浏览<Text className="infoNum">{views}</Text></View>
+            <View className="infoText">
+              浏览
+              <Text className="infoNum">
+                {
+                  views >= 10000 ? showReadNum = (views / 10000).toFixed(1) + '万' : views
+                }
+              </Text>
+            </View>
           </View>
         </View>
       </View>
