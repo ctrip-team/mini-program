@@ -96,7 +96,7 @@ export default function MyTravals() {
         <ScrollView className="Travals_scrollView">
           {
             listData && listData.map((item, index) => (
-              <TravalListItem props={{ id: item.travel_id, poster_url: item.poster_url, imgsrc: item.image_url, title: item.title, content: item.content, status: item.status, videosrc: item.video_url, reason: item.reason }} />
+              <TravalListItem props={{ travel_id: item.travel_id, poster_url: item.poster_url, image_url: item.image_url, title: item.title, content: item.content, status: item.status, video_url: item.video_url, reason: item.reason }} />
             ))
           }
           {

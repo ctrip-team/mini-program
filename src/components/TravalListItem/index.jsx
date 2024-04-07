@@ -10,19 +10,19 @@ export default function TravalListItem({ props }) {
 
   let status = props.status;
   function toEdit() {
-    console.log("编辑" + props.id);
+    console.log("编辑" + props.travel_id);
     Taro.navigateTo({
-      url: `/pages/EditPage/index?travel_id=${props.id}`
+      url: `/pages/EditPage/index?travel_id=${props.travel_id}`
     })
   }
 
   function toDelete() {
-    console.log("删除" + props.id);
+    console.log("删除" + props.travel_id);
     Taro.request({
       url: `${process.env.TARO_APP_HOST}:${process.env.TARO_APP_PORT}/api/my/deltravel`,
       method: 'POST',
       data: {
-        travel_id: props.id,
+        travel_id: props.travel_id,
       },
       header: {
         'content-type': 'application/json' // 默认值
@@ -55,14 +55,14 @@ export default function TravalListItem({ props }) {
   }
 
   function toDetailPage() {
-    if (props.videosrc) {
+    if (props.video_url) {
       Taro.navigateTo({
-        url: `/pages/VideoPage/index?travel_id=${props.id}`
+        url: `/pages/VideoPage/index?travel_id=${props.travel_id}`
       })
     }
     else {
       Taro.navigateTo({
-        url: `/pages/DetailPage/index?travel_id=${props.id}`
+        url: `/pages/DetailPage/index?travel_id=${props.travel_id}`
       })
     }
   }
@@ -83,9 +83,9 @@ export default function TravalListItem({ props }) {
       <View className="TravalListItemContianer">
         <View className="upHalfOfItem" onClick={toDetailPage}>
           {
-            props.videosrc ?
+            props.video_url ?
               <Image className='image' src={props.poster_url}></Image>
-              : <Image className='image' src={props.imgsrc}></Image>
+              : <Image className='image' src={props.image_url}></Image>
           }
           <View className="rightOfUp">
             <Text className="title">{props.title}</Text>

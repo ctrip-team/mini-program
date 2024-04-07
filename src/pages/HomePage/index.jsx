@@ -67,7 +67,7 @@ export default function HomePage() {
                   <GridView type='masonry' mainAxisGap='10' crossAxisGap='5'>
                     {
                       travelList.map((item, index) => (
-                        <MyInfoListItem props={{ videosrc: item.video_url, poster_url: item.poster_url, imgsrc: item.image_url, title: item.title, readnum: item.views, id: item.travel_id }} />
+                        <MyInfoListItem props={{ video_url: item.video_url, poster_url: item.poster_url, image_url: item.image_url, title: item.title, views: item.views, travel_id: item.travel_id }} />
                       ))
                     }
                   </GridView>

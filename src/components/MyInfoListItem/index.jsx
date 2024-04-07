@@ -14,8 +14,8 @@ export default function MyInfoListItem({ props }) {
       url: `${process.env.TARO_APP_HOST}:${process.env.TARO_APP_PORT}/api/index/addReadNum`,
       method: 'POST',
       data: {
-        id: props.id,
-        readnum: props.readnum + 1
+        id: props.travel_id,
+        readnum: props.views + 1
       },
       header: {
         'content-type': 'application/json'
@@ -33,14 +33,14 @@ export default function MyInfoListItem({ props }) {
       }
     })
     // 跳转到详情页
-    if (props.videosrc) {
+    if (props.video_url) {
       Taro.navigateTo({
-        url: `/pages/VideoPage/index?travel_id=${props.id}`
+        url: `/pages/VideoPage/index?travel_id=${props.travel_id}`
       })
     }
     else {
       Taro.navigateTo({
-        url: `/pages/DetailPage/index?travel_id=${props.id}`
+        url: `/pages/DetailPage/index?travel_id=${props.travel_id}`
       })
     }
   }
@@ -48,19 +48,19 @@ export default function MyInfoListItem({ props }) {
   return (
     <View className='listItemContainer' onClick={getDetail}>
       {
-        props.videosrc ?
+        props.video_url ?
           <Image className='listItemImage' src={props.poster_url}></Image>
 
-          : <Image className='listItemImage' src={props.imgsrc}></Image>
+          : <Image className='listItemImage' src={props.image_url}></Image>
       }
       <View className='listItemInfo-right'>
         {
-          props.videosrc ? <AtIcon value='video' size='15' color='#fff' className='videoIcon'></AtIcon> : <></>
+          props.video_url ? <AtIcon value='video' size='15' color='#fff' className='videoIcon'></AtIcon> : <></>
         }
         <AtIcon value='eye' size='15' color='#fff'></AtIcon>
         <Text className='listItemUsername'>
           {
-            props.readnum >= 10000 ? showReadNum = (props.readnum / 10000).toFixed(1) + '万' : props.readnum
+            props.views >= 10000 ? showReadNum = (props.views / 10000).toFixed(1) + '万' : props.views
           }
         </Text>
       </View>
