@@ -137,11 +137,23 @@ export default function Index() {
       requestTask.then(res => {
         if (haveImage) {
           uploadImages(res.data.travel_id)
-          Taro.redirectTo({ url: `/pages/MyTravels/index` })
+          Taro.showLoading({
+            title: '即将跳转~',
+          })
+          setTimeout(() => {
+            Taro.hideLoading()
+            Taro.redirectTo({ url: `/pages/MyTravels/index` })
+          }, 2000)
         } else {
           uploadVideo(res.data.travel_id)
           uploadPoster(res.data.travel_id)
-          Taro.redirectTo({ url: `/pages/MyTravels/index` })
+          Taro.showLoading({
+            title: '即将跳转~',
+          })
+          setTimeout(() => {
+            Taro.hideLoading()
+            Taro.redirectTo({ url: `/pages/MyTravels/index` })
+          }, 2000)
         }
 
       })
