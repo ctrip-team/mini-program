@@ -11,7 +11,7 @@ export default function MyInfo() {
   useEffect(() => {
     const user = Taro.getStorageSync('user')
     setMyInfo(user)
-  })
+  }, [])
 
   function toHomePage() {
     Taro.navigateTo({ url: `/pages/HomePage/index?user_id=${myInfo.user_id}` })
