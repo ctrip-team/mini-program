@@ -53,8 +53,8 @@ export default function IndexListItem({ props }) {
           <View>
             <Image className='listItemImage' src={props.poster} lazyLoad></Image>
             <View className='listItemIcon'>
-              {/* <AtIcon value='play' size='10' color='#fff'></AtIcon> */}
-              <View className='playIcon'></View>
+              <AtIcon value='play' size='10' color='#fff' className='playIcon'></AtIcon>
+              {/* <View className='playIcon'></View> */}
             </View>
           </View>
           : <Image className='listItemImage' src={props.imgsrc} lazyLoad></Image>
