@@ -1,16 +1,18 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Button, Text, View } from "@tarojs/components";
-import { useState, useEffect } from "react";
 import { AtAvatar } from 'taro-ui'
-import Taro from "@tarojs/taro";
+import Taro, { useDidShow } from "@tarojs/taro";
 import "./index.scss";
 
 export default function MyInfo() {
   const [myInfo, setMyInfo] = useState({});
 
+  useDidShow(() => {
+    setMyInfo(Taro.getStorageSync('user'))
+  })
+
   useEffect(() => {
-    const user = Taro.getStorageSync('user')
-    setMyInfo(user)
+    setMyInfo(Taro.getStorageSync('user'))
   }, [])
 
   function toHomePage() {
