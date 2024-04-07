@@ -55,7 +55,7 @@ export default function MyInfoListItem({ props }) {
       }
       <View className='listItemInfo-right'>
         {
-          props.videosrc ? <AtIcon value='video' size='15' color='#000' className='videoIcon'></AtIcon> : <></>
+          props.videosrc ? <AtIcon value='video' size='15' color='#fff' className='videoIcon'></AtIcon> : <></>
         }
         <AtIcon value='eye' size='15' color='#fff'></AtIcon>
         <Text className='listItemUsername'>

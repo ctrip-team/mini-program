@@ -33,7 +33,7 @@ export default function IndexListItem({ props }) {
       }
     })
     // 跳转到详情页
-    if (props.videosrc) {
+    if (props.video_url) {
       Taro.navigateTo({
         url: `/pages/VideoPage/index?travel_id=${props.id}`
       })
@@ -49,7 +49,7 @@ export default function IndexListItem({ props }) {
   return (
     <View className='listItemContainer' onClick={getDetail}>
       {
-        props.videosrc ?
+        props.video_url ?
           <View>
             <Image className='listItemImage' src={props.poster_url} lazyLoad></Image>
             <View className='listItemIcon'>

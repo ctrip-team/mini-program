@@ -7,6 +7,8 @@ import { AtAvatar } from "taro-ui";
 
 export default function UserListItem({ props }) {
 
+  let showReadNum = 0
+
   function toUserHomePage() {
     Taro.navigateTo({
       url: `/pages/HomePage/index?user_id=${props.user_id}`
@@ -21,7 +23,7 @@ export default function UserListItem({ props }) {
       <View className="UserInfomation" onClick={toUserHomePage}>
         <Text className="UserInfoName">{props.username}</Text>
         <View className="UserInfoData">
-          <View className="DataView">浏览量<Text className="UserInfoText">{props.views}</Text></View>
+          <View className="DataView">浏览量<Text className="UserInfoText">{props.views >= 10000 ? showReadNum = (props.views / 10000).toFixed(1) + '万' : props.views}</Text></View>
           <View className="DataView">游记<Text className="UserInfoText">{props.travelnum}</Text></View>
         </View>
       </View>
