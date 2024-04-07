@@ -170,7 +170,7 @@ export default function SearchResult() {
                 showEnd && (
                   <View className="noneRs">
                     <AtIcon value='file-generic' size='50' color='#ccc' className="noneRsIcon"></AtIcon>
-                    <Text>暂无符合条件的结果~</Text>
+                    <Text>暂无符合条件的结果</Text>
                   </View>
                 )
               }
@@ -193,7 +193,7 @@ export default function SearchResult() {
                 showEnd && (
                   <View className="noneRs">
                     <AtIcon value='file-generic' size='50' color='#ccc' className="noneRsIcon"></AtIcon>
-                    <Text>暂无符合条件的结果~</Text>
+                    <Text>暂无符合条件的结果</Text>
                   </View>
                 )
               }

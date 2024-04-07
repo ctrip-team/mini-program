@@ -18,15 +18,24 @@
 }
 
 .listItemInfo-right {
-  position: absolute;
+  position: relative;
   left: 2%;
-  top: 72%;
+  top: 75%;
   z-index: 1;
+  width: auto;
   background-color: #333;
   border-radius: 30px;
   opacity: 0.5;
   color: #fff;
   padding: 0 3%;
+  display: inline-block;
+}
+
+.videoIcon {
+  position: fixed;
+  right: 5%;
+  top: 5%;
+  z-index: 1;
 }
 
 .listItemAvatar {
@@ -61,10 +70,4 @@
 
 .listItemImage {
   width: 100%;
-  .videoIcon {
-    position: fixed;
-    right: 10%;
-    bottom: 10%;
-    z-index: 1;
-  }
 }

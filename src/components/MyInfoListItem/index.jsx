@@ -49,17 +49,20 @@ export default function MyInfoListItem({ props }) {
     <View className='listItemContainer' onClick={getDetail}>
       {
         props.videosrc ?
-          <View>
-            <Image className='listItemImage' src={props.poster}></Image>
-            <AtIcon value='video' size='15' color='#000' className='videoIcon'></AtIcon>
-          </View>
+          <Image className='listItemImage' src={props.poster}></Image>
+
           : <Image className='listItemImage' src={props.imgsrc}></Image>
       }
       <View className='listItemInfo-right'>
+        {
+          props.videosrc ? <AtIcon value='video' size='15' color='#000' className='videoIcon'></AtIcon> : <></>
+        }
         <AtIcon value='eye' size='15' color='#fff'></AtIcon>
-        <Text className='listItemUsername'>{
-          props.readnum >= 10000 ? showReadNum = (props.readnum / 10000).toFixed(1) + '万' : props.readnum
-        }</Text>
+        <Text className='listItemUsername'>
+          {
+            props.readnum >= 10000 ? showReadNum = (props.readnum / 10000).toFixed(1) + '万' : props.readnum
+          }
+        </Text>
       </View>
       <Text className='listItemTitle'>{props.title}</Text>
     </View>
