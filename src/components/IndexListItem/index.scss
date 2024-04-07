@@ -52,6 +52,7 @@
 
 .listItemImage {
   width: 100%;
+
   .videoIcon {
     position: fixed;
     right: 10%;
@@ -62,12 +63,22 @@
 
 .listItemIcon {
   position: absolute;
-  left: 2%;
+  right: 2%;
   top: 72%;
   z-index: 1;
   background-color: #333;
-  border-radius: 30px;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
   opacity: 0.5;
   color: #fff;
-  padding: 1% 4%;
+
+  .playIcon {
+    border: 6px solid transparent;
+    border-left: 10px solid #fff;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-24%, -50%);
+  }
 }
