@@ -49,6 +49,13 @@ export default function LoginPage() {
               url: '/pages/my/my'
             })
           }
+          else if (res.data.code == 2001) {
+            Taro.showToast({
+              title: '用户名或密码错误',
+              icon: 'none',
+              duration: 2000
+            })
+          }
           else {
             console.log("网络请求失败")
             Taro.showToast({

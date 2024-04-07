@@ -49,7 +49,7 @@ export default function MyInfoListItem({ props }) {
     <View className='listItemContainer' onClick={getDetail}>
       {
         props.videosrc ?
-          <Image className='listItemImage' src={props.poster}></Image>
+          <Image className='listItemImage' src={props.poster_url}></Image>
 
           : <Image className='listItemImage' src={props.imgsrc}></Image>
       }

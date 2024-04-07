@@ -175,9 +175,14 @@ export default function SearchResult() {
                 )
               }
               {
-                listData && listData.map((item, index) => (
-                  <UserListItem props={{ avatar: item.avatar, username: item.username, views: item.total_views, user_id: item.user_id, travelnum: item.total_travels }} />
-                ))
+                <GridView type='masonry' mainAxisGap='10' crossAxisGap='5'>
+                  {
+                    listData && listData.map((item, index) => (
+                      <UserListItem props={{ avatar: item.avatar, username: item.username, views: item.total_views, user_id: item.user_id, travelnum: item.total_travels }} />
+                    ))
+                  }
+                </GridView>
+
               }
               {
                 noData && (
@@ -201,7 +206,7 @@ export default function SearchResult() {
                 <GridView type='masonry' mainAxisGap='10' crossAxisGap='5'>
                   {
                     listData && listData.map((item, index) => (
-                      <IndexListItem props={{ imgsrc: item.image_url, title: item.title, avatar: item.avatar, username: item.username, readnum: item.views, id: item.travel_id }} />
+                      <IndexListItem props={{ poster_url: item.poster_url, video_url: item.video_url, imgsrc: item.image_url, title: item.title, avatar: item.avatar, username: item.username, readnum: item.views, id: item.travel_id }} />
                     ))
                   }
                 </GridView>
