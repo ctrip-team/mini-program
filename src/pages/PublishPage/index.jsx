@@ -186,19 +186,19 @@ export default function Index() {
         </ScrollView >
 
 
-        <AtDivider />
+        <AtDivider height={50} />
 
         <Form onSubmit={handleSubmit}>
           <Input type='text' name='travelTitle' className='travelTitle' placeholder='为你的游记起一个标题吧~' maxlength={30} />
-          <AtDivider />
+          <AtDivider height={50} />
 
           <Textarea
             name='travelContent'
             placeholder='分享你的游记内容，最多3000字'
-            style='background:#fff;width:100%;height:80px;'
+            style='background:#fff;width:100%;height:200px;'
             maxlength={3000}
           />
-          <AtDivider />
+          <AtDivider height={50} />
 
           <Button formType='submit' size='mini' className='publish-btn'>确认发布</Button>
         </Form>

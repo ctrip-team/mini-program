@@ -213,21 +213,21 @@ export default function EditPage() {
                 </ScrollView >
 
 
-                <AtDivider />
+                <AtDivider height={50} />
 
                 <Form onSubmit={handleSubmit}>
                     <Input type='text' name='travelTitle' className='travelTitle' placeholder='为你的游记起一个标题吧~' maxlength={30} value={formData.title} onInput={(e) => handleInputChange(e, 'title')} />
-                    <AtDivider />
+                    <AtDivider height={50} />
 
                     <Textarea
                         name='travelContent'
                         placeholder='分享你的游记内容，最多3000字'
-                        style='background:#fff;width:100%;height:80px;'
+                        style='background:#fff;width:100%;height:200px;'
                         maxlength={3000}
                         value={formData.content.replace(/<br>/g, "\n")}
                         onInput={(e) => handleInputChange(e, 'content')}
                     />
-                    <AtDivider />
+                    <AtDivider height={50} />
 
                     <Button formType='submit' size='mini' className='publish-btn'>确认编辑</Button>
                 </Form>
