@@ -1,32 +1,7 @@
 .indexScrollViewArea {
-  margin-left: 3%;
+  margin-left: 2%;
   width: 95%;
   background-color: #f5f5f5;
-}
-
-.back-to-top-button {
-  position: fixed;
-  bottom: 10%;
-  right: 5%;
-  z-index: 1;
-  background-color: #007bff;
-  color: #fff;
-  border-radius: 50%;
-  width: 100rpx;
-  height: 100rpx;
-  line-height: 40px;
-  text-align: center;
-  opacity: 0;
-  visibility: hidden;
-  transition: opacity 0.3s, visibility 0.3s;
-  &.show {
-    opacity: 1;
-    visibility: visible;
-  }
-  .toUpBtnInner {
-    justify-content: center;
-    align-items: center;
-  }
 }
 
 .indexEndText {
@@ -34,34 +9,6 @@
   left: 40%;
   margin-top: 10px;
   color: #ccc;
-}
-
-.flow {
-  padding: 0 8rpx;
-  flex-direction: row;
-  background-color: #f5f5f5;
-}
-
-.list {
-  width: 50%;
-  display: flex;
-  flex-direction: column;
-}
-
-.item {
-  height: 500rpx;
-  margin: 8rpx;
-  display: flex;
-  border-radius: 8rpx;
-  background-color: #ff9900;
-}
-
-.item2 {
-  height: 560rpx;
-  margin: 8rpx;
-  display: flex;
-  border-radius: 8rpx;
-  background-color: #ff0099;
 }
 
 @import "~taro-ui/dist/style/components/search-bar.scss";

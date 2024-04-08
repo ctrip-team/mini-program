@@ -5,6 +5,7 @@ import './index.scss'
 import IndexListItem from '../../components/IndexListItem'
 import { AtSearchBar } from 'taro-ui'
 import _ from 'lodash';
+import { VirtualWaterfall } from '@tarojs/components-advanced'
 
 export default function Index() {
 
@@ -21,6 +22,8 @@ export default function Index() {
   const throttledFetchData = _.throttle(getNextData, 500);
 
   useEffect(() => {
+    console.log(Taro.getSystemInfoSync().windowHeight)
+    console.log(Taro.getSystemInfoSync().windowWidth)
     //获取接口数据
     Taro.request({
       url: `${process.env.TARO_APP_HOST}:${process.env.TARO_APP_PORT}/api/index/index`,
@@ -100,10 +103,14 @@ export default function Index() {
   }
 
 
-  useReachBottom(() => {
-    console.log('onReachBottom')
+  // useReachBottom(() => {
+  //   console.log('onReachBottom')
+  //   throttledFetchData()
+  // })
+
+  function onScrollLower() {
     throttledFetchData()
-  })
+  }
 
   //搜索框响应
   function onChange(value) {
@@ -117,7 +124,6 @@ export default function Index() {
     })
   }
 
-
   return (
     <>
       <View onClick={toSearchPage}>
@@ -128,8 +134,26 @@ export default function Index() {
           placeholder='搜索关键词/标题/博客主'
         />
       </View>
-      <ScrollView className='indexScrollViewArea' type="custom">
-        {
+      <ScrollView className='indexScrollViewArea'>
+
+        <VirtualWaterfall
+          height={800}
+          width={'100%'}
+          item={({ data, id, index }) => {
+            return <IndexListItem id={id} props={data[index]} />;
+          }}
+          itemData={listData}
+          itemCount={listData.length}
+          unlimitedSize
+          column={2}
+          lowerThreshold={100}
+          onScrollToLower={onScrollLower}
+          placeholderCount={10}
+          overscanDistance={100}
+          enhanced
+        />
+
+        {/* {
           <CustomWrapper>
             <GridView type='masonry' mainAxisGap='10' crossAxisGap='5'>
               {
@@ -139,7 +163,7 @@ export default function Index() {
               }
             </GridView>
           </CustomWrapper>
-        }
+        } */}
         {
           showLoading && (
             <View className="loading">

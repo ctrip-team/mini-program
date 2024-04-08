@@ -4,7 +4,7 @@ import { AtAvatar, AtIcon } from 'taro-ui'
 import Taro from '@tarojs/taro'
 import './index.scss'
 
-export default function IndexListItem({ props }) {
+export default function IndexListItem({ props, id }) {
 
   let showReadNum = 0
 
@@ -48,7 +48,7 @@ export default function IndexListItem({ props }) {
 
 
   return (
-    <View id='element' className='listItemContainer' onClick={getDetail}>
+    <View id={id} className='listItemContainer' onClick={getDetail}>
       {
         props.video_url ?
           <View>

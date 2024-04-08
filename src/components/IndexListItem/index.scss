@@ -1,10 +1,13 @@
 .listItemContainer {
+  width: 97%;
   height: auto;
   border: 1px #ccc solid;
   border-radius: 10rpx;
   display: inline-block;
   overflow: hidden;
   background-color: #fff;
+  margin-left: 2%;
+  margin-bottom: 1%;
 }
 
 .listItemInfo {
@@ -36,7 +39,7 @@
 }
 
 .listItemTitle {
-  margin-left: 4%;
+  margin-left: 10rpx;
   display: -webkit-box;
   -webkit-box-orient: vertical;
   /* 设置子元素的排列方式为从上到下垂直排列 */
@@ -52,13 +55,6 @@
 
 .listItemImage {
   width: 100%;
-
-  .videoIcon {
-    position: fixed;
-    right: 10%;
-    bottom: 10%;
-    z-index: 1;
-  }
 }
 
 .listItemIcon {
