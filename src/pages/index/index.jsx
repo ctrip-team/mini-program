@@ -1,5 +1,5 @@
-import { View, Text, ScrollView, GridView, CustomWrapper } from '@tarojs/components'
-import Taro, { useReachBottom } from '@tarojs/taro'
+import { View, Text, ScrollView } from '@tarojs/components'
+import Taro from '@tarojs/taro'
 import React, { useState, useEffect } from 'react'
 import './index.scss'
 import IndexListItem from '../../components/IndexListItem'
@@ -102,12 +102,6 @@ export default function Index() {
     }
   }
 
-
-  // useReachBottom(() => {
-  //   console.log('onReachBottom')
-  //   throttledFetchData()
-  // })
-
   function onScrollLower() {
     throttledFetchData()
   }
@@ -135,7 +129,6 @@ export default function Index() {
         />
       </View>
       <ScrollView className='indexScrollViewArea'>
-
         <VirtualWaterfall
           height={800}
           width={'100%'}
@@ -152,18 +145,6 @@ export default function Index() {
           overscanDistance={100}
           enhanced
         />
-
-        {/* {
-          <CustomWrapper>
-            <GridView type='masonry' mainAxisGap='10' crossAxisGap='5'>
-              {
-                listData.map((item, index) => (
-                  <IndexListItem props={{ video_url: item.video_url, poster_url: item.poster_url, image_url: item.image_url, title: item.title, avatar: item.avatar, username: item.username, views: item.views, travel_id: item.travel_id }} />
-                ))
-              }
-            </GridView>
-          </CustomWrapper>
-        } */}
         {
           showLoading && (
             <View className="loading">
