@@ -58,6 +58,12 @@ export default function SearchPage() {
 
   //搜索记录点击跳转
   function toSearchHistory(item) {
+    let newHistory = history.filter((it) => {
+      return item !== it
+    })
+    newHistory = [item, ...newHistory]
+    setHistory(newHistory)
+    Taro.setStorage({ key: 'historySearch', data: newHistory })
     Taro.redirectTo({ url: `/pages/SearchResult/index?searchKey=${item}` })
   }
 

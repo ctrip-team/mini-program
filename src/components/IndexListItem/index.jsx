@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import { View, Text, Image, } from '@tarojs/components'
 import { AtAvatar, AtIcon } from 'taro-ui'
 import Taro from '@tarojs/taro'
@@ -46,15 +46,15 @@ export default function IndexListItem({ props }) {
 
   }
 
+
   return (
-    <View className='listItemContainer' onClick={getDetail}>
+    <View id='element' className='listItemContainer' onClick={getDetail}>
       {
         props.video_url ?
           <View>
             <Image className='listItemImage' src={props.poster_url} lazyLoad></Image>
             <View className='listItemIcon'>
               <AtIcon value='play' size='10' color='#fff' className='playIcon'></AtIcon>
-              {/* <View className='playIcon'></View> */}
             </View>
           </View>
           : <Image className='listItemImage' src={props.image_url} lazyLoad></Image>

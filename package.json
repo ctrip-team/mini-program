@@ -55,6 +55,7 @@
     "@tarojs/runtime": "3.6.25",
     "@tarojs/shared": "3.6.25",
     "@tarojs/taro": "3.6.25",
+    "lodash": "^4.17.21",
     "mobx": "^6.12.3",
     "react": "^18.0.0",
     "react-dom": "^18.0.0",
