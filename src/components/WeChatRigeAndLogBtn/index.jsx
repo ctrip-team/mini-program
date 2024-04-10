@@ -60,7 +60,6 @@ export default function WeChatRigeAndLogBtn() {
   const getUserInfo = () => {
     Taro.getUserInfo({
       success: function (res) {
-        console.log(147852);
         //获取open_id
         getOpenId(res.userInfo.nickName, res.userInfo.avatarUrl)
       },
@@ -81,7 +80,6 @@ export default function WeChatRigeAndLogBtn() {
             success: function (res) {
               console.log(res.data)
               if (res.data.code == 2000) {
-                // setOpenId(res.data.data)
                 isExist(res.data.data, username, avatar)
               }
               else {
@@ -111,7 +109,6 @@ export default function WeChatRigeAndLogBtn() {
       success: function (res) {
         console.log(res.data)
         if (res.data.code == 2000) {
-          // loginProcess(openId)
           Taro.setStorageSync('user', res.data.data)
           Taro.reLaunch({
             url: '/pages/my/my'

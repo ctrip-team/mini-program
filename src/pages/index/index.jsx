@@ -5,7 +5,7 @@ import './index.scss'
 import IndexListItem from '../../components/IndexListItem'
 import { AtSearchBar } from 'taro-ui'
 import _ from 'lodash';
-import { getIndexDataAPI } from '../../apis/index'
+import { getIndexDataAPI, getIndexFirstDataAPI } from '../../apis/index'
 import { showToast } from '../../utils/toast'
 // import { VirtualWaterfall } from '@tarojs/components-advanced'
 
@@ -24,11 +24,22 @@ export default function Index() {
   // 设置节流间隔为 500 毫秒  
   const throttledFetchData = _.throttle(getNextData, 500);
 
-  //首页获取数据
+  //首页获取后续数据
   const getIndexData = async () => {
     const res = await getIndexDataAPI()
     if (res.data.code == 2000) {
-      listData.length ? setListData([...listData, ...res.data.data]) : setListData(res.data.data)
+      setListData([...listData, ...res.data.data])
+    }
+    else {
+      showToast('网络请求失败,请检查网络设置！')
+    }
+  }
+
+  //获取首页开屏数据
+  const getFirstData = async () => {
+    const res = await getIndexFirstDataAPI()
+    if (res.data.code == 2000) {
+      setListData(res.data.data)
     }
     else {
       showToast('网络请求失败,请检查网络设置！')
@@ -37,7 +48,7 @@ export default function Index() {
 
   useEffect(() => {
     //获取接口数据
-    getIndexData()
+    getFirstData()
   }, [])
 
   function getNextData() {

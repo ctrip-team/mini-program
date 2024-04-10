@@ -1,12 +1,18 @@
 import Taro from '@tarojs/taro'
 
-// 获取首页首次加载的数据
+// 获取首页后续加载的数据
 export function getIndexDataAPI() {
   return Taro.request({
     url: `${process.env.TARO_APP_HOST}:${process.env.TARO_APP_PORT}/api/index/index`,
   })
 }
 
+// 获取首页首次加载的数据
+export function getIndexFirstDataAPI() {
+  return Taro.request({
+    url: `${process.env.TARO_APP_HOST}:${process.env.TARO_APP_PORT}/api/index/indexfirst`,
+  })
+}
 
 //获取搜素页数据
 export function getSearchDataAPI(data) {
