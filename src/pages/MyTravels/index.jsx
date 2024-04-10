@@ -4,7 +4,9 @@ import TravalListItem from "../../components/TravalListItem";
 import { useReachBottom } from "@tarojs/taro";
 import "./index.scss";
 import Taro from "@tarojs/taro";
-import { AtIcon } from 'taro-ui'
+import { AtIcon } from 'taro-ui';
+import { getUserTravelsAPI } from '../../apis/my';
+import { showToast } from '../../utils/toast';
 
 export default function MyTravals() {
   //判定是否到达底部
@@ -14,55 +16,42 @@ export default function MyTravals() {
   //存储数据
   const [listData, setListData] = useState([])
 
+  var user = Taro.getStorageSync('user')
+
+
+  //获取用户游记
+  const getUserTravels = async () => {
+    const data = {
+      user_id: user.user_id
+    }
+    const res = await getUserTravelsAPI(data)
+    if (res.data.code == 2000) {
+      setIsLoading(false)
+      setListData(res.data.data)
+      if (res.data.data.length <= 3 && res.data.data.length > 0) {
+        setIsEnd(true)
+      }
+    }
+    else if (res.data.code == 2001) {
+      setIsLoading(false)
+      setIsEnd(true)
+    }
+    else {
+      console.log("网络请求失败")
+      setIsLoading(false)
+      showToast('网络请求失败')
+    }
+  }
+
   useEffect(() => {
     try {
-      var user = Taro.getStorageSync('user')
-      console.log('user', user);
       if (user) {
         //获取接口数据
-        Taro.request({
-          url: `${process.env.TARO_APP_HOST}:${process.env.TARO_APP_PORT}/api/my/mytravels`,
-          data: {
-            user_id: user.user_id,
-          },
-          header: {
-            'content-type': 'application/json'
-          },
-          success: function (res) {
-            console.log(res.data)
-            if (res.data.code == 2000) {
-              console.log("网络请求成功")
-              console.log(res.data.data);
-              setIsLoading(false)
-              setListData(res.data.data)
-              if (res.data.data.length <= 3 && res.data.data.length > 0) {
-                setIsEnd(true)
-              }
-            }
-            else if (res.data.code == 2001) {
-              setIsLoading(false)
-              setIsEnd(true)
-            }
-            else {
-              console.log("网络请求失败")
-              setIsLoading(false)
-              Taro.showToast({
-                title: '网络请求失败',
-                icon: 'none'
-              })
-            }
-          },
-          fail: function (res) {
-            console.log("网络失败")
-          }
-        })
+        getUserTravels()
       }
       else {
         setIsLoading(false)
-        Taro.showToast({
-          title: '您还未登录，即将跳转登录页',
-          icon: 'none'
-        })
+        showToast('您还未登录，即将跳转登录页')
         //去往登录页
         setTimeout(function () {
           Taro.redirectTo({ url: '/pages/LoginPage/index' })

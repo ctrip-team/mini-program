@@ -5,75 +5,51 @@ import Taro from "@tarojs/taro";
 import "./index.scss";
 import loginBg from "../../assets/img/login_bg.png";
 import WeChatRigeAndLogBtn from "../../components/WeChatRigeAndLogBtn";
+import { userLoginAPI } from "../../apis/my";
+import { showToast } from '../../utils/toast'
 
 export default function LoginPage() {
 
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
 
-  function login() {
-    // 处理登录逻辑
-    // const regexOfUrn = /^.{4,12}$/
-    const regexOfPwd = /^(?=.*[a-zA-Z])(?=.*\d)[a-zA-Z\d]{6,12}$/
-    if (username === '' || password === '') {
-      Taro.showToast({
-        title: '用户名或密码不能为空~',
-        icon: 'none'
+
+  // 登录接口
+  const Login = async () => {
+    const data = {
+      username,
+      password,
+    }
+    const res = await userLoginAPI(data)
+    if (res.data.code == 2000) {
+      Taro.setStorageSync('user', res.data.data[0])
+      Taro.reLaunch({
+        url: '/pages/my/my'
       })
     }
-    // else if (!regexOfUrn.test(username)) {
-    //   Taro.showToast({
-    //     title: '用户名长度应该在4-12个字符',
-    //     icon: 'none'
-    //   })
-    // }
-    else if (!regexOfPwd.test(password)) {
+    else if (res.data.code == 2001) {
       Taro.showToast({
-        title: '密码长度应该在6-12个字符且至少包含字母与数字',
-        icon: 'none'
+        title: '用户名或密码错误',
+        icon: 'none',
+        duration: 2000
       })
     }
     else {
-      Taro.request({
-        url: `${process.env.TARO_APP_HOST}:${process.env.TARO_APP_PORT}/api/my/login`,
-        data: {
-          username: username,
-          password: password
-        },
-        method: 'POST',
-        success: function (res) {
-          console.log(res.data)
-          if (res.data.code == 2000) {
-            Taro.setStorageSync('user', res.data.data[0])
-            Taro.reLaunch({
-              url: '/pages/my/my'
-            })
-          }
-          else if (res.data.code == 2001) {
-            Taro.showToast({
-              title: '用户名或密码错误',
-              icon: 'none',
-              duration: 2000
-            })
-          }
-          else {
-            console.log("网络请求失败")
-            Taro.showToast({
-              title: '网络状况不佳，请检查网络设置',
-              icon: 'none',
-              duration: 2000
-            })
-          }
-        },
-        fail: function (res) {
-          console.log("网络失败")
-          Taro.showToast({
-            title: '网络状况不佳，请检查网络设置',
-            icon: 'none',
-            duration: 2000
-          })
-        }
-      })
+      showToast('网络状况不佳，请检查网络设置')
+    }
+  }
+
+  function login() {
+    // 处理登录逻辑
+    const regexOfPwd = /^(?=.*[a-zA-Z])(?=.*\d)[a-zA-Z\d]{6,12}$/
+    if (username === '' || password === '') {
+      showToast('用户名或密码不能为空~')
+    }
+    else if (!regexOfPwd.test(password)) {
+      showToast('密码长度应该在6-12个字符且至少包含字母与数字~')
+    }
+    else {
+      Login()
     }
   }
 
@@ -115,7 +91,6 @@ export default function LoginPage() {
             />
           </AtForm>
           <Button onClick={login} className="loginBtn">登录</Button>
-          {/* <Button onClick={loginByWeChat} className="loginBtnWeChat">微信快捷登录/注册</Button> */}
           <WeChatRigeAndLogBtn />
         </View>
         <View className="registerView" onClick={toRegister}>

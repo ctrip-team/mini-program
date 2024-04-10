@@ -4,8 +4,11 @@ import Taro, { getCurrentInstance, useReachBottom } from "@tarojs/taro";
 import IndexListItem from "../../components/IndexListItem/index";
 import UserListItem from "../../components/UserListItem";
 import { AtSearchBar, AtIcon } from "taro-ui";
+import { getSearchDataAPI, getUserSearchDataAPI } from '../../apis/index'
 import "./index.scss";
 import _ from 'lodash';
+import { showToast } from '../../utils/toast';
+
 
 export default function SearchResult() {
 
@@ -28,6 +31,50 @@ export default function SearchResult() {
 
   // 设置节流间隔为 500 毫秒  
   const throttledFetchData = _.throttle(getNextData, 500);
+
+  //获取全部结果数据
+  const getSearchData = async () => {
+    const data = {
+      searchKey: searchKey,
+      dataPage: dataPage * 10
+    }
+    const res = await getSearchFirstDataAPI(data)
+    if (res.code === 2000) {
+      listData.length ? setListData([...listData, ...res.data.data]) : setListData(res.data.data)
+      setDataPage(dataPage + 1)
+    }
+    else if (res.data.code == 2001) {
+      setListData([])
+      setShowEnd(true)
+    }
+    else if (res.statusCode == 429) {
+      showToast('请求频繁，请稍后再试')
+    }
+    else {
+      showToast('获取结果失败,请检查网络设置')
+    }
+  }
+
+  //获取用户结果数据
+  const getUserSearchData = async () => {
+    const data = {
+      searchKey: searchKey,
+    }
+    const res = await getUserSearchDataAPI(data)
+    if (res.data.code == 2000) {
+      setListData(res.data.data)
+    }
+    else if (res.data.code == 2001) {
+      setListData([])
+      setShowEnd(true)
+    }
+    else if (res.statusCode == 429) {
+      showToast('请求频繁，请稍后再试')
+    }
+    else {
+      showToast('获取结果失败,请检查网络设置')
+    }
+  }
 
   useEffect(() => {
     getFirstData()
@@ -62,84 +109,11 @@ export default function SearchResult() {
     setNoData(false)
     setSearchMode(false)
     setDataPage(dataPage)
-    Taro.request({
-      url: `${process.env.TARO_APP_HOST}:${process.env.TARO_APP_PORT}/api/index/searchTitle`,
-      data: {
-        searchKey: searchKey,
-        dataPage: dataPage * 10
-      },
-      header: {
-        'content-type': 'application/json' // 默认值
-      },
-      success: function (res) {
-        console.log(res.data)
-        if (res.data.code == 2000) {
-          setListData(res.data.data)
-          setDataPage(dataPage + 1)
-        }
-        else if (res.data.code == 2001) {
-          setListData([])
-          setShowEnd(true)
-        }
-        else if (res.statusCode == 429) {
-          Taro.showToast({
-            title: '请求频繁，请稍后再试',
-            icon: 'none',
-            duration: 2000
-          })
-        }
-        else {
-          console.log("请求失败")
-          Taro.showToast({
-            title: '获取结果失败,请检查网络设置',
-            icon: 'none',
-          })
-        }
-      },
-      fail: function (res) {
-        console.log("网络失败")
-      }
-    })
+    getSearchData()
   }
 
   function getNextData() {
-    Taro.request({
-      url: `${process.env.TARO_APP_HOST}:${process.env.TARO_APP_PORT}/api/index/searchTitle`,
-      data: {
-        searchKey: searchKey,
-        dataPage: dataPage * 10
-      },
-      header: {
-        'content-type': 'application/json' // 默认值
-      },
-      success: function (res) {
-        console.log(res.data)
-        if (res.data.code == 2000) {
-          setListData([...listData, ...res.data.data])
-          setDataPage(dataPage + 1)
-        }
-        else if (res.data.code == 2001) {
-          setNoData(true)
-        }
-        else if (res.statusCode == 429) {
-          Taro.showToast({
-            title: '请求频繁，请稍后再试',
-            icon: 'none',
-            duration: 2000
-          })
-        }
-        else {
-          console.log("请求失败")
-          Taro.showToast({
-            title: '获取结果失败,请检查网络设置',
-            icon: 'none',
-          })
-        }
-      },
-      fail: function (res) {
-        console.log("网络失败")
-      }
-    })
+    getSearchData()
   }
 
 
@@ -148,42 +122,7 @@ export default function SearchResult() {
     setNoData(false)
     setSearchMode(true)
     setDataPage(0)
-    Taro.request({
-      url: `${process.env.TARO_APP_HOST}:${process.env.TARO_APP_PORT}/api/index/searchUser`,
-      data: {
-        searchKey: searchKey
-      },
-      header: {
-        'content-type': 'application/json' // 默认值
-      },
-      success: function (res) {
-        console.log(res.data)
-        if (res.data.code == 2000) {
-          setListData(res.data.data)
-        }
-        else if (res.data.code == 2001) {
-          setListData([])
-          setShowEnd(true)
-        }
-        else if (res.statusCode == 429) {
-          Taro.showToast({
-            title: '请求频繁，请稍后再试',
-            icon: 'none',
-            duration: 2000
-          })
-        }
-        else {
-          console.log("请求失败")
-          Taro.showToast({
-            title: '获取结果失败,请检查网络设置',
-            icon: 'none',
-          })
-        }
-      },
-      fail: function (res) {
-        console.log("网络失败")
-      }
-    })
+    getUserSearchData()
   }
 
   return (

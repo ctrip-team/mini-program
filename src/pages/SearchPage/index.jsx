@@ -3,6 +3,7 @@ import React, { useState, useEffect } from "react";
 import Taro from "@tarojs/taro";
 import { AtSearchBar, AtIcon } from 'taro-ui'
 import "./index.scss";
+import { showToast } from '../../utils/toast';
 
 export default function SearchPage() {
   //输入框值
@@ -28,7 +29,7 @@ export default function SearchPage() {
 
   function toSearchResult() {
     if (queryKey.trim() === '') {
-      Taro.showToast({ title: '搜索内容不能为空哦~', icon: 'none' })
+      showToast('搜索内容不能为空哦~')
       return
     }
     else {

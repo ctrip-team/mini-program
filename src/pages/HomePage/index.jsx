@@ -5,6 +5,8 @@ import { AtAvatar, AtIcon } from 'taro-ui'
 import Taro from "@tarojs/taro";
 import MyInfoListItem from "../../components/MyInfoListItem";
 import NoneImage from "../../assets/img/none.jpg";
+import { getHomePageDataAPI } from '../../apis/my';
+import { showToast } from '../../utils/toast'
 
 export default function HomePage() {
   const [travelList, setTravelList] = useState([])
@@ -14,35 +16,25 @@ export default function HomePage() {
 
   let showReadNum = 0
 
+  //获取个人主页数据
+  const getHomePageData = async () => {
+    const data = {
+      id: Taro.getCurrentInstance().router.params.user_id
+    }
+    const res = await getHomePageDataAPI(data)
+    if (res.data.code == 2000) {
+      setTravelList(res.data.data.travelList)
+      setViews(res.data.data.totalView)
+      setTravels(res.data.data.totalTravel)
+      setUserInfo(res.data.data.userInfo)
+    }
+    else {
+      showToast('网络请求失败,请检查网络设置！')
+    }
+  }
+
   useEffect(() => {
-    Taro.request({
-      url: `${process.env.TARO_APP_HOST}:${process.env.TARO_APP_PORT}/api/my/infodata`,
-      data: {
-        id: Taro.getCurrentInstance().router.params.user_id
-      },
-      header: {
-        'content-type': 'application/json' // 默认值
-      },
-      success: function (res) {
-        console.log('HomePage', res)
-        if (res.data.code == 2000) {
-          setTravelList(res.data.data.travelList)
-          setViews(res.data.data.totalView)
-          setTravels(res.data.data.totalTravel)
-          setUserInfo(res.data.data.userInfo)
-        }
-        else {
-          console.log("网络请求失败")
-          Taro.showToast({
-            Title: '网络请求失败,请检查网络设置！',
-            icon: 'none',
-          })
-        }
-      },
-      fail: function (res) {
-        console.log("网络失败")
-      }
-    })
+    getHomePageData()
   }, [])
 
   return (

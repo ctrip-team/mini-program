@@ -4,6 +4,7 @@ import { AtAvatar } from 'taro-ui'
 import Taro from "@tarojs/taro";
 import './index.scss';
 import loginBg from "../../assets/img/login_bg.png";
+import { showToast } from '../../utils/toast'
 
 export default function InfoPage() {
   const [user, setUser] = useState({})
@@ -50,11 +51,7 @@ export default function InfoPage() {
           userId: user.user_id
         },
         success(res) {
-          Taro.showToast({
-            title: '更新成功',
-            icon: 'none',
-            duration: 2000
-          })
+          showToast('更新成功')
           Taro.setStorageSync('user', JSON.parse(res.data).user)
           setUser(JSON.parse(res.data).user)
         }
@@ -62,11 +59,7 @@ export default function InfoPage() {
     }
     else {
       if (username === user.username && password === user.password) {
-        Taro.showToast({
-          title: '保存成功',
-          icon: 'none',
-          duration: 2000
-        })
+        showToast('保存成功')
       } else {
         Taro.request({
           url: `${process.env.TARO_APP_HOST}:${process.env.TARO_APP_PORT}/api/user/updateInfo`,

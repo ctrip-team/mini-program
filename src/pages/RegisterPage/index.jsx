@@ -4,6 +4,8 @@ import { AtInput, AtForm } from 'taro-ui'
 import Taro from "@tarojs/taro";
 import './index.scss'
 import loginBg from "../../assets/img/login_bg.png";
+import { userRegisterAPI } from "../../apis/my";
+import { showToast } from '../../utils/toast';
 
 export default function RegisterPage() {
 
@@ -11,33 +13,42 @@ export default function RegisterPage() {
   const [password, setPassword] = useState('')
   const [checkpassword, setCheckpassword] = useState('')
 
+  //用户注册
+  const userRegister = async (code) => {
+    const data = {
+      username: username,
+      password: password,
+      code: code,
+    }
+    const res = await userRegisterAPI(data)
+    if (res.data.code == 2000) {
+      Taro.redirectTo({
+        url: '/pages/LoginPage/index'
+      })
+    }
+    else if (res.data.code == 2002) {
+      showToast('用户名已存在')
+    }
+    else {
+      showToast('网络状况不佳，请检查网络设置')
+    }
+  }
+
   function register() {
     // 处理注册逻辑
     const regexOfUrn = /^.{4,12}$/
     const regexOfPwd = /^(?=.*[a-zA-Z])(?=.*\d)[a-zA-Z\d]{6,12}$/
     if (username === '' || password === '') {
-      Taro.showToast({
-        title: '用户名或密码不能为空~',
-        icon: 'none'
-      })
+      showToast('用户名或密码不能为空')
     }
     else if (!regexOfUrn.test(username)) {
-      Taro.showToast({
-        title: '用户名长度应该在4-12个字符',
-        icon: 'none'
-      })
+      showToast('用户名长度应该在4-12个字符')
     }
     else if (!regexOfPwd.test(password)) {
-      Taro.showToast({
-        title: '密码长度应该在6-12个字符且至少包含字母与数字',
-        icon: 'none'
-      })
+      showToast('密码长度应该在6-12个字符且至少包含字母与数字')
     }
     else if (password !== checkpassword) {
-      Taro.showToast({
-        title: '密码输入不一致，请检查后重新输入',
-        icon: 'none'
-      })
+      showToast('密码输入不一致，请检查后重新输入')
     }
     else {
       //先获取用户微信openid
@@ -45,46 +56,7 @@ export default function RegisterPage() {
         success: function (res) {
           if (res.code) {
             //发起网络请求
-            Taro.request({
-              url: `${process.env.TARO_APP_HOST}:${process.env.TARO_APP_PORT}/api/my/register`,
-              data: {
-                username: username,
-                password: password,
-                code: res.code
-              },
-              method: 'POST',
-              success: function (res) {
-                console.log(res.data)
-                if (res.data.code == 2000) {
-                  Taro.redirectTo({
-                    url: '/pages/LoginPage/index'
-                  })
-                }
-                else if (res.data.code == 2002) {
-                  Taro.showToast({
-                    title: '用户名已存在',
-                    icon: 'none'
-                  })
-                }
-                else {
-                  console.log("网络请求失败")
-                  Taro.showToast({
-                    title: '网络状况不佳，请检查网络设置',
-                    icon: 'none',
-                    duration: 2000
-                  })
-                }
-
-              },
-              fail: function (res) {
-                console.log("网络失败")
-                Taro.showToast({
-                  title: '网络状况不佳，请检查网络设置',
-                  icon: 'none',
-                  duration: 2000
-                })
-              }
-            })
+            userRegister(res.code)
           }
           else {
             console.log(res.errMsg)
@@ -93,8 +65,6 @@ export default function RegisterPage() {
       })
     }
   }
-
-
 
 
   return (
