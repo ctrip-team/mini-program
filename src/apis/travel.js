@@ -27,6 +27,7 @@ export function updateVideoAPI(travel_id, tempVideoPath) {
     })
 }
 
+// 更新游记封面
 export function updatePosterAPI(travel_id, tempPoster) {
     return Taro.uploadFile({
         url: `${process.env.TARO_APP_HOST}:${process.env.TARO_APP_PORT}/api/travel/updatePoster/${travel_id}`,

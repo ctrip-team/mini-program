@@ -1,7 +1,7 @@
-import { View, Text, ScrollView, Swiper, SwiperItem, Image, Button, Video } from '@tarojs/components'
-import Taro, { useLoad, useRouter, useShareAppMessage } from '@tarojs/taro'
+import { View, Video } from '@tarojs/components'
+import Taro from '@tarojs/taro'
 import { useState, useEffect, useRef, forwardRef, useImperativeHandle } from 'react'
-import { AtAvatar, AtIcon } from 'taro-ui'
+import { AtIcon } from 'taro-ui'
 import VideoRight from './VideoRight'
 import VideoBottom from './VideoBottom'
 import './index.scss'
@@ -40,7 +40,22 @@ const VideoPlayer = forwardRef(function ({ travel, index }, ref) {
     }
 
     useEffect(() => {
-        getById()
+        Taro.request({
+            url: `${process.env.TARO_APP_HOST}:${process.env.TARO_APP_PORT}/api/user/getById`,
+            method: 'POST',
+            data: {
+                user_id: travel.user_id
+            },
+            header: {
+                'content-type': 'application/json'
+            },
+            success: function (res) {
+                setUser(res.data.user)
+            },
+            fail: function (res) {
+                console.log("网络失败")
+            }
+        })
         if (index === 0) {
             setAutoPlay(true)
             setIsPlay(true)
@@ -54,7 +69,7 @@ const VideoPlayer = forwardRef(function ({ travel, index }, ref) {
         timer.current = setTimeout(() => {
             if (doubleClick.current) {
                 doubleClick.current = false
-                setColor('pink')
+                setColor('red')
             } else {
                 if (isPlay) {
                     videoContext.pause()
@@ -77,7 +92,6 @@ const VideoPlayer = forwardRef(function ({ travel, index }, ref) {
                     id={`videoPlayer${travel.travel_id}`}
                     className='video-player'
                     src={travel.video_url}
-                    // poster='https://misc.aotu.io/booxood/mobile-video/cover_900x500.jpg'
                     initialTime={0}
                     controls={false}
                     showCenterPlayBtn={false}
