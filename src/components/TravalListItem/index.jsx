@@ -73,8 +73,8 @@ export default function TravalListItem({ props }) {
         <View className="upHalfOfItem" onClick={toDetailPage}>
           {
             props.video_url ?
-              <Image className='image' src={props.poster_url}></Image>
-              : <Image className='image' src={props.image_url}></Image>
+              <Image className='image' src={props.poster_url} lazyLoad='true' mode="aspectFit"></Image>
+              : <Image className='image' src={props.image_url} lazyLoad='true' mode="aspectFit"></Image>
           }
           <View className="rightOfUp">
             <Text className="title">{props.title}</Text>

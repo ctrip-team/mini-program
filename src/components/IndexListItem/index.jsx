@@ -39,12 +39,12 @@ export default function IndexListItem({ props, id }) {
       {
         props.video_url ?
           <View>
-            <Image className='listItemImage' src={props.poster_url} lazyLoad></Image>
+            <Image className='listItemImage' src={props.poster_url} lazyLoad='true' mode='widthFix'></Image>
             <View className='listItemIcon'>
               <AtIcon value='play' size='10' color='#fff' className='playIcon'></AtIcon>
             </View>
           </View>
-          : <Image className='listItemImage' src={props.image_url} lazyLoad></Image>
+          : <Image className='listItemImage' src={props.image_url} lazyLoad='true' mode='widthFix'></Image>
       }
       <Text className='listItemTitle'>{props.title}</Text>
       <View className='listItemInfo'>

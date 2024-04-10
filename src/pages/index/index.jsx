@@ -1,4 +1,4 @@
-import { View, Text, ScrollView, GridView, CustomWrapper } from '@tarojs/components'
+import { View, Text, ScrollView, GridView } from '@tarojs/components'
 import Taro, { useReachBottom } from '@tarojs/taro'
 import React, { useState, useEffect } from 'react'
 import './index.scss'
@@ -36,8 +36,6 @@ export default function Index() {
   }
 
   useEffect(() => {
-    console.log(Taro.getSystemInfoSync().windowHeight)
-    console.log(Taro.getSystemInfoSync().windowWidth)
     //获取接口数据
     getIndexData()
   }, [])
@@ -104,15 +102,13 @@ export default function Index() {
         /> */}
 
         {
-          <CustomWrapper>
-            <GridView type='masonry' mainAxisGap='10' crossAxisGap='5'>
-              {
-                listData.map((item, index) => (
-                  <IndexListItem props={{ video_url: item.video_url, poster_url: item.poster_url, image_url: item.image_url, title: item.title, avatar: item.avatar, username: item.username, views: item.views, travel_id: item.travel_id }} />
-                ))
-              }
-            </GridView>
-          </CustomWrapper>
+          <GridView type='masonry' mainAxisGap='10' crossAxisGap='5'>
+            {
+              listData.map((item, index) => (
+                <IndexListItem props={{ video_url: item.video_url, poster_url: item.poster_url, image_url: item.image_url, title: item.title, avatar: item.avatar, username: item.username, views: item.views, travel_id: item.travel_id }} />
+              ))
+            }
+          </GridView>
         }
         {
           showLoading && (
