@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Button } from "@tarojs/components";
 import './index.scss'
 import Taro from "@tarojs/taro";
+import { showToast } from '../../utils/toast'
 
 export default function WeChatRigeAndLogBtn() {
 
@@ -50,10 +51,7 @@ export default function WeChatRigeAndLogBtn() {
           getUserInfo()
         } else {
           // 用户拒绝授权，提示授权失败
-          Taro.showToast({
-            title: '授权失败',
-            icon: 'none'
-          });
+          showToast('授权失败')
         }
       }
     });
@@ -63,20 +61,9 @@ export default function WeChatRigeAndLogBtn() {
     Taro.getUserInfo({
       success: function (res) {
         console.log(147852);
-        //获取哦open_id
+        //获取open_id
         getOpenId(res.userInfo.nickName, res.userInfo.avatarUrl)
-
-        // var userInfo = res.userInfo
-        // var nickName = userInfo.nickName
-        // var avatarUrl = userInfo.avatarUrl
-        // var gender = userInfo.gender //性别 0：未知、1：男、2：女
-        // var province = userInfo.province
-        // var city = userInfo.city
-        // var country = userInfo.country
       },
-      complete: function () {
-        console.log(25369);
-      }
     })
   };
 
@@ -98,22 +85,12 @@ export default function WeChatRigeAndLogBtn() {
                 isExist(res.data.data, username, avatar)
               }
               else {
-                console.log("网络请求失败")
-                Taro.showToast({
-                  title: '网络状况不佳，请检查网络设置',
-                  icon: 'none',
-                  duration: 2000
-                })
+                showToast('网络状况不佳，请检查网络设置')
               }
 
             },
             fail: function (res) {
-              console.log("网络失败")
-              Taro.showToast({
-                title: '网络状况不佳，请检查网络设置',
-                icon: 'none',
-                duration: 2000
-              })
+              showToast('网络状况不佳，请检查网络设置')
             }
           })
         }
@@ -144,22 +121,13 @@ export default function WeChatRigeAndLogBtn() {
           registerProcess(username, avatar, openId)
         }
         else {
-          console.log("网络请求失败")
-          Taro.showToast({
-            title: '网络状况不佳，请检查网络设置',
-            icon: 'none',
-            duration: 2000
-          })
+          showToast('网络状况不佳，请检查网络设置')
         }
 
       },
       fail: function (res) {
-        console.log("网络失败")
-        Taro.showToast({
-          title: '网络状况不佳，请检查网络设置',
-          icon: 'none',
-          duration: 2000
-        })
+        showToast('网络状况不佳，请检查网络设置')
+
       }
     })
   }
@@ -191,21 +159,11 @@ export default function WeChatRigeAndLogBtn() {
           })
         }
         else {
-          console.log("网络请求失败")
-          Taro.showToast({
-            title: '网络状况不佳，请检查网络设置',
-            icon: 'none',
-            duration: 2000
-          })
+          showToast('网络状况不佳，请检查网络设置')
         }
       },
       fail: function (res) {
-        console.log("网络失败")
-        Taro.showToast({
-          title: '网络状况不佳，请检查网络设置',
-          icon: 'none',
-          duration: 2000
-        })
+        showToast('网络状况不佳，请检查网络设置')
       }
     })
   }

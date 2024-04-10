@@ -3,6 +3,7 @@ import Taro, { useRouter, useShareAppMessage } from '@tarojs/taro'
 import { useState, useEffect } from 'react'
 import { AtAvatar, AtIcon } from 'taro-ui'
 import './index.scss'
+import { showToast } from '../../utils/toast'
 
 export default function DetailPage() {
 
@@ -13,7 +14,7 @@ export default function DetailPage() {
   const [currentImage, setCurrentImage] = useState(1)
   const [reason, setReason] = useState(null)
   const [iconColor, setIconColor] = useState('#000')
-  
+
   // 加载单独的travel详情
   useEffect(() => {
     Taro.request({
@@ -28,12 +29,7 @@ export default function DetailPage() {
         }
       },
       fail: function (res) {
-        console.log("网络失败")
-        Taro.showToast({
-          title: '网络状况不佳，请检查网络设置',
-          icon: 'none',
-          duration: 2000
-        })
+        showToast('网络状况不佳，请检查网络设置')
       }
     })
   }, [])

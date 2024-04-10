@@ -1,37 +1,26 @@
-import React, { useState, useEffect } from 'react'
+import React from 'react'
 import { View, Text, Image, } from '@tarojs/components'
 import { AtAvatar, AtIcon } from 'taro-ui'
 import Taro from '@tarojs/taro'
 import './index.scss'
+import { addReadNumAPI } from '../../apis/index'
 
 export default function IndexListItem({ props, id }) {
 
   let showReadNum = 0
 
+  const addReadNum = async () => {
+    const data = {
+      id: props.travel_id,
+      readnum: props.views + 1
+    }
+    const res = await addReadNumAPI(data)
+    console.log(res)
+  }
+
   function getDetail() {
     //增加阅读量
-    Taro.request({
-      url: `${process.env.TARO_APP_HOST}:${process.env.TARO_APP_PORT}/api/index/addReadNum`,
-      method: 'POST',
-      data: {
-        id: props.travel_id,
-        readnum: props.views + 1
-      },
-      header: {
-        'content-type': 'application/json'
-      },
-      success: function (res) {
-        if (res.data.code == 2000) {
-          console.log("增加成功")
-        }
-        else {
-          console.log("增加失败")
-        }
-      },
-      fail: function (res) {
-        console.log("网络失败")
-      }
-    })
+    addReadNum()
     // 跳转到详情页
     if (props.video_url) {
       Taro.navigateTo({
@@ -43,9 +32,7 @@ export default function IndexListItem({ props, id }) {
         url: `/pages/DetailPage/index?travel_id=${props.travel_id}`
       })
     }
-
   }
-
 
   return (
     <View id={id} className='listItemContainer' onClick={getDetail}>

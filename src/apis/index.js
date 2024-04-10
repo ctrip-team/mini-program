@@ -12,7 +12,6 @@ export function getIndexDataAPI() {
 export function getSearchDataAPI(data) {
   return Taro.request({
     url: `${process.env.TARO_APP_HOST}:${process.env.TARO_APP_PORT}/api/index/searchTitle`,
-    method: 'POST',
     data: data,
   })
 }
@@ -21,6 +20,14 @@ export function getSearchDataAPI(data) {
 export function getUserSearchDataAPI(data) {
   return Taro.request({
     url: `${process.env.TARO_APP_HOST}:${process.env.TARO_APP_PORT}/api/index/searchUser`,
+    data: data,
+  })
+}
+
+//增加游记浏览量
+export function addReadNumAPI(data) {
+  return Taro.request({
+    url: `${process.env.TARO_APP_HOST}:${process.env.TARO_APP_PORT}/api/index/addReadNum`,
     method: 'POST',
     data: data,
   })

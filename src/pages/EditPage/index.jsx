@@ -6,6 +6,7 @@ import ImagePicker from '../../components/ImagePicker'
 import VideoPicker from '../../components/VideoPicker'
 import './index.scss'
 import { deleteAllImagesAPI, getTravelAPI, updatePosterAPI, updateTextAPI, updateVideoAPI } from '../../apis/travel'
+import { showToast } from '../../utils/toast'
 
 
 export default function EditPage() {
@@ -47,27 +48,15 @@ export default function EditPage() {
     // 验证是否符合发布标准
     const handleValidation = (values) => {
         if (imageCount === 0) {
-            Taro.showToast({
-                title: '至少选择上传一张图片或一个视频哦~',
-                icon: "none",
-                duration: 2000
-            })
+            showToast('至少选择上传一张图片或一个视频哦~')
             return false
         }
         const { travelTitle, travelContent } = values
         if (travelTitle.trim() === '') {
-            Taro.showToast({
-                title: '标题不能为空哦~',
-                icon: "none",
-                duration: 2000
-            })
+            showToast('标题不能为空哦~')
             return false
         } else if (travelContent.trim() === '') {
-            Taro.showToast({
-                title: '游记内容不能为空哦~',
-                icon: "none",
-                duration: 2000
-            })
+            showToast('游记内容不能为空哦~')
             return false
         }
 
@@ -173,11 +162,7 @@ export default function EditPage() {
                     // Taro.redirectTo({ url: `/pages/MyTravels/index` })
                 }
             })
-            Taro.showToast({
-                title: '更新成功',
-                icon: 'success',
-                duration: 2000
-            })
+            showToast('更新成功')
         }
     }
 

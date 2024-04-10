@@ -4,6 +4,9 @@ import { useState, useEffect, useRef } from 'react'
 import React from 'react'
 import VideoPlayer from '../../components/VideoPlayer'
 import './index.scss'
+import { showToast } from '../../utils/toast'
+
+
 function VideoPage() {
     const router = useRouter()
     const { travel_id } = router.params
@@ -20,12 +23,7 @@ function VideoPage() {
                 setTravels(res.data.travels)
             },
             fail: function (res) {
-                console.log("网络失败")
-                Taro.showToast({
-                    title: '网络状况不佳，请检查网络设置',
-                    icon: 'none',
-                    duration: 2000
-                })
+                showToast('网络状况不佳，请检查网络设置')
             }
         })
     }, [])

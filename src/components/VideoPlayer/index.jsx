@@ -5,6 +5,7 @@ import { AtAvatar, AtIcon } from 'taro-ui'
 import VideoRight from './VideoRight'
 import VideoBottom from './VideoBottom'
 import './index.scss'
+import { getByIdAPI } from '../../apis/user'
 
 const VideoPlayer = forwardRef(function ({ travel, index }, ref) {
 
@@ -28,24 +29,18 @@ const VideoPlayer = forwardRef(function ({ travel, index }, ref) {
         }
     }));
 
+    const getById = async () => {
+        const data = {
+            user_id: travel.user_id
+        }
+        const res = await getByIdAPI(data)
+        if (res.data.code == 2000) {
+            setUser(res.data.user)
+        }
+    }
+
     useEffect(() => {
-        Taro.request({
-            url: `${process.env.TARO_APP_HOST}:${process.env.TARO_APP_PORT}/api/user/getById`,
-            method: 'POST',
-            data: {
-                user_id: travel.user_id
-            },
-            header: {
-                'content-type': 'application/json'
-            },
-            success: function (res) {
-                console.log('看看用户', res.data.user);
-                setUser(res.data.user)
-            },
-            fail: function (res) {
-                console.log("网络失败")
-            }
-        })
+        getById()
         if (index === 0) {
             setAutoPlay(true)
             setIsPlay(true)

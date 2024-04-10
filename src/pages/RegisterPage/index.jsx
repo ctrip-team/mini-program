@@ -12,9 +12,10 @@ export default function RegisterPage() {
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
   const [checkpassword, setCheckpassword] = useState('')
+  const [code, setCode] = useState('')
 
   //用户注册
-  const userRegister = async (code) => {
+  const userRegister = async () => {
     const data = {
       username: username,
       password: password,
@@ -56,7 +57,8 @@ export default function RegisterPage() {
         success: function (res) {
           if (res.code) {
             //发起网络请求
-            userRegister(res.code)
+            setCode(res.code)
+            userRegister()
           }
           else {
             console.log(res.errMsg)

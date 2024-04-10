@@ -4,49 +4,38 @@ import { AtIcon } from 'taro-ui'
 import { AtModal, AtModalHeader, AtModalContent, AtModalAction, AtNoticebar } from "taro-ui"
 import "./index.scss";
 import Taro from "@tarojs/taro";
+import { DeleteTravelAPI } from "../../apis/my";
+import { showToast } from "../../utils/toast";
 
 export default function TravalListItem({ props }) {
   const [isdelOpened, setIsdelOpened] = useState(false);
 
   let status = props.status;
+
+  const deleteTravel = async () => {
+    const data = {
+      travel_id: props.travel_id,
+    }
+    const res = await DeleteTravelAPI(data)
+    if (res.data.code == 2000) {
+      setIsdelOpened(false)
+      showToast("删除成功")
+      Taro.reLaunch({
+        url: '/pages/MyTravels/index'
+      })
+    }
+    else {
+      showToast("删除失败")
+    }
+  }
   function toEdit() {
-    console.log("编辑" + props.travel_id);
     Taro.navigateTo({
       url: `/pages/EditPage/index?travel_id=${props.travel_id}`
     })
   }
 
   function toDelete() {
-    console.log("删除" + props.travel_id);
-    Taro.request({
-      url: `${process.env.TARO_APP_HOST}:${process.env.TARO_APP_PORT}/api/my/deltravel`,
-      method: 'POST',
-      data: {
-        travel_id: props.travel_id,
-      },
-      header: {
-        'content-type': 'application/json' // 默认值
-      },
-      success: function (res) {
-        console.log(res.data)
-        setIsdelOpened(false)
-        Taro.showToast({
-          title: '删除成功',
-          icon: 'success',
-        })
-        Taro.reLaunch({
-          url: '/pages/MyTravels/index'
-        })
-      },
-      fail: function (res) {
-        console.log("网络失败")
-        setIsdelOpened(false)
-        Taro.showToast({
-          title: '删除失败',
-          icon: 'error',
-        })
-      }
-    })
+    deleteTravel()
   }
 
   function cancelModel() {

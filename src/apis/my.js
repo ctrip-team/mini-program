@@ -33,3 +33,28 @@ export function getHomePageDataAPI(data) {
     data: data,
   })
 }
+
+// 获取用户openid
+export function getOpenidAPI(data) {
+  return Taro.request({
+    url: `${process.env.TARO_APP_HOST}:${process.env.TARO_APP_PORT}/api/my/infodata`,
+    method: 'POST',
+    data: data,
+  })
+}
+
+// 获取用户数据
+export function getInfoDataAPI(data) {
+  return Taro.request({
+    url: `${process.env.TARO_APP_HOST}:${process.env.TARO_APP_PORT}/api/my/mydata`,
+    data: data,
+  })
+}
+
+//删除指定游记
+export function DeleteTravelAPI(data) {
+  return Taro.request({
+    url: `${process.env.TARO_APP_HOST}:${process.env.TARO_APP_PORT}/api/my/deltravel`,
+    data: data,
+  })
+}

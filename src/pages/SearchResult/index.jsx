@@ -38,8 +38,8 @@ export default function SearchResult() {
       searchKey: searchKey,
       dataPage: dataPage * 10
     }
-    const res = await getSearchFirstDataAPI(data)
-    if (res.code === 2000) {
+    const res = await getSearchDataAPI(data)
+    if (res.data.code === 2000) {
       listData.length ? setListData([...listData, ...res.data.data]) : setListData(res.data.data)
       setDataPage(dataPage + 1)
     }

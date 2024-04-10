@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import './index.scss';
 import { View, Text } from '@tarojs/components';
 import Taro from "@tarojs/taro";
+import { getInfoDataAPI } from '../../apis/my';
+import { showToast } from '../../utils/toast'
 
 export default function InfoData() {
   const [views, setViews] = React.useState(0)
@@ -9,33 +11,22 @@ export default function InfoData() {
 
   let showReadNum = 0
 
+  const getInfoData = async () => {
+    const data = {
+      id: Taro.getStorageSync('user').user_id
+    }
+    const res = await getInfoDataAPI(data)
+    if (res.data.code == 2000) {
+      setViews(res.data.data.totalView)
+      setTravels(res.data.data.totalTravel)
+    }
+    else {
+      showToast('网络请求失败,请检查网络设置！')
+    }
+  }
+
   useEffect(() => {
-    Taro.request({
-      url: `${process.env.TARO_APP_HOST}:${process.env.TARO_APP_PORT}/api/my/mydata`,
-      data: {
-        id: Taro.getStorageSync('user').user_id
-      },
-      header: {
-        'content-type': 'application/json' // 默认值
-      },
-      success: function (res) {
-        console.log(res)
-        if (res.data.code == 2000) {
-          setViews(res.data.data.totalView)
-          setTravels(res.data.data.totalTravel)
-        }
-        else {
-          console.log("网络请求失败")
-          Taro.showToast({
-            Title: '网络请求失败,请检查网络设置！',
-            icon: 'none',
-          })
-        }
-      },
-      fail: function (res) {
-        console.log("网络失败")
-      }
-    })
+    getInfoData()
   }, [])
 
   return (
