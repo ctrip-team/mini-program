@@ -109,6 +109,9 @@ export default function SearchResult() {
     setShowEnd(false)
     setNoData(false)
     setSearchMode(false)
+    if (!listData.length) {
+      getSearchData()
+    }
   }
 
   function getNextData() {
@@ -120,7 +123,7 @@ export default function SearchResult() {
     setShowEnd(false)
     setNoData(false)
     setSearchMode(true)
-    if (userListData.length) {
+    if (!userListData.length) {
       getUserSearchData()
     }
   }
