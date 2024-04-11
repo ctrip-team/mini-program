@@ -24,6 +24,8 @@ export default function SearchResult() {
   const [value, setValue] = useState(searchKey)
   //页面数据
   const [listData, setListData] = useState([])
+  //用户数据
+  const [userListData, setUserListData] = useState([])
   //搜索模式
   const [searchMode, setSearchMode] = useState(false)
   //数据页数
@@ -40,12 +42,10 @@ export default function SearchResult() {
     }
     const res = await getSearchDataAPI(data)
     if (res.data.code === 2000) {
-      console.log(res.data.data);
       listData.length ? setListData([...listData, ...res.data.data]) : setListData(res.data.data)
       setDataPage(dataPage + 1)
     }
     else if (res.data.code == 2001) {
-      setListData([])
       setShowEnd(true)
     }
     else if (res.statusCode == 429) {
@@ -63,10 +63,9 @@ export default function SearchResult() {
     }
     const res = await getUserSearchDataAPI(data)
     if (res.data.code == 2000) {
-      setListData(res.data.data)
+      setUserListData(res.data.data)
     }
     else if (res.data.code == 2001) {
-      setListData([])
       setShowEnd(true)
     }
     else if (res.statusCode == 429) {
@@ -78,7 +77,7 @@ export default function SearchResult() {
   }
 
   useEffect(() => {
-    getFirstData()
+    getIndexData()
   }, [])
 
   useReachBottom(() => {
@@ -105,12 +104,10 @@ export default function SearchResult() {
     })
   }
 
-  function getFirstData() {
-    setListData([])
+  function getIndexData() {
     setShowEnd(false)
     setNoData(false)
     setSearchMode(false)
-    getSearchData()
   }
 
   function getNextData() {
@@ -122,8 +119,9 @@ export default function SearchResult() {
     setShowEnd(false)
     setNoData(false)
     setSearchMode(true)
-    setDataPage(0)
-    getUserSearchData()
+    if (userListData.length) {
+      getUserSearchData()
+    }
   }
 
   return (
@@ -137,7 +135,7 @@ export default function SearchResult() {
           />
         </View>
         <View className="searchTypeSelectBtn">
-          <View className={`typeBtn ${searchMode === false ? 'selected' : ''}`} onClick={getFirstData}>全部</View>
+          <View className={`typeBtn ${searchMode === false ? 'selected' : ''}`} onClick={getIndexData}>全部</View>
           <View className={`typeBtn ${searchMode === true ? 'selected' : ''}`} onClick={getUserResult}>用户</View>
         </View>
         {
@@ -154,7 +152,7 @@ export default function SearchResult() {
               {
                 <GridView type='masonry' mainAxisGap='2' crossAxisCount="1" crossAxisGap='0'>
                   {
-                    listData && listData.map((item, index) => (
+                    userListData && userListData.map((item, index) => (
                       <UserListItem props={{ avatar: item.avatar, username: item.username, views: item.total_views, user_id: item.user_id, travelnum: item.total_travels }} />
                     ))
                   }
