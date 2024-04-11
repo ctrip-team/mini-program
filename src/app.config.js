@@ -1,5 +1,4 @@
 export default defineAppConfig({
-  // entryPagePath: 'pages/MyTravels/index',
   pages: [
     'pages/index/index',
     'pages/my/my',
@@ -20,7 +19,6 @@ export default defineAppConfig({
     navigationBarBackgroundColor: '#fff',
     navigationBarTitleText: 'WeChat',
     navigationBarTextStyle: 'black',
-    // navigationStyle: 'custom',
   },
   tabBar: {
     color: "#333",

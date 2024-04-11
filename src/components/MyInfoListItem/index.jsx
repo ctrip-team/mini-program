@@ -1,26 +1,28 @@
 import React from 'react'
 import { View, Text, Image, } from '@tarojs/components'
-import { AtAvatar, AtIcon } from 'taro-ui'
+import { AtIcon } from 'taro-ui'
 import Taro from '@tarojs/taro'
 import './index.scss'
+import { addReadNumAPI } from '../../apis/index'
 
 export default function MyInfoListItem({ props }) {
-
+  // 处理阅读量
   let showReadNum = 0
 
+  // 增加阅读量
   const addReadNum = async () => {
     const data = {
       id: props.travel_id,
       readnum: props.views + 1
     }
     const res = await addReadNumAPI(data)
-    console.log(res)
   }
 
+  // 跳转到详情页
   function getDetail() {
     //增加阅读量
     addReadNum()
-    // 跳转到详情页
+    // 跳转到对应详情页
     if (props.video_url) {
       Taro.navigateTo({
         url: `/pages/VideoPage/index?travel_id=${props.travel_id}`

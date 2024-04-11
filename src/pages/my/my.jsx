@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Button, View } from "@tarojs/components";
-import Taro, { useLoad } from "@tarojs/taro";
+import Taro from "@tarojs/taro";
 import "./my.scss";
 import Login from "../../components/Login";
 import MyInfo from "../../components/MyInfo";
@@ -10,6 +10,7 @@ import InfoFunction from "../../components/InfoFunction";
 
 export default function My() {
 
+  // 判断是否登录
   const [isLogin, setIsLogin] = useState(false);
 
   useEffect(() => {
@@ -19,7 +20,7 @@ export default function My() {
     }
   }, [])
 
-
+  //登出
   function logOut() {
     Taro.removeStorageSync('user')
     Taro.reLaunch({
@@ -44,6 +45,5 @@ export default function My() {
         }
       </View>
     </>
-
   )
 }

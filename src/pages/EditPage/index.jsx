@@ -153,13 +153,11 @@ export default function EditPage() {
                     // 更新前应该把之前的都删除
                     deleteAllImages()
                     updateImages()
-                    // Taro.redirectTo({ url: `/pages/MyTravels/index` })
                 } else {
                     if (editTravel.video_url !== tempVideoPath) {
                         updateVideo()
                         updatePoster()
                     }
-                    // Taro.redirectTo({ url: `/pages/MyTravels/index` })
                 }
             })
             showToast('更新成功')

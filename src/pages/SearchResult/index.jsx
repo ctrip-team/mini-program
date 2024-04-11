@@ -1,4 +1,4 @@
-import { View, Text, ScrollView, GridView, Button } from "@tarojs/components";
+import { View, Text, ScrollView, GridView } from "@tarojs/components";
 import React, { useState, useEffect, useRef } from "react";
 import Taro, { getCurrentInstance, useReachBottom } from "@tarojs/taro";
 import IndexListItem from "../../components/IndexListItem/index";
@@ -105,6 +105,7 @@ export default function SearchResult() {
     })
   }
 
+  //进入搜索页触发全部搜索
   function getIndexData() {
     setShowEnd(false)
     setNoData(false)
@@ -114,11 +115,12 @@ export default function SearchResult() {
     }
   }
 
+  //获取下一页全部搜索数据
   function getNextData() {
     getSearchData()
   }
 
-
+  //获取用户搜索数据
   function getUserResult() {
     setShowEnd(false)
     setNoData(false)

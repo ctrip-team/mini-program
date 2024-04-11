@@ -1,4 +1,4 @@
-import { View, Text, Button } from "@tarojs/components";
+import { View, Text } from "@tarojs/components";
 import React, { useState, useEffect } from "react";
 import Taro from "@tarojs/taro";
 import { AtSearchBar, AtIcon } from 'taro-ui'
@@ -24,7 +24,6 @@ export default function SearchPage() {
 
   function onChange(value) {
     setQueryKey(value)
-    console.log(value)
   }
 
   function toSearchResult() {
@@ -95,7 +94,6 @@ export default function SearchPage() {
           </View>
         </View>
       </View>
-
     </>
   )
 }

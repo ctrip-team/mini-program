@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { Button } from "@tarojs/components";
 import './index.scss'
 import Taro from "@tarojs/taro";
@@ -27,6 +27,7 @@ export default function WeChatRigeAndLogBtn() {
     })
   }
 
+  // 弹出授权窗口
   const showAuthModal = () => {
     Taro.showModal({
       title: '授权提示',
@@ -57,6 +58,7 @@ export default function WeChatRigeAndLogBtn() {
     });
   };
 
+  // 获取用户信息
   const getUserInfo = () => {
     Taro.getUserInfo({
       success: function (res) {
@@ -66,6 +68,7 @@ export default function WeChatRigeAndLogBtn() {
     })
   };
 
+  //获取用户openid
   function getOpenId(username, avatar) {
     Taro.login({
       success: function (res) {
@@ -78,7 +81,6 @@ export default function WeChatRigeAndLogBtn() {
             },
             method: 'POST',
             success: function (res) {
-              console.log(res.data)
               if (res.data.code == 2000) {
                 isExist(res.data.data, username, avatar)
               }
@@ -99,6 +101,7 @@ export default function WeChatRigeAndLogBtn() {
     })
   }
 
+  //判断是否已经注册
   function isExist(openId, username, avatar) {
     Taro.request({
       url: `${process.env.TARO_APP_HOST}:${process.env.TARO_APP_PORT}/api/my/queryIsExit`,
@@ -107,7 +110,6 @@ export default function WeChatRigeAndLogBtn() {
       },
       method: 'POST',
       success: function (res) {
-        console.log(res.data)
         if (res.data.code == 2000) {
           Taro.setStorageSync('user', res.data.data)
           Taro.reLaunch({
@@ -124,12 +126,11 @@ export default function WeChatRigeAndLogBtn() {
       },
       fail: function (res) {
         showToast('网络状况不佳，请检查网络设置')
-
       }
     })
   }
 
-
+  //注册
   function registerProcess(username, avatar, openId) {
     //发起网络请求
     Taro.request({
@@ -142,7 +143,6 @@ export default function WeChatRigeAndLogBtn() {
       },
       method: 'POST',
       success: function (res) {
-        console.log(res.data)
         if (res.data.code == 2000) {
           const mydata = {
             username: username,

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import './index.scss';
 import { View, Text } from '@tarojs/components';
 import Taro from "@tarojs/taro";
@@ -6,11 +6,15 @@ import { getInfoDataAPI } from '../../apis/my';
 import { showToast } from '../../utils/toast'
 
 export default function InfoData() {
+  // 浏览量
   const [views, setViews] = React.useState(0)
+  // 游记数
   const [travels, setTravels] = React.useState(0)
 
+  // 浏览量处理
   let showReadNum = 0
 
+  // 获取用户信息
   const getInfoData = async () => {
     const data = {
       id: Taro.getStorageSync('user').user_id

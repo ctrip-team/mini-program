@@ -1,5 +1,5 @@
-import { View, Text, ScrollView, Swiper, SwiperItem, Button, RichText } from '@tarojs/components'
-import Taro, { useRouter, useShareAppMessage } from '@tarojs/taro'
+import { View, Swiper, SwiperItem } from '@tarojs/components'
+import Taro, { useRouter } from '@tarojs/taro'
 import { useState, useEffect, useRef } from 'react'
 import React from 'react'
 import VideoPlayer from '../../components/VideoPlayer'
@@ -7,7 +7,7 @@ import './index.scss'
 import { showToast } from '../../utils/toast'
 
 
-function VideoPage() {
+export default function VideoPage() {
     const router = useRouter()
     const { travel_id } = router.params
     const [travels, setTravels] = useState([])
@@ -56,11 +56,7 @@ function VideoPage() {
                         </SwiperItem>
                     ))
                 }
-
             </Swiper>
         </View>
-
     )
 }
-
-export default VideoPage

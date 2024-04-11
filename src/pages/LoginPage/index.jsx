@@ -13,7 +13,6 @@ export default function LoginPage() {
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
 
-
   // 登录接口
   const Login = async () => {
     const data = {
@@ -98,7 +97,6 @@ export default function LoginPage() {
           <Text className="registerText2">立即注册</Text>
         </View>
       </View>
-
     </>
   )
 }

@@ -7,8 +7,6 @@ import { AtSearchBar } from 'taro-ui'
 import _ from 'lodash';
 import { getIndexDataAPI, getIndexFirstDataAPI } from '../../apis/index'
 import { showToast } from '../../utils/toast'
-// import { VirtualWaterfall } from '@tarojs/components-advanced'
-
 
 export default function Index() {
 
@@ -63,14 +61,11 @@ export default function Index() {
     }
   }
 
+  //滚动到底部响应
   useReachBottom(() => {
     console.log('onReachBottom')
     throttledFetchData()
   })
-
-  function onScrollLower() {
-    throttledFetchData()
-  }
 
   //搜索框响应
   function onChange(value) {
@@ -95,23 +90,6 @@ export default function Index() {
         />
       </View>
       <ScrollView className='indexScrollViewArea'>
-        {/* <VirtualWaterfall
-          height={800}
-          width={'100%'}
-          item={({ data, id, index }) => {
-            return <IndexListItem id={id} props={data[index]} />;
-          }}
-          itemData={listData}
-          itemCount={listData.length}
-          unlimitedSize
-          column={2}
-          lowerThreshold={100}
-          onScrollToLower={onScrollLower}
-          placeholderCount={10}
-          overscanDistance={100}
-          enhanced
-        /> */}
-
         {
           <GridView type='masonry' mainAxisGap='10' crossAxisGap='5'>
             {

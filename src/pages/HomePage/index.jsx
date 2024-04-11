@@ -1,7 +1,7 @@
 import { View, Text, ScrollView, GridView, Image } from "@tarojs/components";
 import React, { useState, useEffect } from "react";
 import "./index.scss";
-import { AtAvatar, AtIcon } from 'taro-ui'
+import { AtAvatar } from 'taro-ui'
 import Taro from "@tarojs/taro";
 import MyInfoListItem from "../../components/MyInfoListItem";
 import NoneImage from "../../assets/img/none.jpg";
@@ -9,11 +9,16 @@ import { getHomePageDataAPI } from '../../apis/my';
 import { showToast } from '../../utils/toast'
 
 export default function HomePage() {
+  //游记列表数据
   const [travelList, setTravelList] = useState([])
+  //浏览量
   const [views, setViews] = useState(0)
+  //创作量
   const [travels, setTravels] = useState(0)
+  //用户信息
   const [userInfo, setUserInfo] = useState({})
 
+  //浏览量
   let showReadNum = 0
 
   //获取个人主页数据

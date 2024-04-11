@@ -132,7 +132,6 @@ export default function InfoPage() {
             <Button formType='submit'>保存编辑</Button>
           </View>
         </Form >
-
       </View>
     </>
   )

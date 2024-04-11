@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { Text, ScrollView, View } from "@tarojs/components";
 import TravalListItem from "../../components/TravalListItem";
 import { useDidShow, useReachBottom } from "@tarojs/taro";
@@ -18,7 +18,6 @@ export default function MyTravals() {
 
   var user = Taro.getStorageSync('user')
 
-
   //获取用户游记
   const getUserTravels = async () => {
     const data = {
@@ -37,7 +36,6 @@ export default function MyTravals() {
       setIsEnd(true)
     }
     else {
-      console.log("网络请求失败")
       setIsLoading(false)
       showToast('网络请求失败')
     }
@@ -59,12 +57,10 @@ export default function MyTravals() {
       }
     } catch (e) {
       console.log(e);
-      console.log("不存在历史数据")
     }
   }, [])
 
   useReachBottom(() => {
-    console.log('onReachBottom')
     setIsEnd(true)
   })
 

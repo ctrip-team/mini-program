@@ -1,17 +1,20 @@
-import { View, Text, Image, Button, RichText, Video } from "@tarojs/components";
+import { View, Text, Image, Button, RichText } from "@tarojs/components";
 import React, { useState } from "react";
 import { AtIcon } from 'taro-ui'
-import { AtModal, AtModalHeader, AtModalContent, AtModalAction, AtNoticebar } from "taro-ui"
+import { AtModal, AtModalContent, AtModalAction } from "taro-ui"
 import "./index.scss";
 import Taro from "@tarojs/taro";
 import { DeleteTravelAPI } from "../../apis/my";
 import { showToast } from "../../utils/toast";
 
 export default function TravalListItem({ props }) {
+  // 删除弹窗
   const [isdelOpened, setIsdelOpened] = useState(false);
 
+  // 审核状态
   let status = props.status;
 
+  // 删除游记处理
   const deleteTravel = async () => {
     const data = {
       travel_id: props.travel_id,
@@ -28,21 +31,25 @@ export default function TravalListItem({ props }) {
       showToast("删除失败")
     }
   }
+
+  // 跳转到编辑页面
   function toEdit() {
     Taro.navigateTo({
       url: `/pages/EditPage/index?travel_id=${props.travel_id}`
     })
   }
 
+  // 删除游记
   function toDelete() {
     deleteTravel()
   }
 
+  // 取消删除
   function cancelModel() {
-    console.log("取消");
     setIsdelOpened(false)
   }
 
+  // 跳转到游记详情页
   function toDetailPage() {
     if (props.video_url) {
       Taro.navigateTo({
@@ -112,6 +119,5 @@ export default function TravalListItem({ props }) {
         </View>
       </View>
     </>
-
   )
 }

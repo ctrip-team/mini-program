@@ -3,7 +3,8 @@ import Taro, { useShareAppMessage } from '@tarojs/taro'
 import React from 'react'
 import { AtAvatar, AtIcon } from 'taro-ui'
 import './index.scss'
-function VideoRight({ user, color, travel }) {
+
+export default function VideoRight({ user, color, travel }) {
 
     const toUserPage = () => {
         Taro.navigateTo({
@@ -20,6 +21,7 @@ function VideoRight({ user, color, travel }) {
             path: `/pages/VideoPage/index?travel_id=${travel.travel_id}`,
         }
     })
+
     return (
         <View className='video-right'>
             <View onClick={toUserPage}>
@@ -47,5 +49,3 @@ function VideoRight({ user, color, travel }) {
         </View >
     )
 }
-
-export default VideoRight

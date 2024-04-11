@@ -4,8 +4,7 @@ import Taro from '@tarojs/taro'
 import './index.scss'
 
 export default function VideoPicker({ sethaveVideo, haveVideo, tempVideoPath, setTempVideoPath, setImageCount, tempPoster, setTempPoster }) {
-
-
+    // 增加视频
     const handleAddVideo = () => {
         Taro.chooseMedia({
             mediaType: ['video'],
@@ -36,7 +35,6 @@ export default function VideoPicker({ sethaveVideo, haveVideo, tempVideoPath, se
     }
     return (
         <>
-
             {tempVideoPath &&
                 <View className='video-box'>
                     <Video

@@ -108,10 +108,6 @@ export default function RegisterPage() {
           />
         </AtForm>
         <Button onClick={register} className="registerBtn">注册</Button>
-        {/* <Button onClick={registerByWeChat} className="registerBtnWeChat">
-          <Image src={'https://img.zcool.cn/community/016b02566588d16ac725b2c850390c.png@1280w_1l_2o_100sh.png'}></Image>
-          微信快速注册
-        </Button> */}
       </View>
 
     </>

@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from "react";
 import './index.scss';
-import { View, Text, Image } from "@tarojs/components";
+import { View, Text } from "@tarojs/components";
 import { AtIcon } from "taro-ui";
 import Taro from "@tarojs/taro";
 
 export default function InfoFunction() {
+  // 判断是否登录
   const [isLogin, setIsLogin] = useState(false)
 
   useEffect(() => {
@@ -13,12 +14,14 @@ export default function InfoFunction() {
     }
   }, [])
 
+  // 跳转我的游记
   function toMyTravels() {
     Taro.navigateTo({
       url: '/pages/MyTravels/index'
     })
   }
 
+  // 跳转个人信息
   function toMyInfo() {
     Taro.navigateTo({
       url: '/pages/InfoPage/index'

@@ -1,8 +1,9 @@
 import { View } from '@tarojs/components'
 import Taro from '@tarojs/taro'
-import React, { useEffect } from 'react'
+import React from 'react'
 import './index.scss'
-function VideoRight({ user, title }) {
+
+export default function VideoRight({ user, title }) {
     const toUserPage = () => {
         Taro.navigateTo({
             url: `/pages/HomePage/index?user_id=${user.user_id}`
@@ -15,5 +16,3 @@ function VideoRight({ user, title }) {
         </View >
     )
 }
-
-export default VideoRight

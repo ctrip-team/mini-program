@@ -6,9 +6,10 @@ import { AtAvatar } from "taro-ui";
 
 
 export default function UserListItem({ props }) {
-
+  // 处理浏览量，超过1万显示为万
   let showReadNum = 0
 
+  // 跳转至用户主页
   function toUserHomePage() {
     Taro.navigateTo({
       url: `/pages/HomePage/index?user_id=${props.user_id}`
