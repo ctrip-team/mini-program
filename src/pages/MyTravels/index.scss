@@ -16,16 +16,17 @@
   background-image: linear-gradient(315deg, #6772ff 0, #00f9e5 100%);
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
   color: #fff;
-  font-size: 100rpx;
   font-weight: 700;
   z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .addBtn_text {
-  position: fixed;
-  right: 7%;
-  bottom: 9.5%;
-  z-index: 2;
+  padding: 0;
+  margin: 0;
+  font-size: 100rpx;
 }
 
 .indexEndText {

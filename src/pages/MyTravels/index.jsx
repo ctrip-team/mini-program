@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Text, ScrollView, View } from "@tarojs/components";
 import TravalListItem from "../../components/TravalListItem";
-import { useReachBottom } from "@tarojs/taro";
+import { useDidShow, useReachBottom } from "@tarojs/taro";
 import "./index.scss";
 import Taro from "@tarojs/taro";
 import { AtIcon } from 'taro-ui';
@@ -43,7 +43,7 @@ export default function MyTravals() {
     }
   }
 
-  useEffect(() => {
+  useDidShow(() => {
     try {
       if (user) {
         //获取接口数据
