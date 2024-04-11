@@ -1,5 +1,5 @@
 import { View, Text, ScrollView, GridView, Button } from "@tarojs/components";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import Taro, { getCurrentInstance, useReachBottom } from "@tarojs/taro";
 import IndexListItem from "../../components/IndexListItem/index";
 import UserListItem from "../../components/UserListItem";
@@ -31,6 +31,7 @@ export default function SearchResult() {
   //数据页数
   const [dataPage, setDataPage] = useState(0)
 
+  const flag = useRef(false)
   // 设置节流间隔为 500 毫秒  
   const throttledFetchData = _.throttle(getNextData, 500);
 
