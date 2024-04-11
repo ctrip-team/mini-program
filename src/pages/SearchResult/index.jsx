@@ -40,6 +40,7 @@ export default function SearchResult() {
     }
     const res = await getSearchDataAPI(data)
     if (res.data.code === 2000) {
+      console.log(res.data.data);
       listData.length ? setListData([...listData, ...res.data.data]) : setListData(res.data.data)
       setDataPage(dataPage + 1)
     }
@@ -105,10 +106,10 @@ export default function SearchResult() {
   }
 
   function getFirstData() {
+    setListData([])
     setShowEnd(false)
     setNoData(false)
     setSearchMode(false)
-    setDataPage(dataPage)
     getSearchData()
   }
 
